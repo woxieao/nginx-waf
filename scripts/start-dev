@@ -4,11 +4,11 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 . "$DIR/.common.sh"
 
 # Ensure docker-compose exists
-if hash docker-compose 2>/dev/null; then
+if hash docker 2>/dev/null && docker compose --version >/dev/null 2>&1; then
 	cd "${DIR}/.."
 	echo -e "${BLUE}❯ ${CYAN}Starting Dev Stack ...${RESET}"
 
-	docker-compose up -d --remove-orphans --force-recreate --build
+	docker compose up -d --remove-orphans --force-recreate --build
 
 	echo ""
 	echo -e "${CYAN}Admin UI:     http://127.0.0.1:3081${RESET}"
@@ -24,5 +24,5 @@ if hash docker-compose 2>/dev/null; then
 		echo "  docker logs -f npm_core"
 	fi
 else
-	echo -e "${RED}❯ docker-compose command is not available${RESET}"
+	echo -e "${RED}❯ docker compose command is not available${RESET}"
 fi

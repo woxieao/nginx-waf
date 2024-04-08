@@ -8,3 +8,5 @@ sed -i 's/\r$//'  docker/rootfs/root/.bashrc
 ./scripts/ci/frontend-build
 docker buildx build . -f ./docker/Dockerfile
 
+#dev
+sh scripts/start-dev

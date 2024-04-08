@@ -4,10 +4,10 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 . "$DIR/.common.sh"
 
 # Ensure docker-compose exists
-if hash docker-compose 2>/dev/null; then
+if hash docker 2>/dev/null && docker compose --version >/dev/null 2>&1; then
 	cd "${DIR}/.."
 	echo -e "${BLUE}❯ ${CYAN}Testing Dev Stack ...${RESET}"
-	docker-compose exec -T npm bash -c "cd /app && task test"
+	docker compose exec -T npm bash -c "cd /app && task test"
 else
-	echo -e "${RED}❯ docker-compose command is not available${RESET}"
+	echo -e "${RED}❯ docker compose command is not available${RESET}"
 fi
