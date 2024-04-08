@@ -1,0 +1,10 @@
+#windows下需要用
+sed -i 's/\r$//'  scripts/ci/frontend-build
+sed -i 's/\r$//'  scripts/.common.sh
+sed -i 's/\r$//'  docker/scripts/install-s6
+sed -i 's/\r$//'  docker/rootfs/root/.bashrc
+
+#构建
+./scripts/ci/frontend-build
+docker buildx build . -f ./docker/Dockerfile
+
