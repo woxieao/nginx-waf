@@ -24,6 +24,7 @@ RUN cd /usr \
 COPY rootfs /
 RUN rm -f /etc/nginx/conf.d/production.conf
 RUN chmod 644 /etc/logrotate.d/nginx-proxy-manager
+RUN chmod 644 /
 
 # s6 overlay
 COPY scripts/install-s6 /tmp/install-s6
