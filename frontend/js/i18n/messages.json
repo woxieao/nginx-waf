@@ -368,7 +368,7 @@
       "http2-support": "支持HTTP/2",
       "domain-names": "域名",
       "cert-provider": "证书提供商",
-      "block-exploits": "阻止常见的攻击",
+      "block-exploits": "开启防火墙",
       "caching-enabled": "缓存资源",
       "ssl-certificate": "SSL证书",
       "none": "无",
@@ -393,7 +393,7 @@
     "ssl": {
       "letsencrypt": "Let's Encrypt",
       "other": "自定义",
-      "none": "仅限HTTP",
+      "none": "未开启",
       "letsencrypt-email": "Let's Encrypt的电子邮件地址",
       "letsencrypt-agree": "我同意<a href=\"{url}\" target=\"_blank\">Let's Encrypt服务条款</a>",
       "delete-ssl": "附加的SSL证书不会被删除，需要手动删除。",
@@ -585,6 +585,11 @@
       "default-site-444": "无响应（444）",
       "default-site-html": "自定义页面",
       "default-site-redirect": "重定向"
+    },
+    "waf":{
+      "name":"防火墙",
+      "enabled":"防护中",
+      "disabled":"未防护"
     }
   }
 }
