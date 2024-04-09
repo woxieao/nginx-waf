@@ -57,7 +57,7 @@ module.exports = {
 					disablePluralKeyChecks: false,
 					formatters:             null,
 					intlSupport:            false,
-					locale:                 ['en'],
+					locale:                 ['zh'],
 					strictNumberSign:       false
 				}
 			},
