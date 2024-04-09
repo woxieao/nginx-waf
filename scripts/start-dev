@@ -3,6 +3,9 @@
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 . "$DIR/.common.sh"
 
+
+chmod -R 777 ../
+
 # Ensure docker-compose exists
 if hash docker 2>/dev/null && docker compose --version >/dev/null 2>&1; then
 	cd "${DIR}/.."
