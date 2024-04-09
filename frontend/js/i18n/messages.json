@@ -335,9 +335,9 @@
       "title": "登录到您的账户"
     },
     "main": {
-      "app": "Nginx代理管理器",
+      "app": "Waf防火墙",
       "version": "v{version}",
-      "welcome": "欢迎使用Nginx代理管理器",
+      "welcome": "欢迎使用Waf防火墙",
       "logged-in": "您已登录为{name}",
       "unknown-error": "加载内容时出错。请重新加载应用程序。",
       "unknown-user": "未知用户",
