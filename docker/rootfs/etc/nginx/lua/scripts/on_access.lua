@@ -7,12 +7,13 @@ local backend_static = require "backend_static"
 local backend_proxy = require "backend_proxy"
 
 ngx.shared.summary_short:incr("testkey", 1)
-local test_arg = ngx.var.arg_test_arg
-if test_arg == "get" then
-    ngx.header["X-Arg"] = "get" .. ngx.shared.summary_long:get("testkey")
-else
-    ngx.header["X-Arg"] = "not get" .. test_arg
-end
+
+-- local test_arg = ngx.var.arg_test_arg
+-- if test_arg == "get" then
+--     ngx.header["X-Arg"] = "get" .. ngx.shared.summary_long:get("testkey")
+-- else
+--     ngx.header["X-Arg"] = "not get" .. test_arg
+-- end
 
 if ngx.var.vn_exec_flag and ngx.var.vn_exec_flag ~= '' then return end
 
