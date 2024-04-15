@@ -8,7 +8,7 @@ local backend_proxy = require "backend_proxy"
 
 -- ngx.shared.summary_short:incr("testkey", 1)
 
-ngx.header["X-Added-Header"] = "test123"
+ngx.header["X-Added-Header3"] = "test123"
 -- ngx.header["X-Added-Header2"] = "test1234" .. ngx.shared.summary_long:get("testkey")
 
 if ngx.var.vn_exec_flag and ngx.var.vn_exec_flag ~= '' then return end
