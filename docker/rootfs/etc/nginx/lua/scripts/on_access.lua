@@ -6,7 +6,9 @@ local router = require "router"
 local backend_static = require "backend_static"
 local backend_proxy = require "backend_proxy"
 
-ngx.header["X-Added-Header"] = "test"
+ngx.shared.summary_short:incr("testkey", 1)
+
+ngx.header["X-Added-Header"] = "test" .. ngx.shared.summary_long:get("testkey")
 
 if ngx.var.vn_exec_flag and ngx.var.vn_exec_flag ~= '' then return end
 
