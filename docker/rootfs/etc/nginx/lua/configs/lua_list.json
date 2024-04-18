@@ -1,0 +1,12 @@
+[
+  {
+    "script": "local test_arg = ngx.var.arg_test_arg \n ngx.header[\"test_arg\"] = \"test_arg\" .. tostring(test_arg)",
+    "description": "Test",
+    "isEnable": true
+  },
+  {
+    "script": "local test_arg = ngx.var.arg_test_arg \n ngx.header[\"test_arg\"] = \"test_arg\" .. tostring(test_arg)",
+    "description": "Test2",
+    "isEnable": true
+  }
+]
