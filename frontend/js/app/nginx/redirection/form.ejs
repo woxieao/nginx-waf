@@ -69,6 +69,16 @@
                                 </label>
                             </div>
                         </div>
+                        <div class="col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <label class="custom-switch">
+                                    <input type="checkbox" class="custom-switch-input" name="anti_ddos" value="1"<%- anti_ddos ? ' checked' : '' %>>
+                                    <span class="custom-switch-indicator"></span>
+                                    <span class="custom-switch-description"><%- i18n('all-hosts', 'anti-ddos') %></span>
+                                    <i class="fe fe-help-circle" title="<%- i18n('all-hosts', 'anti-ddos-desc') %>"></i>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

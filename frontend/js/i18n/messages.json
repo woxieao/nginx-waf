@@ -369,6 +369,8 @@
       "domain-names": "域名",
       "cert-provider": "证书提供商",
       "block-exploits": "开启防火墙",
+      "anti-ddos": "增强防护模式",
+      "anti-ddos-desc":"当您网站遭受攻击时,可以开启该选项,开启后,首次访问站点会自动校验是否为恶意请求",
       "caching-enabled": "缓存资源",
       "ssl-certificate": "SSL证书",
       "none": "无",
@@ -587,7 +589,8 @@
       "default-site-redirect": "重定向"
     },
     "waf":{
-      "name":"防火墙",
+      "waf_name":"防火墙",
+      "anit_ddos_name":"增强防护",
       "enabled":"防护中",
       "disabled":"未防护"
     }

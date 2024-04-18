@@ -1,4 +1,3 @@
-
 --[[
 Introduction and details :
 
@@ -58,7 +57,7 @@ http { #inside http block
 --[[
 This is a password that encrypts our puzzle and cookies unique to your sites and servers you should change this from the default.
 ]]
-local secret = " enigma" --Signature secret key --CHANGE ME FROM DEFAULT!
+local secret = "YouGuess" --Signature secret key --CHANGE ME FROM DEFAULT!
 
 --[[
 Unique id to identify each individual user and machine trying to access your website IP address works well.
@@ -3035,7 +3034,7 @@ grant_access() --perform checks to see if user can access the site or if they wi
 Build HTML Template
 ]]
 
-local title = host .. [[ | Anti-DDoS Flood Protection and Firewall]]
+local title = host .. [[ | 站点已启用增强防护模式]]
 
 --[[
 Javascript after setting cookie run xmlhttp GET request
@@ -3188,7 +3187,7 @@ local footer_body_ad_slot = [[
 
 local ddos_credits = [[
 <div class="credits" style="text-align:center;font-size:100%;">
-<a href="//facebook.com/C0nw0nk" target="_blank">DDoS protection by &copy; Conor McKnight</a>
+<a href="https://wanwang.aliyun.com/webdesign/yunqi" target="_blank">DDoS 防护 by &copy; CloudDream</a>
 </div>
 ]]
 
@@ -3208,19 +3207,19 @@ end
 local request_details = [[
 <br>
 <div id="status" style="color:#bd2426;font-size:200%;">
-<noscript>Please turn JavaScript on and reload the page.<br></noscript>
-This process is automatic. Your browser will redirect to your requested content shortly.
+<noscript>请打开 JavaScript 并重新加载页面。<br></noscript>
+这个过程是自动的。您的浏览器将很快重定向到您请求的内容。
 <br>
-Please allow up to <span id="countdowntimer">]] .. refresh_auth .. [[</span> seconds&hellip;
+请稍等至 <span id="countdowntimer">]] .. refresh_auth .. [[</span> 秒&hellip;
 </div>
 <br>
 <br>
-<h3 style="color:#bd2426;">Request Details :</h3>
-IP address : ]] .. remote_addr .. [[
+<h3 style="color:#bd2426;">请求详情：</h3>
+IP 地址：]] .. remote_addr .. [[
 <br>
-Request URL : ]] .. URL .. [[
+请求 URL：]] .. URL .. [[
 <br>
-User-Agent : ]] .. user_agent .. [[
+User-Agent：]] .. user_agent .. [[
 <br>
 ]]
 
@@ -3256,12 +3255,12 @@ local anti_ddos_html_output = [[
 <div style="width:auto;margin:16px auto;border:1px solid #CCCCCC;background-color:#FFFFFF;border-radius:3px 3px 3px 3px;padding:10px;">
 <div style="float:right;margin-top:10px;">
 <br>
-<h1>Checking your browser</h1>
+<h1>正在检查您的请求是否合法</h1>
 </div>
 <br>
 <h1>]] .. title .. [[</h1>
 <p>
-<b>Please wait a moment while we verify your request</b>
+<b>请稍等片刻，我们正在验证您的请求</b>
 <br>
 <br>
 <br>
@@ -3269,7 +3268,7 @@ local anti_ddos_html_output = [[
 <br>
 <br>
 <center>
-<h2>Information :</h2>
+<h2>提示：</h2>
 ]] .. request_details .. [[
 </center>
 ]] .. footer_body_ad_slot .. [[
@@ -3278,6 +3277,7 @@ local anti_ddos_html_output = [[
 </body>
 </html>
 ]]
+
 
 --All previous checks failed and no access_granted permited so display authentication check page.
 --Output Anti-DDoS Authentication Page
@@ -3292,7 +3292,7 @@ ngx.header["Cache-Control"] = "public, max-age=0 no-store, no-cache, must-revali
 ngx.header["Pragma"] = "no-cache"
 ngx.header["Expires"] = "0"
 if credits == 1 then
-ngx.header["X-Anti-DDoS"] = "Conor McKnight | facebook.com/C0nw0nk"
+ngx.header["X-Anti-DDoS"] = "CloudDream"
 end
 ngx.header.content_type = "text/html; charset=" .. default_charset
 ngx.status = authentication_page_status_output

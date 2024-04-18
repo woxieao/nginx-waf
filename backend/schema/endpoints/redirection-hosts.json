@@ -50,6 +50,9 @@
     "block_exploits": {
       "$ref": "../definitions.json#/definitions/block_exploits"
     },
+    "anti_ddos": {
+      "$ref": "../definitions.json#/definitions/anti_ddos"
+    },
     "advanced_config": {
       "type": "string"
     },
@@ -102,6 +105,9 @@
     },
     "block_exploits": {
       "$ref": "#/definitions/block_exploits"
+    },
+    "anti_ddos": {
+      "$ref": "#/definitions/anti_ddos"
     },
     "advanced_config": {
       "$ref": "#/definitions/advanced_config"
@@ -184,6 +190,9 @@
           "block_exploits": {
             "$ref": "#/definitions/block_exploits"
           },
+          "anti_ddos": {
+            "$ref": "#/definitions/anti_ddos"
+          },
           "advanced_config": {
             "$ref": "#/definitions/advanced_config"
           },
@@ -244,6 +253,9 @@
           },
           "block_exploits": {
             "$ref": "#/definitions/block_exploits"
+          },
+          "anti_ddos": {
+            "$ref": "#/definitions/anti_ddos"
           },
           "advanced_config": {
             "$ref": "#/definitions/advanced_config"
