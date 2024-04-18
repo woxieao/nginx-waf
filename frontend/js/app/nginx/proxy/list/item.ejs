@@ -45,12 +45,11 @@
   </div>
 </td>
 <td>
-  <td>
-    <div>
-      <%- anti_ddos ? i18n('waf', 'enabled'): i18n('waf', 'disabled') %>
-    </div>
-  </td>
-  <td>
+  <div>
+    <%- anti_ddos ? i18n('waf', 'enabled'): i18n('waf', 'disabled') %>
+  </div>
+</td>
+<td>
   <% var o = isOnline(); if (!enabled) { %>
   <span class="status-icon bg-warning"></span> <%- i18n('str', 'disabled') %> <%
   } else if (o === true) { %> <span class="status-icon bg-success"></span> <%-
