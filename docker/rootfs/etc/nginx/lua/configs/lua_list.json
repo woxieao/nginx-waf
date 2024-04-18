@@ -14,7 +14,7 @@
   {
     "script": "ngx.say(\"是啊\n\")",
     "description": "Test3",
-    "isEnable": false,
+    "isEnable": true,
     "sort":1
   }
 ]
