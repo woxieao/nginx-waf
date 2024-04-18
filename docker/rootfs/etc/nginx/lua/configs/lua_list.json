@@ -14,7 +14,7 @@
   {
     "script": "ngx.say(cjson.encode(luaInfo) .. \"\n\")",
     "description": "Test3",
-    "isEnable": true,
+    "isEnable": false,
     "sort":1
   }
 ]
