@@ -3,18 +3,7 @@
     "script": "local test_arg = ngx.var.arg_test_arg \n ngx.header[\"test_arg\"] = \"test_arg\" .. tostring(test_arg)",
     "description": "拦截恶意UserAgent",
     "isEnable": true,
-    "sort":1
-  },
-  {
-    "script": "local test_arg = ngx.var.arg_test_arg \n ngx.header[\"test_arg2\"] = \"test_arg\" .. tostring(test_arg)",
-    "description": "Test2",
-    "isEnable": false,
-    "sort":1
-  },
-  {
-    "script": "ngx.say(\"1\\n\")",
-    "description": "Test3",
-    "isEnable": true,
-    "sort":1
+    "sort": 1,
+    "atkType": "SQL注入"
   }
 ]
