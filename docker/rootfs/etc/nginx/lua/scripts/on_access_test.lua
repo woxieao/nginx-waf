@@ -3209,19 +3209,19 @@ end
 local request_details = [[
 <br>
 <div id="status" style="color:#bd2426;font-size:200%;">
-<noscript>Please turn JavaScript on and reload the page.<br></noscript>
-This process is automatic. Your browser will redirect to your requested content shortly.
+<noscript>请打开 JavaScript 并重新加载页面。<br></noscript>
+这个过程是自动的。您的浏览器将很快重定向到您请求的内容。
 <br>
-Please allow up to <span id="countdowntimer">]] .. refresh_auth .. [[</span> seconds&hellip;
+请稍等至 <span id="countdowntimer">]] .. refresh_auth .. [[</span> 秒&hellip;
 </div>
 <br>
 <br>
-<h3 style="color:#bd2426;">Request Details :</h3>
-IP address : ]] .. remote_addr .. [[
+<h3 style="color:#bd2426;">请求详情：</h3>
+IP 地址：]] .. remote_addr .. [[
 <br>
-Request URL : ]] .. URL .. [[
+请求 URL：]] .. URL .. [[
 <br>
-User-Agent : ]] .. user_agent .. [[
+User-Agent：]] .. user_agent .. [[
 <br>
 ]]
 
@@ -3257,12 +3257,12 @@ local anti_ddos_html_output = [[
 <div style="width:auto;margin:16px auto;border:1px solid #CCCCCC;background-color:#FFFFFF;border-radius:3px 3px 3px 3px;padding:10px;">
 <div style="float:right;margin-top:10px;">
 <br>
-<h1>Checking your browser</h1>
+<h1>正在检查您的浏览器</h1>
 </div>
 <br>
 <h1>]] .. title .. [[</h1>
 <p>
-<b>Please wait a moment while we verify your request</b>
+<b>请稍等片刻，我们正在验证您的请求</b>
 <br>
 <br>
 <br>
@@ -3270,7 +3270,7 @@ local anti_ddos_html_output = [[
 <br>
 <br>
 <center>
-<h2>Information :</h2>
+<h2>信息：</h2>
 ]] .. request_details .. [[
 </center>
 ]] .. footer_body_ad_slot .. [[
@@ -3279,6 +3279,7 @@ local anti_ddos_html_output = [[
 </body>
 </html>
 ]]
+
 
 --All previous checks failed and no access_granted permited so display authentication check page.
 --Output Anti-DDoS Authentication Page
