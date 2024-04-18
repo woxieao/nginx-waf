@@ -3036,7 +3036,7 @@ grant_access() --perform checks to see if user can access the site or if they wi
 Build HTML Template
 ]]
 
-local title = host .. [[ | Anti-DDoS Flood Protection and Firewall]]
+local title = host .. [[ | 站点已启用增强防护模式]]
 
 --[[
 Javascript after setting cookie run xmlhttp GET request
@@ -3189,7 +3189,7 @@ local footer_body_ad_slot = [[
 
 local ddos_credits = [[
 <div class="credits" style="text-align:center;font-size:100%;">
-<a href="//facebook.com/C0nw0nk" target="_blank">DDoS protection by &copy; Conor McKnight</a>
+<a href="https://wanwang.aliyun.com/webdesign/yunqi" target="_blank">DDoS 防护 by &copy; CloudDream</a>
 </div>
 ]]
 
@@ -3257,7 +3257,7 @@ local anti_ddos_html_output = [[
 <div style="width:auto;margin:16px auto;border:1px solid #CCCCCC;background-color:#FFFFFF;border-radius:3px 3px 3px 3px;padding:10px;">
 <div style="float:right;margin-top:10px;">
 <br>
-<h1>正在检查您的浏览器</h1>
+<h1>正在检查您的请求是否合法</h1>
 </div>
 <br>
 <h1>]] .. title .. [[</h1>
@@ -3270,7 +3270,7 @@ local anti_ddos_html_output = [[
 <br>
 <br>
 <center>
-<h2>信息：</h2>
+<h2>提示：</h2>
 ]] .. request_details .. [[
 </center>
 ]] .. footer_body_ad_slot .. [[
@@ -3294,7 +3294,7 @@ ngx.header["Cache-Control"] = "public, max-age=0 no-store, no-cache, must-revali
 ngx.header["Pragma"] = "no-cache"
 ngx.header["Expires"] = "0"
 if credits == 1 then
-ngx.header["X-Anti-DDoS"] = "Conor McKnight | facebook.com/C0nw0nk"
+ngx.header["X-Anti-DDoS"] = "CloudDream"
 end
 ngx.header.content_type = "text/html; charset=" .. default_charset
 ngx.status = authentication_page_status_output
