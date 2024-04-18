@@ -1,4 +1,5 @@
-
+local test_arg = ngx.var.arg_test_arg 
+ ngx.header["xa__test_arg"] = "test_arg" .. tostring(test_arg)
 --[[
 Introduction and details :
 
@@ -58,7 +59,7 @@ http { #inside http block
 --[[
 This is a password that encrypts our puzzle and cookies unique to your sites and servers you should change this from the default.
 ]]
-local secret = " enigma" --Signature secret key --CHANGE ME FROM DEFAULT!
+local secret = "YouGuess" --Signature secret key --CHANGE ME FROM DEFAULT!
 
 --[[
 Unique id to identify each individual user and machine trying to access your website IP address works well.
