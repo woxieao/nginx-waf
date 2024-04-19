@@ -3268,9 +3268,9 @@ local footer_body_ad_slot = [[
 -- End advert positions
 
 local ddos_credits = [[
-<div class="credits" style="text-align:center;font-size:100%;">
-<a href="https://wanwang.aliyun.com/webdesign/yunqi" target="_blank">DDoS 防护 by &copy; CloudDream</a>
-</div>
+    <div class="credits" style="text-align:center;font-size:14px;color:#008000;margin-top:20px;">
+          <strong>  <a href="https://wanwang.aliyun.com/webdesign/yunqi" target="_blank" style="color:#008000;text-decoration:none;">DDoS 防护 by CloudDream</a> &copy;</strong>
+    </div>
 ]]
 
 if credits == 2 then
@@ -3340,6 +3340,8 @@ local style_sheet = [[
 		border-radius: 50%;
 		border-top: 4px solid #3498db;
 		animation: spin 1s linear infinite;
+		position: relative;
+        top: -78px; 
 	}
 
 	@keyframes spin {
@@ -3368,6 +3370,9 @@ local style_sheet = [[
 	.details strong {
 		color: #333;
 	}
+	.countdownbox  {
+		height: 69px;
+	}
 ]]
 
 local anti_ddos_html_output = [[
@@ -3390,11 +3395,15 @@ local anti_ddos_html_output = [[
 
 <body>
     <div class="container">
+		<h3>]]..host..[[</h3>
         <h1>站点已启用增强防护模式</h1>
-        <div class="loading"></div>
+        <div class="countdownbox">
+		<p><h1 id="countdowntimer"></h1></p>
+        <p class="loading"></p>
+		</div>
         <div class="message">请稍等片刻，我们正在验证您的请求是否正常...</div>
         <div class="details">
-            <p><strong>请求详情:</strong></p>
+            <p style="text-align:center;font-size:100%;"><strong>请求详情:</strong></p>
             <p><strong>请求IP:</strong> ]] .. remote_addr .. [[</p>
             <p><strong>请求URL:</strong> ]] .. URL .. [[</p>
             <p><strong>User-Agent:</strong> ]] .. user_agent .. [[</p>
