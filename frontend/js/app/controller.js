@@ -443,5 +443,31 @@ module.exports = {
     logout: function () {
         Tokens.dropTopToken();
         this.showLogin();
-    }
+    },
+    /**
+     * Waf Rules
+     */
+    showWafRules: function () {
+        if (Cache.User.isAdmin() || Cache.User.canView('rules_lists')) {
+            let controller = this;
+
+            require(['./main', './nginx/rules/main'], (App, View) => {
+                controller.navigate('/nginx/rules');
+                App.UI.showAppContent(new View());
+            });
+        }
+    },
+    
+    /**
+     * Nginx Rules List Form
+     *
+     * @param [model]
+     */
+    showWafRulesListForm: function (model) {
+        if (Cache.User.isAdmin() || Cache.User.canManage('rules_lists')) {
+            require(['./main', './nginx/rules/form'], function (App, View) {
+                App.UI.showModalDialog(new View({model: model}));
+            });
+        }
+    },
 };

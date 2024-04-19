@@ -4,6 +4,6 @@
     "description": "拦截恶意UserAgent",
     "isEnable": true,
     "sort": 1,
-    "atkType": "SQL注入"
+    "blockType": "SQL注入"
   }
 ]

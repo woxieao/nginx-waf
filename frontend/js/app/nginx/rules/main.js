@@ -1,13 +1,13 @@
 const Mn              = require('backbone.marionette');
 const App             = require('../../main');
-const AccessListModel = require('../../../models/access-list');
+const RulesListModel = require('../../../models/rules-list');
 const ListView        = require('./list/main');
 const ErrorView       = require('../../error/main');
 const EmptyView       = require('../../empty/main');
 const template        = require('./main.ejs');
 
 module.exports = Mn.View.extend({
-    id:       'nginx-access',
+    id:       'nginx-rules',
     template: template,
 
     ui: {
@@ -19,11 +19,11 @@ module.exports = Mn.View.extend({
         query:       'input[name="source-query"]'
     },
 
-    fetch: App.Api.Nginx.AccessLists.getAll,
+    fetch: App.Api.Nginx.RulesLists.getAll,
 
     showData: function(response) {
         this.showChildView('list_region', new ListView({
-            collection: new AccessListModel.Collection(response)
+            collection: new RulesListModel.Collection(response)
         }));
     },
 
@@ -32,7 +32,7 @@ module.exports = Mn.View.extend({
             code:    err.code,
             message: err.message,
             retry:   function () {
-                App.Controller.showNginxAccess();
+                App.Controller.showWafRules();
             }
         }));
 
@@ -40,16 +40,16 @@ module.exports = Mn.View.extend({
     },
 
     showEmpty: function() {
-        let manage = App.Cache.User.canManage('access_lists');
+        let manage = App.Cache.User.canManage('rules_lists');
 
         this.showChildView('list_region', new EmptyView({
-            title:      App.i18n('access-lists', 'empty'),
+            title:      App.i18n('rules-lists', 'empty'),
             subtitle:   App.i18n('all-hosts', 'empty-subtitle', {manage: manage}),
-            link:       manage ? App.i18n('access-lists', 'add') : null,
+            link:       manage ? App.i18n('rules-lists', 'add') : null,
             btn_color:  'teal',
-            permission: 'access_lists',
+            permission: 'rules_lists',
             action:     function () {
-                App.Controller.showNginxAccessListForm();
+                App.Controller.showWafRulesListForm();
             }
         }));
     },
@@ -61,12 +61,12 @@ module.exports = Mn.View.extend({
     events: {
         'click @ui.add': function (e) {
             e.preventDefault();
-            App.Controller.showNginxAccessListForm();
+            App.Controller.showWafRulesListForm();
         },
 
         'click @ui.help': function (e) {
             e.preventDefault();
-            App.Controller.showHelp(App.i18n('access-lists', 'help-title'), App.i18n('access-lists', 'help-content'));
+            App.Controller.showHelp(App.i18n('rules-lists', 'help-title'), App.i18n('rules-lists', 'help-content'));
         },
 
         'submit @ui.search': function (e) {
@@ -82,7 +82,7 @@ module.exports = Mn.View.extend({
     },
 
     templateContext: {
-        showAddButton: App.Cache.User.canManage('access_lists')
+        showAddButton: App.Cache.User.canManage('rules_lists')
     },
 
     onRender: function () {

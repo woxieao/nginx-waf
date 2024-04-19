@@ -21,7 +21,7 @@ module.exports = Mn.View.extend({
     },
 
     templateContext: {
-        canManage: App.Cache.User.canManage('access_lists')
+        canManage: App.Cache.User.canManage('rules_lists')
     },
 
     onRender: function () {

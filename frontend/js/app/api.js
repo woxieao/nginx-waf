@@ -621,6 +621,42 @@ module.exports = {
                 return fetch('delete', 'nginx/access-lists/' + id);
             }
         },
+        RulesLists: {
+            /**
+             * @param   {Array}    [expand]
+             * @param   {String}   [query]
+             * @returns {Promise}
+             */
+            getAll: function (expand, query) {
+                return getAllObjects('nginx/rules-lists', expand, query);
+            },
+
+            /**
+             * @param {Object}  data
+             */
+            create: function (data) {
+                return fetch('post', 'nginx/rules-lists', data);
+            },
+
+            /**
+             * @param   {Object}   data
+             * @param   {Number}   data.id
+             * @returns {Promise}
+             */
+            update: function (data) {
+                let id = data.id;
+                delete data.id;
+                return fetch('put', 'nginx/rules-lists/' + id, data);
+            },
+
+            /**
+             * @param   {Number}  id
+             * @returns {Promise}
+             */
+            delete: function (id) {
+                return fetch('delete', 'nginx/rules-lists/' + id);
+            }
+        },
 
         Certificates: {
             /**

@@ -370,7 +370,7 @@
       "cert-provider": "证书提供商",
       "block-exploits": "开启防火墙",
       "anti-ddos": "增强防护模式",
-      "anti-ddos-desc":"当您网站遭受攻击时,可以开启该选项,开启后,首次访问站点会自动校验是否为恶意请求",
+      "anti-ddos-desc": "当您网站遭受攻击时,可以开启该选项,开启后,首次访问站点会自动校验是否为恶意请求",
       "caching-enabled": "缓存资源",
       "ssl-certificate": "SSL证书",
       "none": "无",
@@ -567,6 +567,7 @@
       "user": "用户",
       "certificate": "证书",
       "access-list": "访问列表",
+      "rules-list": "规则列表",
       "created": "创建了{name}",
       "updated": "更新了{name}",
       "deleted": "删除了{name}",
@@ -588,11 +589,58 @@
       "default-site-html": "自定义页面",
       "default-site-redirect": "重定向"
     },
-    "waf":{
-      "waf_name":"防火墙",
-      "anit_ddos_name":"增强防护",
-      "enabled":"防护中",
-      "disabled":"未防护"
+    "waf": {
+      "waf_name": "防火墙",
+      "anit_ddos_name": "增强防护",
+      "enabled": "防护中",
+      "disabled": "未防护"
+    },
+    "rules-list": {
+      "delete-confirm": "您确定要删除此拦截规则吗？",
+      "name": "规则名称",
+      "description": "规则说明",
+      "description-placehoder": "填写您的规则介绍/备注",
+      "status": "状态",
+      "is-enabled": "是否启用",
+      "enabled": "已启用",
+      "disabled": "已禁用",
+      "exec-sort": "执行顺序",
+      "block-type": "防护类型",
+      "lua-script": "lua脚本",
+      "lua-script-desc": "填写的脚本会根据执行优先级逐个执行,",
+      "script-warning": "在此输入您的自定义lua脚本需可能会影响服务器性能,风险自担！",
+
+      "title": "拦截规则",
+      "empty": "没有拦截规则",
+      "add": "新建拦截规则",
+      "form-title": "{id, select, undefined{新建} other{编辑}}拦截规则",
+      "delete": "删除拦截规则",
+      "public": "公开访问",
+      "public-sub": "无访问限制",
+      "help-title": "什么是拦截规则？",
+      "help-content": "通过自定义拦截规则,可以灵活的针对不同类型的攻击做出针对性的拦截。",
+      "item-count": "{count} {count, select, 1{用户} other{用户}}",
+      "client-count": "{count} {count, select, 1{规则} other{规则}}",
+      "proxy-host-count": "{count} {count, select, 1{域名} other{域名}}",
+      "delete-has-hosts": "此拦截规则与{count}个域名关联。删除后，它们将失去防护。",
+      "details": "详情",
+      "authorization": "授权",
+      "access": "访问",
+      "satisfy": "满足条件",
+      "satisfy-any": "满足任一条件",
+      "pass-auth": "将身份验证传递给主机",
+      "access-add": "添加",
+      "auth-add": "添加",
+      "search": "搜索拦截规则..."
+    },
+    "block-type": {
+      "sql-injection": "SQL注入",
+      "xss": "跨站脚本攻击",
+      "path-traversal": "目录遍历",
+      "sensitive-path": "敏感目录",
+      "cc-attack": "CC攻击",
+      "malicious-file-upload": "恶意文件上传",
+      "others": "其他"
     }
   }
 }

@@ -18,9 +18,9 @@ module.exports = Mn.View.extend({
         'click @ui.save': function (e) {
             e.preventDefault();
 
-            App.Api.Nginx.AccessLists.delete(this.model.get('id'))
+            App.Api.Nginx.RulesLists.delete(this.model.get('id'))
                 .then(() => {
-                    App.Controller.showNginxAccess();
+                    App.Controller.showWafRules();
                     App.UI.closeModal();
                 })
                 .catch(err => {
