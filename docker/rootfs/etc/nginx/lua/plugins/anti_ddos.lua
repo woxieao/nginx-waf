@@ -3186,7 +3186,6 @@ var ]] .. JavascriptPuzzleVariable_name .. [[=]] .. JavascriptPuzzleVars .. [[;
 
 -- https://www.w3schools.com/xml/tryit.asp?filename=try_dom_xmlhttprequest
 local javascript_anti_ddos = [[
-(function(){
 	function toggleDetails() {
 		var detailsContent = document.getElementById("detailsContent");
 		if (detailsContent.style.display === "block") {
@@ -3195,6 +3194,8 @@ local javascript_anti_ddos = [[
 			detailsContent.style.display = "block";
 		}
 	}
+(function(){
+	
 	var a = function() {try{return !!window.addEventListener} catch(e) {return !1} },
 	b = function(b, c) {a() ? document.addEventListener("DOMContentLoaded", b, c) : document.attachEvent("onreadystatechange", b)};
 	b(function(){
@@ -3380,8 +3381,9 @@ local style_sheet = [[
 
     .details-header h2 {
         margin: 0;
-        font-size: 18px;
+        font-size: 14px;
         color: #333;
+		text-align: center;
     }
 
     .details-content {
@@ -3416,7 +3418,7 @@ local anti_ddos_html_output = [[
 
 <body>
     <div class="container">
-		<h3>]]..host..[[</h3>
+		<h3>]] .. host .. [[</h3>
         <h1>站点已启用增强防护模式</h1>
         <div class="countdownbox">
 		<p><h1 id="countdowntimer">5</h1></p>
@@ -3431,7 +3433,7 @@ local anti_ddos_html_output = [[
         </div>
         <div class="details-content" id="detailsContent">
             <p><strong>请求IP:</strong> ]] .. remote_addr .. [[</p>
-            <p><strong>请求URL:</strong> ]] ..  URL.. [[</p>
+            <p><strong>请求URL:</strong> ]] .. URL .. [[</p>
             <p><strong>User-Agent:</strong> ]] .. user_agent .. [[</p>
         </div>
     </div>       
