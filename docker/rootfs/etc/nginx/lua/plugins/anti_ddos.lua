@@ -3318,7 +3318,7 @@ local style_sheet = [[
 		position: absolute;
 		transform: translateX(-50%);
 		left: 50%;
-		top: 40%;	
+		top: 35%;	
 
 	}
 
