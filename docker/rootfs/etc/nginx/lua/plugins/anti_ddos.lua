@@ -3187,6 +3187,14 @@ var ]] .. JavascriptPuzzleVariable_name .. [[=]] .. JavascriptPuzzleVars .. [[;
 -- https://www.w3schools.com/xml/tryit.asp?filename=try_dom_xmlhttprequest
 local javascript_anti_ddos = [[
 (function(){
+	function toggleDetails() {
+		var detailsContent = document.getElementById("detailsContent");
+		if (detailsContent.style.display === "block") {
+			detailsContent.style.display = "none";
+		} else {
+			detailsContent.style.display = "block";
+		}
+	}
 	var a = function() {try{return !!window.addEventListener} catch(e) {return !1} },
 	b = function(b, c) {a() ? document.addEventListener("DOMContentLoaded", b, c) : document.attachEvent("onreadystatechange", b)};
 	b(function(){
@@ -3286,26 +3294,6 @@ else
     remote_addr = ngx.var.remote_addr
 end
 
-local request_details = [[
-<br>
-<div id="status" style="color:#bd2426;font-size:200%;">
-<noscript>请打开 JavaScript 并重新加载页面。<br></noscript>
-这个过程是自动的。您的浏览器将很快重定向到您请求的内容。
-<br>
-请稍等至 <span id="countdowntimer">]] .. refresh_auth ..
-                            [[</span> 秒&hellip;
-</div>
-<br>
-<br>
-<h3 style="color:#bd2426;">请求详情：</h3>
-IP 地址：]] .. remote_addr .. [[
-<br>
-请求 URL：]] .. URL .. [[
-<br>
-User-Agent：]] .. user_agent .. [[
-<br>
-]]
-
 local style_sheet = [[
 	body {
 		font-family: Arial, sans-serif;
@@ -3373,6 +3361,39 @@ local style_sheet = [[
 	.countdownbox  {
 		height: 69px;
 	}
+	.details-container {
+        max-width: 400px;
+        margin: 20px auto;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        text-align: left;
+    }
+
+    .details-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .details-header h2 {
+        margin: 0;
+        font-size: 18px;
+        color: #333;
+    }
+
+    .details-content {
+        display: none;
+        margin-top: 10px;
+    }
+
+    .details-content p {
+        margin-bottom: 8px;
+        font-size: 14px;
+        color: #666;
+    }
 ]]
 
 local anti_ddos_html_output = [[
@@ -3402,12 +3423,18 @@ local anti_ddos_html_output = [[
         <p class="loading"></p>
 		</div>
         <div class="message">请稍等片刻，我们正在验证您的请求是否正常...</div>
-        <div class="details">
-            <p style="text-align:center;font-size:100%;"><strong>请求详情:</strong></p>
+
+		<div class="details-container">
+        <div class="details-header" onclick="toggleDetails()">
+            <h2>请求详情</h2>
+            <span>&#9660;</span>
+        </div>
+        <div class="details-content" id="detailsContent">
             <p><strong>请求IP:</strong> ]] .. remote_addr .. [[</p>
-            <p><strong>请求URL:</strong> ]] .. URL .. [[</p>
+            <p><strong>请求URL:</strong> ]] ..  URL.. [[</p>
             <p><strong>User-Agent:</strong> ]] .. user_agent .. [[</p>
         </div>
+    </div>       
 		]] .. ddos_credits .. [[
     </div>
 </body>
