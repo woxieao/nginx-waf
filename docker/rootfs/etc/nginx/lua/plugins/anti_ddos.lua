@@ -3362,6 +3362,7 @@ local style_sheet = [[
 	.countdownbox  {
 		height: 69px;
 	}
+
 	.details-container {
         max-width: 400px;
         margin: 20px auto;
@@ -3369,7 +3370,7 @@ local style_sheet = [[
         border-radius: 5px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         padding: 20px;
-        text-align: center;
+        text-align: left; /* 修改 */
     }
 
     .details-header {
@@ -3381,7 +3382,7 @@ local style_sheet = [[
 
     .details-header h2 {
         margin: 0;
-        font-size: 14px;
+        font-size: 18px;
         color: #333;
     }
 
@@ -3394,6 +3395,11 @@ local style_sheet = [[
         margin-bottom: 8px;
         font-size: 14px;
         color: #666;
+    }
+
+    /* 新增样式 */
+    .details-container:hover .details-content {
+        display: block;
     }
 ]]
 
@@ -3426,11 +3432,11 @@ local anti_ddos_html_output = [[
         <div class="message">请稍等片刻，我们正在验证您的请求是否正常...</div>
 
 		<div class="details-container">
-        <div class="details-header" onclick="toggleDetails()">
+        <div class="details-header" >
             <h2>请求详情</h2>
             <span>&#9660;</span>
         </div>
-        <div class="details-content" id="detailsContent">
+        <div class="details-content">
             <p><strong>请求IP:</strong> ]] .. remote_addr .. [[</p>
             <p><strong>请求URL:</strong> ]] .. URL .. [[</p>
             <p><strong>User-Agent:</strong> ]] .. user_agent .. [[</p>
