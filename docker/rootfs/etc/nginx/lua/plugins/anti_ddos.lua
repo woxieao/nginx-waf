@@ -97,7 +97,7 @@ local javascript_REQUEST_TYPE = 2 -- Default 2
 Timer to refresh auth page
 Time is in seconds only.
 ]]
-local refresh_auth = 599
+local refresh_auth = 5
 
 --[[
 Javascript variable checks
