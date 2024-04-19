@@ -1,19 +1,23 @@
-local cjson = require("cjson")
+local function main()
 
-local json_file_path = "/etc/nginx/lua/configs/lua_list.json"
+    local cjson = require("cjson")
 
-local file = io.open(json_file_path, "r")
-if file then
-    local json_data = file:read("*a")
-    file:close()
-    local decoded_data = cjson.decode(json_data)
+    local json_file_path = "/etc/nginx/lua/configs/lua_list.json"
 
-    for i, luaInfo in ipairs(decoded_data) do
+    local file = io.open(json_file_path, "r")
+    if file then
+        local json_data = file:read("*a")
+        file:close()
+        local decoded_data = cjson.decode(json_data)
 
-        if luaInfo.isEnable then
-            local lua_func, err = loadstring(luaInfo.script)
-            lua_func();
+        for i, luaInfo in ipairs(decoded_data) do
+
+            if luaInfo.isEnable then
+                local lua_func, err = loadstring(luaInfo.script)
+                lua_func();
+            end
         end
-    end
 
+    end
 end
+return main;

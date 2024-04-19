@@ -1,3 +1,6 @@
+local function main()
+    
+
 --[[
 Introduction and details :
 
@@ -97,7 +100,7 @@ local javascript_REQUEST_TYPE = 2 -- Default 2
 Timer to refresh auth page
 Time is in seconds only.
 ]]
-local refresh_auth = 599
+local refresh_auth = 5
 
 --[[
 Javascript variable checks
@@ -3476,3 +3479,6 @@ ngx.header.content_type = "text/html; charset=" .. default_charset
 ngx.status = authentication_page_status_output
 ngx.say(anti_ddos_html_output)
 ngx.exit(ngx.HTTP_OK)
+
+end
+return main;
