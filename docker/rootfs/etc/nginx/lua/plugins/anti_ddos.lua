@@ -3214,7 +3214,7 @@ local javascript_anti_ddos = [[
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function() {
 				if (xhttp.readyState === 4) {
-					document.getElementById("status").innerHTML = "Refresh your page.";
+					document.getElementsByClassName("message")[0].innerHTML="<h2>验证成功,正在进入网站...</h2>"
 					location.reload(true);
 				}
 			};
