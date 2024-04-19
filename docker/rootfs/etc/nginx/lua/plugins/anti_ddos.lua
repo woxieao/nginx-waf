@@ -3369,7 +3369,7 @@ local style_sheet = [[
         border-radius: 5px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         padding: 20px;
-        text-align: left;
+        text-align: center;
     }
 
     .details-header {
@@ -3383,7 +3383,6 @@ local style_sheet = [[
         margin: 0;
         font-size: 14px;
         color: #333;
-		text-align: center;
     }
 
     .details-content {
