@@ -3398,7 +3398,7 @@ local anti_ddos_html_output = [[
 		<h3>]]..host..[[</h3>
         <h1>站点已启用增强防护模式</h1>
         <div class="countdownbox">
-		<p><h1 id="countdowntimer"></h1></p>
+		<p><h1 id="countdowntimer">&nbsp</h1></p>
         <p class="loading"></p>
 		</div>
         <div class="message">请稍等片刻，我们正在验证您的请求是否正常...</div>
