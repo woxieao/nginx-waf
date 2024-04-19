@@ -3301,19 +3301,25 @@ local style_sheet = [[
 		background-color: #f5f5f5;
 		margin: 0;
 		padding: 0;
-		display: flex;
+		position: relative;
 		justify-content: center;
 		align-items: center;
 		height: 100vh;
 	}
 
 	.container {
-		max-width: 400px;
+		
+		width: 400px;
 		background-color: #fff;
 		border-radius: 5px;
 		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 		padding: 20px;
 		text-align: center;
+		position: absolute;
+		transform: translateX(-50%);
+		left: 50%;
+		top: 40%;	
+
 	}
 
 	h1 {
@@ -3384,6 +3390,8 @@ local style_sheet = [[
         margin: 0;
         font-size: 18px;
         color: #333;
+		flex: auto;
+		text-align: center;
     }
 
     .details-content {
@@ -3426,7 +3434,7 @@ local anti_ddos_html_output = [[
 		<h3>]] .. host .. [[</h3>
         <h1>站点已启用增强防护模式</h1>
         <div class="countdownbox">
-		<p><h1 id="countdowntimer">5</h1></p>
+		<p><h1 id="countdowntimer">]]..refresh_auth..[[</h1></p>
         <p class="loading"></p>
 		</div>
         <div class="message">请稍等片刻，我们正在验证您的请求是否正常...</div>
