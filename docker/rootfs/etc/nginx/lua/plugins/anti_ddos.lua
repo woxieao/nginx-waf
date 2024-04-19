@@ -3336,7 +3336,7 @@ local style_sheet = [[
 		border-top: 4px solid #3498db;
 		animation: spin 1s linear infinite;
 		position: relative;
-        top: -78px; 
+        top: -77px; 
 	}
 
 	@keyframes spin {
@@ -3366,7 +3366,7 @@ local style_sheet = [[
 		color: #333;
 	}
 	.countdownbox  {
-		height: 69px;
+		height: 68px;
 	}
 
 	.details-container {
