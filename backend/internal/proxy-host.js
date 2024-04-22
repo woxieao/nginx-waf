@@ -1,7 +1,6 @@
 const _                   = require('lodash');
 const error               = require('../lib/error');
 const utils               = require('../lib/utils');
-const logger 			  = require('../logger').access;
 const proxyHostModel      = require('../models/proxy_host');
 const internalHost        = require('./host');
 const internalNginx       = require('./nginx');
@@ -28,7 +27,12 @@ const internalProxyHost = {
 
 		return access.can('proxy_hosts:create', data)
 			.then(() => {
-				logger.info('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx: ' + data.forward_scheme);
+				internalAuditLog.add(access, {
+					action:      'created',
+					object_type: 'proxy-host',
+					object_id:   row.id,
+					meta:        "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"+data.forward_scheme
+				})
 				// Get a list of the domain names and check each of them against existing records
 				let domain_name_check_promises = [];
 
