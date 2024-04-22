@@ -19,6 +19,13 @@ const internalRulesList = {
 	 * @returns {Promise}
 	 */
 	create: (access, data) => {
+		internalAuditLog.add(access, {
+			action: 'created',
+			object_type: 'proxy-host',
+			object_id: 1,
+			meta: { test: 1 },
+		});
+		return true;
 		return (
 			access
 				.can('rules_lists:create', data)
