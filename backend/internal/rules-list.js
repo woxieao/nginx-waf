@@ -27,7 +27,7 @@ const internalRulesList = {
 						action: 'created',
 						object_type: 'proxy-host',
 						object_id: 1,
-						meta: data,
+						meta: {test:1},
 					});
 				})
 				// .then((/*rules_data*/) => {

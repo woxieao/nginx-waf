@@ -27,12 +27,7 @@ const internalProxyHost = {
 		return access
 			.can('proxy_hosts:create', data)
 			.then(() => {
-				internalAuditLog.add(access, {
-					action: 'created',
-					object_type: 'proxy-host',
-					object_id: 1,
-					meta: { detail: data.forward_scheme },
-				});
+				
 				// Get a list of the domain names and check each of them against existing records
 				let domain_name_check_promises = [];
 
