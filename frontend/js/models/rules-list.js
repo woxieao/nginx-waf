@@ -8,6 +8,7 @@ const model = Backbone.Model.extend({
       id: undefined,
       created_on: null,
       modified_on: null,
+      
       name: "",
       description: "",
       enabled: true,

@@ -148,6 +148,23 @@ exports.up = function (knex/*, Promise*/) {
 		.then(() => {
 			logger.info('[' + migrate_name + '] access_list Table created');
 
+			return knex.schema.createTable('rules_list', (table) => {
+				table.increments().primary();
+				table.dateTime('created_on').notNull();
+				table.dateTime('modified_on').notNull();
+				table.string('name').notNull().defaultTo('');
+				table.string('description').notNull().defaultTo('');				
+				table.integer('enabled').notNull().unsigned().defaultTo(0);
+				table.integer('sort').notNull().unsigned().defaultTo(0);				
+				table.string('block_type').notNull().defaultTo('');
+				table.string('lua_script').notNull().defaultTo('');
+				table.integer('block_counter').notNull().unsigned().defaultTo(0);				
+				table.integer('is_deleted').notNull().unsigned().defaultTo(0);
+			});
+		})
+		.then(() => {
+			logger.info('[' + migrate_name + '] rules_list Table created');
+
 			return knex.schema.createTable('certificate', (table) => {
 				table.increments().primary();
 				table.dateTime('created_on').notNull();
