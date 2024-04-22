@@ -19,13 +19,6 @@ const internalRulesList = {
 	 * @returns {Promise}
 	 */
 	create: (access, data) => {
-		internalAuditLog.add(access, {
-			action: 'created',
-			object_type: 'proxy-host',
-			object_id: 1,
-			meta: { test: 1 },
-		});
-		return true;
 		return (
 			access
 				.can('rules_lists:create', data)
@@ -52,11 +45,11 @@ const internalRulesList = {
 				// 		.then(utils.omitRow(omissions()));
 				// })
 
-				// .then(() => {
-				// 	return internalRulesList.get(access, {
-				// 		id: data.id,
-				// 	});
-				// })
+				.then(() => {
+					return internalRulesList.get(access, {
+						id: data.id,
+					});
+				})
 				.then((row) => {
 					// Audit log
 					data.meta = _.assign({}, data.meta || {}, row.meta);
