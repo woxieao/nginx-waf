@@ -17,7 +17,7 @@
           <div class="row">
             <div class="col-sm-12 col-md-12">
               <div class="form-group">
-                <label class="form-label"><%- i18n('str', 'name') %> <span class="form-required">*</span></label>
+                <label class="form-label"><%- i18n('rules-lists', 'name') %> <span class="form-required">*</span></label>
                 <input type="text" name="name" class="form-control" value="<%- name %>" required>
               </div>
             </div>
@@ -59,19 +59,21 @@
             </div>
           </div>
         </div>
-      </div>
-      <!-- Advanced -->
-      <div role="tabpanel" class="tab-pane" id="advanced">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="form-group mb-0">
-              <label class="form-label"><%- i18n('rules-lists', 'lua-script-desc') %></label>
-              <textarea name="lua_script" rows="8" class="form-control text-monospace" placeholder="ngx.say('hello world')"><%- lua_script %></textarea>
+        
+        <!-- Advanced -->
+        <div role="tabpanel" class="tab-pane" id="advanced">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group mb-0">
+                <label class="form-label"><%- i18n('rules-lists', 'lua-script-desc') %></label>
+                <textarea name="lua_script" rows="8" class="form-control text-monospace" placeholder="ngx.say('hello world')"><%- lua_script %></textarea>
+              </div>
+              <p class="small text-gray"><i class="fe fe-alert-triangle"></i> <%- i18n('rules-lists', 'script-warning') %></p>
             </div>
-            <p class="small text-gray"><i class="fe fe-alert-triangle"></i> <%- i18n('rules-lists', 'script-warning') %></p>
           </div>
         </div>
       </div>
+
 
   </div>
   </form>
