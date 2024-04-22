@@ -470,4 +470,17 @@ module.exports = {
             });
         }
     },
+    
+    /**
+     * Rules List Delete Confirm
+     *
+     * @param model
+     */
+    showNginxRulesListDeleteConfirm: function (model) {
+        if (Cache.User.isAdmin() || Cache.User.canManage('rules_lists')) {
+            require(['./main', './nginx/rules/delete'], function (App, View) {
+                App.UI.showModalDialog(new View({model: model}));
+            });
+        }
+    },
 };

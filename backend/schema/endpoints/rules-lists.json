@@ -1,0 +1,197 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"$id": "endpoints/rules-lists",
+	"title": "Rules Lists",
+	"description": "Endpoints relating to Rules Lists",
+	"stability": "stable",
+	"type": "object",
+	"definitions": {
+		"id": {
+			"$ref": "../definitions.json#/definitions/id"
+		},
+		"created_on": {
+			"$ref": "../definitions.json#/definitions/created_on"
+		},
+		"modified_on": {
+			"$ref": "../definitions.json#/definitions/modified_on"
+		},
+		"name": {
+			"type": "string",
+			"description": "Name of the Rules List"
+		},
+		"description": {
+			"type": "string",
+			"description": "Description of the Rules List"
+		},
+		"enabled": {
+			"type": "boolean"
+		},
+		"sort": {
+			"type": "integer",
+			"minimum": 1,
+			"maximum": 100
+		},
+		"block_type": {
+			"type": "string",
+			"enum": ["others", "sql-injection", "xss", "path-traversal", "sensitive-path", "cc-attack", "malicious-file-upload"]
+		},
+		"lua_script": {
+			"type": "string"
+		},
+		"block_counter": {
+			"type": "integer"
+		}
+	},
+	"properties": {
+		"id": {
+			"$ref": "#/definitions/id"
+		},
+		"created_on": {
+			"$ref": "#/definitions/created_on"
+		},
+		"modified_on": {
+			"$ref": "#/definitions/modified_on"
+		},
+		"name": {
+			"$ref": "#/definitions/name"
+		},
+		"description": {
+			"$ref": "#/definitions/description"
+		},
+		"enabled": {
+			"$ref": "#/definitions/enabled"
+		},
+		"sort": {
+			"$ref": "#/definitions/sort"
+		},
+		"block_type": {
+			"$ref": "#/definitions/block_type"
+		},
+		"lua_script": {
+			"$ref": "#/definitions/lua_script"
+		},
+		"block_counter": {
+			"$ref": "#/definitions/block_counter"
+		}
+	},
+	"links": [
+		{
+			"title": "List",
+			"description": "Returns a list of Rules Lists",
+			"href": "/nginx/rules-lists",
+			"access": "private",
+			"method": "GET",
+			"rel": "self",
+			"http_header": {
+				"$ref": "../examples.json#/definitions/auth_header"
+			},
+			"targetSchema": {
+				"type": "array",
+				"items": {
+					"$ref": "#/properties"
+				}
+			}
+		},
+		{
+			"title": "Create",
+			"description": "Creates a new Rules List",
+			"href": "/nginx/rules-list",
+			"access": "private",
+			"method": "POST",
+			"rel": "create",
+			"http_header": {
+				"$ref": "../examples.json#/definitions/auth_header"
+			},
+			"schema": {
+				"type": "object",
+				"additionalProperties": false,
+				"required": ["name", "description", "enabled", "sort", "block_type", "lua_script"],
+				"properties": {
+					"name": {
+						"$ref": "#/definitions/name"
+					},
+					"description": {
+						"$ref": "#/definitions/description"
+					},
+					"enabled": {
+						"$ref": "#/definitions/enabled"
+					},
+					"sort": {
+						"$ref": "#/definitions/sort"
+					},
+					"block_type": {
+						"$ref": "#/definitions/block_type"
+					},
+					"lua_script": {
+						"$ref": "#/definitions/lua_script"
+					},
+					"block_counter": {
+						"$ref": "#/definitions/block_counter"
+					}
+				}
+			},
+			"targetSchema": {
+				"properties": {
+					"$ref": "#/properties"
+				}
+			}
+		},
+		{
+			"title": "Update",
+			"description": "Updates a existing Rules List",
+			"href": "/nginx/rules-list/{definitions.identity.example}",
+			"access": "private",
+			"method": "PUT",
+			"rel": "update",
+			"http_header": {
+				"$ref": "../examples.json#/definitions/auth_header"
+			},
+			"schema": {
+				"type": "object",
+				"additionalProperties": false,
+				"properties": {
+					"name": {
+						"$ref": "#/definitions/name"
+					},
+					"description": {
+						"$ref": "#/definitions/description"
+					},
+					"enabled": {
+						"$ref": "#/definitions/enabled"
+					},
+					"sort": {
+						"$ref": "#/definitions/sort"
+					},
+					"block_type": {
+						"$ref": "#/definitions/block_type"
+					},
+					"lua_script": {
+						"$ref": "#/definitions/lua_script"
+					},
+					"block_counter": {
+						"$ref": "#/definitions/block_counter"
+					}
+				}
+			},
+			"targetSchema": {
+				"properties": {
+					"$ref": "#/properties"
+				}
+			}
+		},
+		{
+			"title": "Delete",
+			"description": "Deletes a existing Rules List",
+			"href": "/nginx/rules-list/{definitions.identity.example}",
+			"access": "private",
+			"method": "DELETE",
+			"rel": "delete",
+			"http_header": {
+				"$ref": "../examples.json#/definitions/auth_header"
+			},
+			"targetSchema": {
+				"type": "boolean"
+			}
+		}
+	]
+}
