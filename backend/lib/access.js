@@ -262,6 +262,7 @@ module.exports = function (token_string) {
 										permission_dead_hosts:        permissions.dead_hosts,
 										permission_streams:           permissions.streams,
 										permission_access_lists:      permissions.access_lists,
+										permission_rules_lists:       permissions.rules_lists,
 										permission_certificates:      permissions.certificates
 									}
 								};

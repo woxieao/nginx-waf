@@ -30,6 +30,7 @@ module.exports = Mn.View.extend({
                 // Force some attributes for admin
                 data = _.assign({}, data, {
                     access_lists:      'manage',
+                    rules_lists:       'manage',
                     dead_hosts:        'manage',
                     proxy_hosts:       'manage',
                     redirection_hosts: 'manage',

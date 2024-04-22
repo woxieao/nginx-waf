@@ -546,6 +546,7 @@
 													"dead_hosts": "manage",
 													"streams": "manage",
 													"access_lists": "manage",
+													"rules_lists": "manage",
 													"certificates": "manage"
 												}
 											}
@@ -604,6 +605,7 @@
 												"dead_hosts": "manage",
 												"streams": "manage",
 												"access_lists": "manage",
+												"rules_lists": "manage",
 												"certificates": "manage"
 											}
 										}
@@ -1408,6 +1410,11 @@
 					"access_lists": {
 						"type": "string",
 						"description": "Access Lists Permissions",
+						"enum": ["hidden", "view", "manage"]
+					},
+					"rules_lists": {
+						"type": "string",
+						"description": "Rules Lists Permissions",
 						"enum": ["hidden", "view", "manage"]
 					},
 					"dead_hosts": {

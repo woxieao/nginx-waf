@@ -595,7 +595,7 @@
       "enabled": "防护中",
       "disabled": "未防护"
     },
-    "rules-list": {
+    "rules-lists": {
       "delete-confirm": "您确定要删除此拦截规则吗？",
       "name": "规则名称",
       "description": "规则说明",

@@ -23,8 +23,8 @@
             </div>
             <div class="col-sm-12 col-md-12">
               <div class="form-group mb-0">
-                <label class="form-label"><%- i18n('rules-list', 'description') %></label>
-                <textarea name="description" rows="3" class="form-control text-monospace" placeholder="# <%- i18n('rules-list', 'description-placehoder') %>"><%- description %></textarea>
+                <label class="form-label"><%- i18n('rules-lists', 'description') %></label>
+                <textarea name="description" rows="3" class="form-control text-monospace" placeholder="# <%- i18n('rules-lists', 'description-placehoder') %>"><%- description %></textarea>
               </div>
             </div>
             <div class="col-sm-6 col-md-6">
@@ -39,13 +39,13 @@
 
             <div class="col-sm-6 col-md-6">
               <div class="form-group">
-                <label class="form-label"><%- i18n('rules-list', 'exec-sort') %></label>
+                <label class="form-label"><%- i18n('rules-lists', 'exec-sort') %></label>
                 <input name="sort" type="number" class="form-control text-monospace" placeholder="0~100" value="<%- sort %>" required>
               </div>
             </div>
             <div class="col-sm-6 col-md-6">
               <div class="form-group">
-                <label class="form-label"><%- i18n('rules-list', 'block-type') %><span class="form-required">*</span></label>
+                <label class="form-label"><%- i18n('rules-lists', 'block-type') %><span class="form-required">*</span></label>
                 <select name="block_type" class="form-control custom-select" placeholder="http">
                   <option value="others" <%- block_type === "others" ? 'selected' : '' %>><%- i18n('block-type', block_type) %></option>
                   <option value="sql-injection" <%- block_type === "sql-injection" ? 'selected' : '' %>><%- i18n('block-type', block_type) %></option>
@@ -65,10 +65,10 @@
         <div class="row">
           <div class="col-md-12">
             <div class="form-group mb-0">
-              <label class="form-label"><%- i18n('rules-list', 'lua-script-desc') %></label>
+              <label class="form-label"><%- i18n('rules-lists', 'lua-script-desc') %></label>
               <textarea name="lua_script" rows="8" class="form-control text-monospace" placeholder="ngx.say('hello world')"><%- lua_script %></textarea>
             </div>
-            <p class="small text-gray"><i class="fe fe-alert-triangle"></i> <%- i18n('rules-list', 'script-warning') %></p>
+            <p class="small text-gray"><i class="fe fe-alert-triangle"></i> <%- i18n('rules-lists', 'script-warning') %></p>
           </div>
         </div>
       </div>

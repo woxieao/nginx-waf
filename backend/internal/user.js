@@ -70,6 +70,7 @@ const internalUser = {
 						dead_hosts:        'manage',
 						streams:           'manage',
 						access_lists:      'manage',
+						rules_lists:      'manage',
 						certificates:      'manage'
 					})
 					.then(() => {
