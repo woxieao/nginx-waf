@@ -1,6 +1,7 @@
 const _                   = require('lodash');
 const error               = require('../lib/error');
 const utils               = require('../lib/utils');
+const logger 			  = require('../logger').access;
 const proxyHostModel      = require('../models/proxy_host');
 const internalHost        = require('./host');
 const internalNginx       = require('./nginx');
