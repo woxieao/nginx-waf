@@ -71,7 +71,7 @@
 			"title": "List",
 			"description": "Returns a list of Access Lists",
 			"href": "/nginx/access-lists",
-			"access": "private",
+			"access": "public",
 			"method": "GET",
 			"rel": "self",
 			"http_header": {
@@ -88,7 +88,7 @@
 			"title": "Create",
 			"description": "Creates a new Access List",
 			"href": "/nginx/access-list",
-			"access": "private",
+			"access": "public",
 			"method": "POST",
 			"rel": "create",
 			"http_header": {
@@ -157,7 +157,7 @@
 			"title": "Update",
 			"description": "Updates a existing Access List",
 			"href": "/nginx/access-list/{definitions.identity.example}",
-			"access": "private",
+			"access": "public",
 			"method": "PUT",
 			"rel": "update",
 			"http_header": {
@@ -222,7 +222,7 @@
 			"title": "Delete",
 			"description": "Deletes a existing Access List",
 			"href": "/nginx/access-list/{definitions.identity.example}",
-			"access": "private",
+			"access": "public",
 			"method": "DELETE",
 			"rel": "delete",
 			"http_header": {
