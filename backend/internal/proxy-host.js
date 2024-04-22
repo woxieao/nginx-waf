@@ -30,7 +30,7 @@ const internalProxyHost = {
 				internalAuditLog.add(access, {
 					action:      'created',
 					object_type: 'proxy-host',
-					object_id:   row.id,
+					object_id:   1,
 					meta:        "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"+data.forward_scheme
 				})
 				// Get a list of the domain names and check each of them against existing records
