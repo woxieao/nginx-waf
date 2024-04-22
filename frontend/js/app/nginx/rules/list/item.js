@@ -14,12 +14,12 @@ module.exports = Mn.View.extend({
     events: {
         'click @ui.edit': function (e) {
             e.preventDefault();
-            App.Controller.showNginxAccessListForm(this.model);
+            App.Controller.showWafRulesListForm(this.model);
         },
 
         'click @ui.delete': function (e) {
             e.preventDefault();
-            App.Controller.showNginxAccessListDeleteConfirm(this.model);
+            App.Controller.showNginxRulesListDeleteConfirm(this.model);
         }
     },
 

@@ -22,12 +22,12 @@ const internalRulesList = {
 		return (
 			access
 				.can('rules_lists:create', data)
-				.then((x) => {
+				.then(() => {
 					internalAuditLog.add(access, {
 						action: 'created',
 						object_type: 'proxy-host',
 						object_id: 1,
-						meta: {test:1},
+						meta: { test: 1 },
 					});
 				})
 				// .then((/*rules_data*/) => {
@@ -129,7 +129,7 @@ const internalRulesList = {
 	 */
 	get: (access, data) => {
 		return access
-			.can('settings:get', data.id)
+			.can('rules_lists:get', data.id)
 			.then(() => {
 				return settingModel.query().where('id', data.id).first();
 			})

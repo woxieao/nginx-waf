@@ -23,7 +23,6 @@ module.exports = Mn.View.extend({
       e.preventDefault();
       this.ui.le_error_info.hide();
 
-      //todo fill data
       if (!this.ui.form[0].checkValidity()) {
         $('<input type="submit">')
           .hide()
