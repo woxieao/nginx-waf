@@ -62,7 +62,8 @@ app.use(function (err, req, res, next) {
 	let payload = {
 		error: {
 			code:    err.status,
-			message: err.public ? err.message : 'Internal Error'
+			//message: err.public ? err.message : 'Internal Error'
+			message: err.message 
 		}
 	};
 
