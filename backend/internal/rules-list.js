@@ -19,52 +19,47 @@ const internalRulesList = {
 	 * @returns {Promise}
 	 */
 	create: (access, data) => {
-		return (
-			access
-				.can('rules_lists:create', data)
-				.then(() => {
-					internalAuditLog.add(access, {
+		return access
+			.can('rules_lists:create', data)
+			.then((/*rules_data*/) => {
+				internalAuditLog.add(access, {
+					action: 'created',
+					object_type: 'proxy-host',
+					object_id: 1,
+					meta: { test: 1 },
+				});
+				return rulesListModel
+					.query()
+					.insertAndFetch({
+						name: data.name,
+						description: data.description,
+						enabled: !!data.enabled,
+						sort: data.sort,
+						block_type: data.block_type,
+						lua_script: data.lua_script,
+					})
+					.then(utils.omitRow(omissions()));
+			})
+
+			.then(() => {
+				return internalRulesList.get(access, {
+					id: data.id,
+				});
+			})
+			.then((row) => {
+				// Audit log
+				data.meta = _.assign({}, data.meta || {}, row.meta);
+
+				return internalRulesList.build(row).then(() => {
+					// Add to audit log
+					return internalAuditLog.add(access, {
 						action: 'created',
-						object_type: 'proxy-host',
-						object_id: 1,
-						meta: { test: 1 },
+						object_type: 'rules-list',
+						object_id: row.id,
+						meta: data,
 					});
-				})
-				// .then((/*rules_data*/) => {
-				// 	return rulesListModel
-				// 		.query()
-				// 		.insertAndFetch({
-				// 			name: data.name,
-				// 			description: data.description,
-				// 			enabled: !!data.enabled,
-				// 			sort: data.sort,
-				// 			block_type: data.block_type,
-				// 			lua_script: data.lua_script,
-				// 			block_counter: 0,
-				// 		})
-				// 		.then(utils.omitRow(omissions()));
-				// })
-
-				.then(() => {
-					return internalRulesList.get(access, {
-						id: data.id,
-					});
-				})
-				.then((row) => {
-					// Audit log
-					data.meta = _.assign({}, data.meta || {}, row.meta);
-
-					return internalRulesList.build(row).then(() => {
-						// Add to audit log
-						return internalAuditLog.add(access, {
-							action: 'created',
-							object_type: 'rules-list',
-							object_id: row.id,
-							meta: data,
-						});
-					});
-				})
-		);
+				});
+			});
 	},
 
 	/**
