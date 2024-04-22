@@ -29,23 +29,13 @@
             </div>
 
 
-            <div class="col-sm-4 col-md-4">
+            <div class="col-sm-6 col-md-6">
               <div class="form-group">
                 <label class="form-label"><%- i18n('rules-lists', 'exec-sort') %><span class="form-required">*</span></label>
                 <input name="sort" type="number" class="form-control text-monospace" placeholder="0~100" value="<%- sort %>" required>
               </div>
             </div>
-            <div class="col-sm-4 col-md-4">
-              <div class="form-group">
-                <label class="custom-switch">
-                  <input type="checkbox" class="custom-switch-input" name="enabled" value="1" <%- typeof enabled !== 'undefined' && enabled ? ' checked' : '' %> required>
-                  <span class="custom-switch-indicator"></span>
-                  <span class="custom-switch-description"><%- i18n('rules-lists', 'is-enabled') %></span>
-                </label>
-              </div>
-            </div>
-
-            <div class="col-sm-4 col-md-4">
+            <div class="col-sm-6 col-md-6">
               <div class="form-group">
                 <label class="form-label"><%- i18n('rules-lists', 'block-type') %><span class="form-required">*</span></label>
                 <select name="block_type" class="form-control custom-select" placeholder="others" required>
@@ -57,6 +47,16 @@
                   <option value="cc-attack" <%- block_type === "cc-attack" ? 'selected' : '' %>><%- i18n('block-type', 'cc-attack') %></option>
                   <option value="malicious-file-upload" <%- block_type === "malicious-file-upload" ? 'selected' : '' %>><%- i18n('block-type', 'malicious-file-upload') %></option>
                 </select>
+              </div>
+            </div>
+            
+            <div class="col-sm-6 col-md-6">
+              <div class="form-group">
+                <label class="custom-switch">
+                  <input type="checkbox" class="custom-switch-input" name="enabled" value="1" <%- typeof enabled !== 'undefined' && enabled ? ' checked' : '' %> required>
+                  <span class="custom-switch-indicator"></span>
+                  <span class="custom-switch-description"><%- i18n('rules-lists', 'is-enabled') %></span>
+                </label>
               </div>
             </div>
           </div>

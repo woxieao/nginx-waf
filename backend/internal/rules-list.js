@@ -21,26 +21,26 @@ const internalRulesList = {
 	create: (access, data) => {
 		return access
 			.can('rules_lists:create', data)
-			.then((/*rules_data*/) => {
-				return rulesListModel
-					.query()
-					.insertAndFetch({
-						name: data.name,
-						description: data.description,
-						enabled: !!data.enabled,
-						sort: data.sort,
-						block_type: data.block_type,
-						lua_script: data.lua_script,
-						block_counter: 0,
-					})
-					.then(utils.omitRow(omissions()));
-			})
+			// .then((/*rules_data*/) => {
+			// 	return rulesListModel
+			// 		.query()
+			// 		.insertAndFetch({
+			// 			name: data.name,
+			// 			description: data.description,
+			// 			enabled: !!data.enabled,
+			// 			sort: data.sort,
+			// 			block_type: data.block_type,
+			// 			lua_script: data.lua_script,
+			// 			block_counter: 0,
+			// 		})
+			// 		.then(utils.omitRow(omissions()));
+			// })
 
-			.then(() => {
-				return internalRulesList.get(access, {
-					id: data.id,
-				});
-			})
+			// .then(() => {
+			// 	return internalRulesList.get(access, {
+			// 		id: data.id,
+			// 	});
+			// })
 			.then((row) => {
 				// Audit log
 				data.meta = _.assign({}, data.meta || {}, row.meta);
