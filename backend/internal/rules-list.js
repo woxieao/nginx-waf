@@ -21,6 +21,9 @@ const internalRulesList = {
 	create: (access, data) => {
 		return access
 			.can('rules_lists:create', data)
+			.then(x=>{
+				logger.info('Adding: ' + data.name);
+			})
 			// .then((/*rules_data*/) => {
 			// 	return rulesListModel
 			// 		.query()
