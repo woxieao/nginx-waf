@@ -227,6 +227,10 @@
           "access_lists": {
             "type": "string",
             "pattern": "^(hidden|view|manage)$"
+          }, 
+          "rules_lists": {
+            "type": "string",
+            "pattern": "^(hidden|view|manage)$"
           },
           "dead_hosts": {
             "type": "string",

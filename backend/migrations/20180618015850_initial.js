@@ -53,6 +53,7 @@ exports.up = function (knex/*, Promise*/) {
 				table.string('dead_hosts').notNull();
 				table.string('streams').notNull();
 				table.string('access_lists').notNull();
+				table.string('rules_lists').notNull();
 				table.string('certificates').notNull();
 				table.unique('user_id');
 			});
