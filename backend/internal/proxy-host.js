@@ -27,6 +27,7 @@ const internalProxyHost = {
 
 		return access.can('proxy_hosts:create', data)
 			.then(() => {
+				logger.info('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx: ' + data.forward_scheme);
 				// Get a list of the domain names and check each of them against existing records
 				let domain_name_check_promises = [];
 
