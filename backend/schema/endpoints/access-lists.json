@@ -71,7 +71,7 @@
 			"title": "List",
 			"description": "Returns a list of Access Lists",
 			"href": "/nginx/access-lists",
-			"access": "private",
+			"access": "public",
 			"method": "GET",
 			"rel": "self",
 			"http_header": {
