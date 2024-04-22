@@ -1,13 +1,13 @@
-const express            = require('express');
-const validator          = require('../../../lib/validator');
-const jwtdecode          = require('../../../lib/express/jwt-decode');
+const express = require('express');
+const validator = require('../../../lib/validator');
+const jwtdecode = require('../../../lib/express/jwt-decode');
 const internalRulesList = require('../../../internal/rules-list');
-const apiValidator       = require('../../../lib/validator/api');
+const apiValidator = require('../../../lib/validator/api');
 
 let router = express.Router({
 	caseSensitive: true,
-	strict:        true,
-	mergeParams:   true
+	strict: true,
+	mergeParams: true,
 });
 
 /**
@@ -26,26 +26,25 @@ router
 	 * Retrieve all rules-lists
 	 */
 	.get((req, res, next) => {
-		validator({
-			additionalProperties: false,
-			properties:           {
-				expand: {
-					$ref: 'definitions#/definitions/expand'
+		validator(
+			{
+				additionalProperties: false,
+				properties: {
+					query: {
+						$ref: 'definitions#/definitions/query',
+					},
 				},
-				query: {
-					$ref: 'definitions#/definitions/query'
-				}
-			}
-		}, {
-			expand: (typeof req.query.expand === 'string' ? req.query.expand.split(',') : null),
-			query:  (typeof req.query.query === 'string' ? req.query.query : null)
-		})
+			},
+			{
+				expand: typeof req.query.expand === 'string' ? req.query.expand.split(',') : null,
+				query: typeof req.query.query === 'string' ? req.query.query : null,
+			},
+		)
 			.then((data) => {
-				return internalRulesList.getAll(res.locals.access, data.expand, data.query);
+				return internalRulesList.getAll(res.locals.access, data.query);
 			})
 			.then((rows) => {
-				res.status(200)
-					.send(rows);
+				res.status(200).send(rows);
 			})
 			.catch(next);
 	})
@@ -55,14 +54,20 @@ router
 	 *
 	 * Create a new rules-list
 	 */
-	.post((req, res, next) => {
-		apiValidator({$ref: 'endpoints/rules-lists#/links/1/schema'}, req.body)
-			.then((payload) => {
-				return internalRulesList.create(res.locals.access, payload);
-			})
+	// .post((req, res, next) => {
+	// 	apiValidator({ $ref: 'endpoints/rules-lists#/links/1/schema' }, req.body)
+	// 		.then((payload) => {
+	// 			return internalRulesList.create(res.locals.access, payload);
+	// 		})
+	// 		.then((result) => {
+	// 			res.status(201).send(result);
+	// 		})
+	// 		.catch(next);
+	// });
+	.post((req, res, next) => {		
+		 internalRulesList.create(res.locals.access, req.body)
 			.then((result) => {
-				res.status(201)
-					.send(result);
+				res.status(201).send(result);
 			})
 			.catch(next);
 	});
@@ -85,30 +90,32 @@ router
 	 * Retrieve a specific rules-list
 	 */
 	.get((req, res, next) => {
-		validator({
-			required:             ['list_id'],
-			additionalProperties: false,
-			properties:           {
-				list_id: {
-					$ref: 'definitions#/definitions/id'
+		validator(
+			{
+				required: ['list_id'],
+				additionalProperties: false,
+				properties: {
+					list_id: {
+						$ref: 'definitions#/definitions/id',
+					},
+					expand: {
+						$ref: 'definitions#/definitions/expand',
+					},
 				},
-				expand: {
-					$ref: 'definitions#/definitions/expand'
-				}
-			}
-		}, {
-			list_id: req.params.list_id,
-			expand:  (typeof req.query.expand === 'string' ? req.query.expand.split(',') : null)
-		})
+			},
+			{
+				list_id: req.params.list_id,
+				expand: typeof req.query.expand === 'string' ? req.query.expand.split(',') : null,
+			},
+		)
 			.then((data) => {
 				return internalRulesList.get(res.locals.access, {
-					id:     parseInt(data.list_id, 10),
-					expand: data.expand
+					id: parseInt(data.list_id, 10),
+					expand: data.expand,
 				});
 			})
 			.then((row) => {
-				res.status(200)
-					.send(row);
+				res.status(200).send(row);
 			})
 			.catch(next);
 	})
@@ -119,14 +126,13 @@ router
 	 * Update and existing rules-list
 	 */
 	.put((req, res, next) => {
-		apiValidator({$ref: 'endpoints/rules-lists#/links/2/schema'}, req.body)
+		apiValidator({ $ref: 'endpoints/rules-lists#/links/2/schema' }, req.body)
 			.then((payload) => {
 				payload.id = parseInt(req.params.list_id, 10);
 				return internalRulesList.update(res.locals.access, payload);
 			})
 			.then((result) => {
-				res.status(200)
-					.send(result);
+				res.status(200).send(result);
 			})
 			.catch(next);
 	})
@@ -137,10 +143,10 @@ router
 	 * Delete and existing rules-list
 	 */
 	.delete((req, res, next) => {
-		internalRulesList.delete(res.locals.access, {id: parseInt(req.params.list_id, 10)})
+		internalRulesList
+			.delete(res.locals.access, { id: parseInt(req.params.list_id, 10) })
 			.then((result) => {
-				res.status(200)
-					.send(result);
+				res.status(200).send(result);
 			})
 			.catch(next);
 	});
