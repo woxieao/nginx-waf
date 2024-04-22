@@ -15,11 +15,13 @@ module.exports = Mn.View.extend({
     cancel: "button.cancel",
     save: "button.save",
     rules_add: "button.rules_add",
+    le_error_info: "#le-error-info",
   },
 
   events: {
     "click @ui.save": function (e) {
       e.preventDefault();
+      this.ui.le_error_info.hide();
 
       //todo fill data
       if (!this.ui.form[0].checkValidity()) {
@@ -38,7 +40,7 @@ module.exports = Mn.View.extend({
         name: form_data.name,
         description: form_data.description,
         enabled: !!form_data.enabled,
-        sort: form_data.sort,
+        sort: parseInt(form_data.sort, 10),
         block_type: form_data.block_type,
         lua_script: form_data.lua_script,
       };
@@ -67,13 +69,18 @@ module.exports = Mn.View.extend({
           });
         })
         .catch((err) => {
-          alert(err.message);
+          this.ui.le_error_info[0].innerHTML = `${err.message}${more_info !== '' ? `<pre class="mt-3">${more_info}</pre>`:''}`;
+          this.ui.le_error_info.show();
+          this.ui.le_error_info[0].scrollIntoView();
           this.ui.buttons.prop("disabled", false).removeClass("btn-disabled");
         });
     },
   },
 
-  onRender: function () {},
+  onRender: function () {
+    
+    this.ui.le_error_info.hide();
+  },
 
   initialize: function (options) {
     if (typeof options.model === "undefined" || !options.model) {

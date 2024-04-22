@@ -8,11 +8,11 @@ const model = Backbone.Model.extend({
       id: undefined,
       created_on: null,
       modified_on: null,
-      
+
       name: "",
       description: "",
       enabled: true,
-      sort: 1,
+      sort: 100,
       block_type: "others",
       lua_script: "",
       block_counter: 0,
