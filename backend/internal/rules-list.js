@@ -31,6 +31,7 @@ const internalRulesList = {
 						sort: data.sort,
 						block_type: data.block_type,
 						lua_script: data.lua_script,
+						block_counter: 0,
 					})
 					.then(utils.omitRow(omissions()));
 			})
@@ -211,7 +212,6 @@ const internalRulesList = {
 			return parseInt(row.count, 10);
 		});
 	},
-
 
 	/**
 	 * @param   {Object}  list

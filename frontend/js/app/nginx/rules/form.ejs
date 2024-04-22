@@ -24,21 +24,31 @@
             <div class="col-sm-12 col-md-12">
               <div class="form-group mb-0">
                 <label class="form-label"><%- i18n('rules-lists', 'description') %><span class="form-required">*</span></label>
-                <textarea name="description" rows="2" class="form-control text-monospace" placeholder="# <%- i18n('rules-lists', 'description-placehoder') %>"><%- description %></textarea>
+                <textarea name="description" rows="2" class="form-control text-monospace" placeholder="# <%- i18n('rules-lists', 'description-placehoder') %>" required><%- description %></textarea>
               </div>
             </div>
-        
 
-            <div class="col-sm-6 col-md-6">
+
+            <div class="col-sm-4 col-md-4">
               <div class="form-group">
                 <label class="form-label"><%- i18n('rules-lists', 'exec-sort') %><span class="form-required">*</span></label>
                 <input name="sort" type="number" class="form-control text-monospace" placeholder="0~100" value="<%- sort %>" required>
               </div>
             </div>
-            <div class="col-sm-6 col-md-6">
+            <div class="col-sm-4 col-md-4">
+              <div class="form-group">
+                <label class="custom-switch">
+                  <input type="checkbox" class="custom-switch-input" name="enabled" value="1" <%- typeof enabled !== 'undefined' && enabled ? ' checked' : '' %> required>
+                  <span class="custom-switch-indicator"></span>
+                  <span class="custom-switch-description"><%- i18n('rules-lists', 'is-enabled') %></span>
+                </label>
+              </div>
+            </div>
+
+            <div class="col-sm-4 col-md-4">
               <div class="form-group">
                 <label class="form-label"><%- i18n('rules-lists', 'block-type') %><span class="form-required">*</span></label>
-                <select name="block_type" class="form-control custom-select" placeholder="http">
+                <select name="block_type" class="form-control custom-select" placeholder="others" required>
                   <option value="others" <%- block_type === "others" ? 'selected' : '' %>><%- i18n('block-type', 'others') %></option>
                   <option value="sql-injection" <%- block_type === "sql-injection" ? 'selected' : '' %>><%- i18n('block-type', 'sql-injection') %></option>
                   <option value="xss" <%- block_type === "xss" ? 'selected' : '' %>><%- i18n('block-type', 'xss') %></option>
@@ -47,15 +57,6 @@
                   <option value="cc-attack" <%- block_type === "cc-attack" ? 'selected' : '' %>><%- i18n('block-type', 'cc-attack') %></option>
                   <option value="malicious-file-upload" <%- block_type === "malicious-file-upload" ? 'selected' : '' %>><%- i18n('block-type', 'malicious-file-upload') %></option>
                 </select>
-              </div>
-            </div>
-            <div class="col-sm-6 col-md-6">
-              <div class="form-group">
-                <label class="custom-switch">
-                  <input type="checkbox" class="custom-switch-input" name="enabled" value="1" <%- typeof enabled !== 'undefined' && enabled ? ' checked' : '' %>>
-                  <span class="custom-switch-indicator"></span>
-                  <span class="custom-switch-description"><%- i18n('rules-lists', 'is-enabled') %></span>
-                </label>
               </div>
             </div>
           </div>
@@ -67,7 +68,7 @@
             <div class="col-md-12">
               <div class="form-group mb-0">
                 <label class="form-label"><%- i18n('rules-lists', 'lua-script-desc') %><span class="form-required">*</span></label>
-                <textarea name="lua_script" rows="8" class="form-control text-monospace" placeholder="ngx.say('hello world')"><%- lua_script %></textarea>
+                <textarea name="lua_script" rows="8" class="form-control text-monospace" placeholder="ngx.say('hello world')" required><%- lua_script %></textarea>
               </div>
               <p class="small text-gray"><i class="fe fe-alert-triangle"></i> <%- i18n('rules-lists', 'script-warning') %></p>
             </div>

@@ -69,7 +69,7 @@ module.exports = Mn.View.extend({
           });
         })
         .catch((err) => {
-          this.ui.le_error_info[0].innerHTML = `${err.message}${more_info !== '' ? `<pre class="mt-3">${more_info}</pre>`:''}`;
+          this.ui.le_error_info[0].innerHTML = `${err.message}`;
           this.ui.le_error_info.show();
           this.ui.le_error_info[0].scrollIntoView();
           this.ui.buttons.prop("disabled", false).removeClass("btn-disabled");
