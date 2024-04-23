@@ -105,7 +105,7 @@
 			"schema": {
 				"type": "object",
 				"additionalProperties": false,
-				"required": ["name", "description", "enabled", "sort", "block_type", "lua_script"],
+				"required": ["name", "description", "sort", "block_type", "lua_script"],
 				"properties": {
 					"name": {
 						"$ref": "#/definitions/name"
