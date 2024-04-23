@@ -16,7 +16,7 @@ local function mainBody()
             sharedData:set(wafDetectorsKeyName, cjson.encode(moduleNames))
             return moduleNames;
         else
-            return cjson.decode(moduleNames) ;
+            return cjson.decode(moduleNames);
         end
     end
     -- 加载的模块会被缓存
@@ -26,7 +26,5 @@ local function mainBody()
         local module = require(moduleName)
         module()
     end
-    
-    ngx.header["test_3_main_body-header"] = "2121212!"
 end
 return mainBody;
