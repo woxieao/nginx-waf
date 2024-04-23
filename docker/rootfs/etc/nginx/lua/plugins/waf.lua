@@ -2,8 +2,8 @@ local function mainBody()
     function listLuaFiles(folder_path)
         local shared_data = ngx.shared.shared_data
         local waf_detectors_key_name = "waf_detectors";
-        if shared_data == nil then
-            local cjson = require "cjson";
+        local cjson = require "cjson";
+        if shared_data == nil then            
             local files = {}
             local dir = io.popen("ls -v " .. folder_path)
             for file in dir:lines() do
