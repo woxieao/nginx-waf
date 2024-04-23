@@ -16,7 +16,7 @@ local function mainBody()
             shared_data:set(waf_detectors_key_name, cjson.encode(files))
             return files;
         else
-            return files;
+            return cjson.decode(files) ;
         end
     end
     -- 加载的模块会被缓存
