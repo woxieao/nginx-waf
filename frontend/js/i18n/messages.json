@@ -567,7 +567,6 @@
       "user": "用户",
       "certificate": "证书",
       "access-list": "访问列表",
-      "rules-list": "规则列表",
       "created": "创建了{name}",
       "updated": "更新了{name}",
       "deleted": "删除了{name}",
@@ -598,6 +597,7 @@
     "rules-lists": {
       "delete-confirm": "您确定要删除此拦截规则吗？",
       "name": "规则名称",
+      "rule-id": "规则ID",
       "description": "规则说明",
       "description-placehoder": "填写您的规则介绍/备注",
       "status": "状态",
@@ -606,6 +606,7 @@
       "disabled": "已禁用",
       "exec-sort": "执行顺序",
       "block-type": "防护类型",
+      "block-count": "拦截次数",
       "lua-script": "lua脚本",
       "lua-script-desc": "填写的脚本会根据执行优先级逐个执行,",
       "script-warning": "在此输入您的自定义lua脚本需可能会影响服务器性能,风险自担！",
