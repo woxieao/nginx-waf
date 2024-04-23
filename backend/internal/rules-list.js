@@ -1,12 +1,8 @@
 const _ = require('lodash');
-const fs = require('fs');
-const batchflow = require('batchflow');
-const logger = require('../logger').access;
 const error = require('../lib/error');
 const utils = require('../lib/utils');
 const rulesListModel = require('../models/rules_list');
 const internalAuditLog = require('./audit-log');
-const internalNginx = require('./nginx');
 
 function omissions() {
 	return ['is_deleted'];
@@ -50,15 +46,17 @@ const internalRulesList = {
 				// Audit log
 				data.meta = _.assign({}, data.meta || {}, row.meta);
 
-				return internalRulesList.build(row).then(() => {
-					// Add to audit log
-					return internalAuditLog.add(access, {
+				// Add to audit log
+				return internalAuditLog
+					.add(access, {
 						action: 'created',
-						object_type: 'rules-list',
+						object_type: 'proxy-host',
 						object_id: row.id,
 						meta: data,
+					})
+					.then(() => {
+						return row;
 					});
-				});
 			});
 	},
 
@@ -109,9 +107,10 @@ const internalRulesList = {
 					id: data.id,
 				});
 			})
-			.then((row) => {
-				return internalRulesList.build(row).then(internalNginx.reload);
-			});
+			//todo nginx reload
+			// .then((row) => {
+			// 	return internalRulesList.build(row).then(internalNginx.reload);
+			// });
 	},
 
 	/**
@@ -225,67 +224,6 @@ const internalRulesList = {
 	 */
 	getFilename: (list) => {
 		return '/data/rules/' + list.id;
-	},
-
-	/**
-	 * @param   {Object}  list
-	 * @param   {Integer} list.id
-	 * @param   {String}  list.name
-	 * @param   {Array}   list.items
-	 * @returns {Promise}
-	 */
-	build: (list) => {
-		logger.info('Building Rules file #' + list.id + ' for: ' + list.name);
-
-		return new Promise((resolve, reject) => {
-			let htpasswd_file = internalRulesList.getFilename(list);
-
-			// 1. remove any existing rules file
-			try {
-				fs.unlinkSync(htpasswd_file);
-			} catch (err) {
-				// do nothing
-			}
-
-			// 2. create empty rules file
-			try {
-				fs.writeFileSync(htpasswd_file, '', { encoding: 'utf8' });
-				resolve(htpasswd_file);
-			} catch (err) {
-				reject(err);
-			}
-		}).then((htpasswd_file) => {
-			// 3. generate password for each user
-			if (list.items.length) {
-				return new Promise((resolve, reject) => {
-					batchflow(list.items)
-						.sequential()
-						.each((i, item, next) => {
-							if (typeof item.password !== 'undefined' && item.password.length) {
-								logger.info('Adding: ' + item.username);
-
-								utils
-									.execFile('/usr/bin/htpasswd', ['-b', htpasswd_file, item.username, item.password])
-									.then((/*result*/) => {
-										next();
-									})
-									.catch((err) => {
-										logger.error(err);
-										next(err);
-									});
-							}
-						})
-						.error((err) => {
-							logger.error(err);
-							reject(err);
-						})
-						.end((results) => {
-							logger.success('Built Rules file #' + list.id + ' for: ' + list.name);
-							resolve(results);
-						});
-				});
-			}
-		});
 	},
 };
 
