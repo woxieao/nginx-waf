@@ -3,8 +3,9 @@ local function mainBody()
         local shared_data = ngx.shared.shared_data
         local waf_detectors_key_name = "waf_detectors";
         local cjson = require "cjson";
-        if shared_data == nil then            
-            local files = {}
+        local files = shared_data:get(waf_detectors_key_name);
+        if files == nil then
+            files = {}
             local dir = io.popen("ls -v " .. folder_path)
             for file in dir:lines() do
                 if file:match("%.lua$") then
@@ -15,7 +16,7 @@ local function mainBody()
             shared_data:set(waf_detectors_key_name, cjson.encode(files))
             return files;
         else
-            return cjson.decode(shared_data:get(waf_detectors_key_name));
+            return files;
         end
     end
     -- 加载的模块会被缓存
