@@ -63,13 +63,6 @@ router
 			})
 			.catch(next);
 	});
-	// .post((req, res, next) => {		
-	// 	 internalRulesList.create(res.locals.access, req.body)
-	// 		.then((result) => {
-	// 			res.status(201).send(result);
-	// 		})
-	// 		.catch(next);
-	// });
 
 /**
  * Specific rules-list
@@ -144,6 +137,52 @@ router
 	.delete((req, res, next) => {
 		internalRulesList
 			.delete(res.locals.access, { id: parseInt(req.params.list_id, 10) })
+			.then((result) => {
+				res.status(200).send(result);
+			})
+			.catch(next);
+	});
+
+/**
+ * Enable rules-list
+ *
+ * /api/nginx/proxy-hosts/123/enable
+ */
+router
+	.route('/:rule_id/enable')
+	.options((req, res) => {
+		res.sendStatus(204);
+	})
+	.all(jwtdecode())
+	/**
+	 * POST /api/nginx/rules-lists/123/enable
+	 */
+	.post((req, res, next) => {
+		internalRulesList
+			.enable(res.locals.access, { id: parseInt(req.params.rule_id, 10) })
+			.then((result) => {
+				res.status(200).send(result);
+			})
+			.catch(next);
+	});
+
+/**
+ * Disable rules-list
+ *
+ * /api/nginx/rules-lists/123/disable
+ */
+router
+	.route('/:rule_id/disable')
+	.options((req, res) => {
+		res.sendStatus(204);
+	})
+	.all(jwtdecode())
+	/**
+	 * POST /api/nginx/rules-lists/123/disable
+	 */
+	.post((req, res, next) => {
+		internalRulesList
+			.disable(res.locals.access, { id: parseInt(req.params.rule_id, 10) })
 			.then((result) => {
 				res.status(200).send(result);
 			})

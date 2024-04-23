@@ -257,7 +257,7 @@ const internalRulesList = {
 				if (!row) {
 					throw new error.ItemNotFoundError(data.id);
 				} else if (!row.enabled) {
-					throw new error.ValidationError('Host is already disabled');
+					throw new error.ValidationError('Rule is already disabled');
 				}
 				row.enabled = 0;
 
