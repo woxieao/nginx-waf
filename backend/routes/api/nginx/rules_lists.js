@@ -36,7 +36,6 @@ router
 				},
 			},
 			{
-				expand: typeof req.query.expand === 'string' ? req.query.expand.split(',') : null,
 				query: typeof req.query.query === 'string' ? req.query.query : null,
 			},
 		)
