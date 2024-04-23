@@ -1,29 +1,29 @@
 local function mainBody()
-    function listLuaFiles(folder_path)
-        local shared_data = ngx.shared.shared_data
-        local waf_detectors_key_name = "waf_detectors";
+    function listLuaModules(folderPath)
+        local sharedData = ngx.shared.shared_data
+        local wafDetectorsKeyName = "waf_detectors_list";
         local cjson = require "cjson";
-        local files = shared_data:get(waf_detectors_key_name);
-        if files == nil then
-            files = {}
-            local dir = io.popen("ls -v " .. folder_path)
+        local moduleNames = sharedData:get(wafDetectorsKeyName);
+        if moduleNames == nil then
+            moduleNames = {}
+            local dir = io.popen("ls -v " .. folderPath)
             for file in dir:lines() do
                 if file:match("%.lua$") then
-                    table.insert(files, file)
+                    table.insert(moduleNames, file:sub(1, -5))
                 end
             end
             dir:close()
-            shared_data:set(waf_detectors_key_name, cjson.encode(files))
-            return files;
+            sharedData:set(wafDetectorsKeyName, cjson.encode(moduleNames))
+            return moduleNames;
         else
-            return cjson.decode(files) ;
+            return cjson.decode(moduleNames) ;
         end
     end
     -- 加载的模块会被缓存
     local files = listLuaFiles("/etc/nginx/lua/waf_detectors/")
 
     for _, moduleName in ipairs(files) do
-        local module = require(moduleName:sub(1, -5))
+        local module = require(moduleName)
         module()
     end
 end
