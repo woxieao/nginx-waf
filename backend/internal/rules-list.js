@@ -18,12 +18,6 @@ const internalRulesList = {
 		return access
 			.can('rules_lists:create', data)
 			.then((/*rules_data*/) => {
-				internalAuditLog.add(access, {
-					action: 'created',
-					object_type: 'proxy-host',
-					object_id: 1,
-					meta: { test: 1 },
-				});
 				return rulesListModel
 					.query()
 					.insertAndFetch({
@@ -36,20 +30,12 @@ const internalRulesList = {
 					})
 					.then(utils.omitRow(omissions()));
 			})
-			// .then((row) => {
-			// 	return internalRulesList.get(access, {
-			// 		id: row.id,
-			// 	});
-			// })
 			.then((row) => {
-				// Audit log
-				data.meta = _.assign({}, data.meta || {}, row.meta);
-
 				// Add to audit log
 				return internalAuditLog
 					.add(access, {
 						action: 'created',
-						object_type: 'proxy-host',
+						object_type: 'rules-list',
 						object_id: row.id,
 						meta: data,
 					})
@@ -154,11 +140,6 @@ const internalRulesList = {
 				}
 
 				// 1. update row to be deleted
-				// 2. update any proxy hosts that were using it (ignoring permissions)
-				// 3. reconfigure those hosts
-				// 4. audit log
-
-				// 1. update row to be deleted
 				return rulesListModel
 					.query()
 					.where('id', row.id)
@@ -217,13 +198,87 @@ const internalRulesList = {
 	},
 
 	/**
-	 * @param   {Object}  list
-	 * @param   {Integer} list.id
-	 * @returns {String}
+	 * @param {Access}  access
+	 * @param {Object}  data
+	 * @param {Number}  data.id
+	 * @param {String}  [data.reason]
+	 * @returns {Promise}
 	 */
-	getFilename: (list) => {
-		return '/data/rules/' + list.id;
+	enable: (access, data) => {
+		return access
+			.can('rules_lists:update', data.id)
+			.then((row) => {
+				if (!row) {
+					throw new error.ItemNotFoundError(data.id);
+				} else if (row.enabled) {
+					throw new error.ValidationError('Rule is already enabled');
+				}
+
+				row.enabled = 1;
+
+				return rulesListModel
+					.query()
+					.where('id', row.id)
+					.patch({
+						enabled: 1,
+					})
+					.then(() => {
+						// Add to audit log
+						return internalAuditLog.add(access, {
+							action: 'enabled',
+							object_type: 'rules-list',
+							object_id: row.id,
+							meta: _.omit(row, omissions()),
+						});
+					});
+			})
+			.then(() => {
+				return true;
+			});
+	},
+
+	/**
+	 * @param {Access}  access
+	 * @param {Object}  data
+	 * @param {Number}  data.id
+	 * @param {String}  [data.reason]
+	 * @returns {Promise}
+	 */
+	disable: (access, data) => {
+		return access
+			.can('rules_lists:update', data.id)
+			.then(() => {
+				return internalRulesList.get(access, { id: data.id });
+			})
+			.then((row) => {
+				if (!row) {
+					throw new error.ItemNotFoundError(data.id);
+				} else if (!row.enabled) {
+					throw new error.ValidationError('Host is already disabled');
+				}
+				row.enabled = 0;
+
+				return rulesListModel
+					.query()
+					.where('id', row.id)
+					.patch({
+						enabled: 0,
+					})
+					.then(() => {
+						// Add to audit log
+						return internalAuditLog.add(access, {
+							action: 'disabled',
+							object_type: 'rules-list',
+							object_id: row.id,
+							meta: _.omit(row, omissions()),
+						});
+					});
+			})
+			.then(() => {
+				return true;
+			});
 	},
 };
 
 module.exports = internalRulesList;
+//todo reload nginx?

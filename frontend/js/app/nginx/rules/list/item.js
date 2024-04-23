@@ -20,7 +20,7 @@ module.exports = Mn.View.extend({
         'click @ui.able': function (e) {
             e.preventDefault();
             let id = this.model.get('id');
-            App.Api.Nginx.ProxyHosts[this.model.get('enabled') ? 'disable' : 'enable'](id)
+            App.Api.Nginx.RulesLists[this.model.get('enabled') ? 'disable' : 'enable'](id)
                 .then(() => {
                     return App.Api.Nginx.RulesLists.get(id)
                         .then(row => {

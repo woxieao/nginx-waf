@@ -655,6 +655,21 @@ module.exports = {
              */
             delete: function (id) {
                 return fetch('delete', 'nginx/rules-lists/' + id);
+            },
+            /**
+             * @param   {Number}  id
+             * @returns {Promise}
+             */
+            enable: function (id) {
+                return fetch('post', 'nginx/rules-lists/' + id + '/enable');
+            },
+
+            /**
+             * @param   {Number}  id
+             * @returns {Promise}
+             */
+            disable: function (id) {
+                return fetch('post', 'nginx/rules-lists/' + id + '/disable');
             }
         },
 
