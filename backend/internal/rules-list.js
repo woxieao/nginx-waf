@@ -36,12 +36,11 @@ const internalRulesList = {
 					})
 					.then(utils.omitRow(omissions()));
 			})
-
-			.then(() => {
-				return internalRulesList.get(access, {
-					id: data.id,
-				});
-			})
+			// .then((row) => {
+			// 	return internalRulesList.get(access, {
+			// 		id: row.id,
+			// 	});
+			// })
 			.then((row) => {
 				// Audit log
 				data.meta = _.assign({}, data.meta || {}, row.meta);
@@ -106,11 +105,11 @@ const internalRulesList = {
 				return internalRulesList.get(access, {
 					id: data.id,
 				});
-			})
-			//todo nginx reload
-			// .then((row) => {
-			// 	return internalRulesList.build(row).then(internalNginx.reload);
-			// });
+			});
+		//todo nginx reload
+		// .then((row) => {
+		// 	return internalRulesList.build(row).then(internalNginx.reload);
+		// });
 	},
 
 	/**
