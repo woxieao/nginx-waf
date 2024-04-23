@@ -608,8 +608,8 @@
       "block-type": "防护类型",
       "block-count": "拦截次数",
       "lua-script": "lua脚本",
-      "lua-script-desc": "填写的脚本会根据执行优先级逐个执行,",
-      "script-warning": "在此输入您的自定义lua脚本需可能会影响服务器性能,风险自担！",
+      "lua-script-desc": "脚本会按执行顺序运行",
+      "script-warning": "在此输入的自定义lua脚本可能会影响服务器性能,风险自担！",
 
       "title": "拦截规则",
       "empty": "没有拦截规则",
