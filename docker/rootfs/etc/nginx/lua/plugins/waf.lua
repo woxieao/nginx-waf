@@ -1,14 +1,18 @@
 local function mainBody()
 
-    function list_lua_files(path)
-        local cmd = 'find "' .. path .. '" -type f -name "*.lua"'
-        local handle = io.popen(cmd)
-        local result = handle:read("*a")
-        handle:close()
-        return result
+    function listLuaFiles(folder_path)
+        local files = {}
+        local dir = io.popen("ls " .. folder_path)  -- 使用ls命令列出文件夹中的所有文件
+        for file in dir:lines() do
+            if file:match("%.lua$") then  -- 判断文件是否以.lua结尾
+                table.insert(files, file)  -- 将符合条件的文件名添加到数组中
+            end
+        end
+        dir:close()
+        return files
     end
 
-    local files = list_lua_files("/etc/nginx/lua/waf_detectors/")
+    local files = listLuaFiles("/etc/nginx/lua/waf_detectors/")
 
     local str = "";
     local array = {10, 20, 30}
