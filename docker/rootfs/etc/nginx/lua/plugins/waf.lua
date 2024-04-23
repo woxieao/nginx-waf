@@ -26,5 +26,7 @@ local function mainBody()
         local module = require(moduleName)
         module()
     end
+    
+    ngx.header["test_3_main_body-header"] = "2121212!"
 end
 return mainBody;
