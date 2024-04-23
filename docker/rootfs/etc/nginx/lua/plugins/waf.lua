@@ -20,7 +20,7 @@ local function mainBody()
         end
     end
     -- 加载的模块会被缓存
-    local files = listLuaFiles("/etc/nginx/lua/waf_detectors/")
+    local files = listLuaModules("/etc/nginx/lua/waf_detectors/")
 
     for _, moduleName in ipairs(files) do
         local module = require(moduleName)
