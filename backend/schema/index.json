@@ -35,6 +35,9 @@
     "access-lists": {
       "$ref": "endpoints/access-lists.json"
     },
+    "rules-lists": {
+      "$ref": "endpoints/rules-lists.json"
+    },
     "settings": {
       "$ref": "endpoints/settings.json"
     }

@@ -53,23 +53,23 @@ router
 	 *
 	 * Create a new rules-list
 	 */
-	// .post((req, res, next) => {
-	// 	apiValidator({ $ref: 'endpoints/rules-lists#/links/1/schema' }, req.body)
-	// 		.then((payload) => {
-	// 			return internalRulesList.create(res.locals.access, payload);
-	// 		})
-	// 		.then((result) => {
-	// 			res.status(201).send(result);
-	// 		})
-	// 		.catch(next);
-	// });
-	.post((req, res, next) => {		
-		 internalRulesList.create(res.locals.access, req.body)
+	.post((req, res, next) => {
+		apiValidator({ $ref: 'endpoints/rules-lists#/links/1/schema' }, req.body)
+			.then((payload) => {
+				return internalRulesList.create(res.locals.access, payload);
+			})
 			.then((result) => {
 				res.status(201).send(result);
 			})
 			.catch(next);
 	});
+	// .post((req, res, next) => {		
+	// 	 internalRulesList.create(res.locals.access, req.body)
+	// 		.then((result) => {
+	// 			res.status(201).send(result);
+	// 		})
+	// 		.catch(next);
+	// });
 
 /**
  * Specific rules-list
