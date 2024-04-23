@@ -126,7 +126,7 @@ const internalRulesList = {
 		return access
 			.can('rules_lists:get', data.id)
 			.then(() => {
-				return settingModel.query().where('id', data.id).first();
+				return rulesListModel.query().where('id', data.id).first();
 			})
 			.then((row) => {
 				if (row) {
