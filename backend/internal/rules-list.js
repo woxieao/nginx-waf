@@ -9,6 +9,7 @@ function omissions() {
 }
 
 const internalRulesList = {
+
 	/**
 	 * @param   {Access}  access
 	 * @param   {Object}  data
@@ -280,6 +281,11 @@ const internalRulesList = {
 				return true;
 			});
 	},
+
+	getFilename: (item) => {
+		return '/etc/nginx/lua/detectors/' + item.id;
+	},
+
 };
 
 module.exports = internalRulesList;
