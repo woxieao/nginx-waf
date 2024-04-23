@@ -38,7 +38,6 @@ module.exports = Mn.View.extend({
       let data = {
         name: form_data.name,
         description: form_data.description,
-        enabled: !!form_data.enabled,
         sort: parseInt(form_data.sort, 10),
         block_type: form_data.block_type,
         lua_script: form_data.lua_script,
@@ -77,7 +76,6 @@ module.exports = Mn.View.extend({
   },
 
   onRender: function () {
-    
     this.ui.le_error_info.hide();
   },
 

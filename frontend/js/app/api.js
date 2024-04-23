@@ -670,7 +670,11 @@ module.exports = {
              */
             disable: function (id) {
                 return fetch('post', 'nginx/rules-lists/' + id + '/disable');
-            }
+            },
+            
+            get: function (id) {
+                return fetch('get', 'nginx/rules-lists/' + id);
+            },
         },
 
         Certificates: {

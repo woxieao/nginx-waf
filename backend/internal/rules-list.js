@@ -23,7 +23,7 @@ const internalRulesList = {
 					.insertAndFetch({
 						name: data.name,
 						description: data.description,
-						enabled: !!data.enabled,
+						enabled: true,
 						sort: data.sort,
 						block_type: data.block_type,
 						lua_script: data.lua_script,
@@ -71,7 +71,6 @@ const internalRulesList = {
 					return rulesListModel.query().where({ id: data.id }).patch({
 						name: data.name,
 						description: data.description,
-						enabled: data.enabled,
 						sort: data.sort,
 						block_type: data.block_type,
 						lua_script: data.lua_script,

@@ -90,20 +90,15 @@ router
 					list_id: {
 						$ref: 'definitions#/definitions/id',
 					},
-					expand: {
-						$ref: 'definitions#/definitions/expand',
-					},
 				},
 			},
 			{
 				list_id: req.params.list_id,
-				expand: typeof req.query.expand === 'string' ? req.query.expand.split(',') : null,
 			},
 		)
 			.then((data) => {
 				return internalRulesList.get(res.locals.access, {
 					id: parseInt(data.list_id, 10),
-					expand: data.expand,
 				});
 			})
 			.then((row) => {
