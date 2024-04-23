@@ -207,6 +207,9 @@ const internalRulesList = {
 	enable: (access, data) => {
 		return access
 			.can('rules_lists:update', data.id)
+			.then(() => {
+				return internalRulesList.get(access, { id: data.id });
+			})
 			.then((row) => {
 				if (!row) {
 					throw new error.ItemNotFoundError(data.id);
