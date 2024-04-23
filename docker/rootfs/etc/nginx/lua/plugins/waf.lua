@@ -15,7 +15,7 @@ local function mainBody()
     local files = listLuaFiles("/etc/nginx/lua/waf_detectors/")
 
     for _, moduleName in ipairs(files) do
-        local module = require(moduleName)
+        local module = require(moduleName:sub(1, -5))
         module()
     end
 end
