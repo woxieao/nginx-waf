@@ -35,6 +35,7 @@ const internalRulesList = {
 			})
 			.then((data) => {
 				internalRulesList.buildFile(data);
+				return data;
 			})
 			.then((row) => {
 				// Add to audit log
