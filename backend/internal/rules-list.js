@@ -146,6 +146,10 @@ const internalRulesList = {
 				return internalRulesList.get(access, { id: data.id });
 			})
 			.then((row) => {
+				internalRulesList.removeOriFile(row, true);
+				return row;
+			})
+			.then((row) => {
 				if (!row) {
 					throw new error.ItemNotFoundError(data.id);
 				}
@@ -167,9 +171,7 @@ const internalRulesList = {
 						});
 					});
 			})
-			.then((row) => {
-				internalRulesList.removeOriFile(row, true);
-			})
+
 			.then(() => {
 				return true;
 			});
