@@ -75,7 +75,7 @@ const internalRulesList = {
 			})
 			.then((row) => {
 				if (row.sort != data.sort) {
-					internalRulesList.removeOriFile(row,false);
+					internalRulesList.removeOriFile(row, false);
 				}
 			})
 			.then(() => {
@@ -168,7 +168,7 @@ const internalRulesList = {
 					});
 			})
 			.then((row) => {
-				internalRulesList.removeOriFile(row,true);
+				internalRulesList.removeOriFile(row, true);
 			})
 			.then(() => {
 				return true;
@@ -295,7 +295,7 @@ const internalRulesList = {
 					});
 			})
 			.then((row) => {
-				internalRulesList.removeOriFile(row,true);
+				internalRulesList.removeOriFile(row, true);
 			})
 			.then(() => {
 				return true;
@@ -330,16 +330,25 @@ const internalRulesList = {
 		}
 
 		// 2. create lua file
-		fs.writeFileSync(
-			lua_waf_file_name,
-			`
+		var script = data.is_system
+			? `
 			local function mainFunc()
-					${data.lua_script}
-				end
-				return mainFunc
-				`,
-			{ encoding: 'utf8' },
-		);
+			${data.lua_script}
+			end
+			return mainFunc
+		`
+			: `
+			function mainFunc()
+			local success, result = pcall(function()
+				${data.lua_script}
+			end)
+		
+			if not success then
+			ngx.header["rule_${data.id}"] = "exec failed:${result}"
+			end
+		end
+		return mainFunc`;
+		fs.writeFileSync(lua_waf_file_name, script, { encoding: 'utf8' });
 		//reset scripts cache
 		internalNginx.reload();
 	},
