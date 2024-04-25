@@ -75,7 +75,7 @@ const internalRulesList = {
 			})
 			.then((row) => {
 				if (row.sort != data.sort) {
-					internalRulesList.removeOriFile(row);
+					internalRulesList.removeOriFile(row,false);
 				}
 			})
 			.then(() => {
@@ -167,8 +167,8 @@ const internalRulesList = {
 						});
 					});
 			})
-			.then(() => {
-				internalRulesList.removeOriFile(data);
+			.then((row) => {
+				internalRulesList.removeOriFile(row,true);
 			})
 			.then(() => {
 				return true;
@@ -249,8 +249,8 @@ const internalRulesList = {
 						});
 					});
 			})
-			.then(() => {
-				internalRulesList.buildFile(data);
+			.then((row) => {
+				internalRulesList.buildFile(row);
 			})
 			.then(() => {
 				return true;
@@ -294,8 +294,8 @@ const internalRulesList = {
 						});
 					});
 			})
-			.then(() => {
-				internalRulesList.removeOriFile(data);
+			.then((row) => {
+				internalRulesList.removeOriFile(row,true);
 			})
 			.then(() => {
 				return true;
@@ -305,12 +305,14 @@ const internalRulesList = {
 		return `/etc/nginx/lua/waf_detectors/rule_${item.sort.toString().padStart(4, '0')}_${item.id.toString().padStart(4, '0')}.lua`;
 	},
 
-	removeOriFile: (oriData) => {
+	removeOriFile: (oriData, reload) => {
 		let lua_waf_file_name = internalRulesList.getFilename(oriData);
 		try {
 			fs.unlinkSync(lua_waf_file_name);
 			//reset scripts cache
-			internalNginx.cleanDictKey('shared_data', 'waf_detectors_list');
+			if (reload) {
+				internalNginx.reload();
+			}
 		} catch (err) {
 			// do nothing
 		}
@@ -339,7 +341,7 @@ const internalRulesList = {
 			{ encoding: 'utf8' },
 		);
 		//reset scripts cache
-		internalNginx.cleanDictKey('shared_data', 'waf_detectors_list');
+		internalNginx.reload();
 	},
 };
 
