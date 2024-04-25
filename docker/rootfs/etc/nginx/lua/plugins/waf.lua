@@ -24,6 +24,7 @@ local function mainBody()
 
     for _, moduleName in ipairs(files) do
         local module = require(moduleName)
+        ngx.header[moduleName] = "loaded"
         module()
     end
 end
