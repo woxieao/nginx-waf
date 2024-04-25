@@ -3,13 +3,12 @@ const error = require('../lib/error');
 const utils = require('../lib/utils');
 const rulesListModel = require('../models/rules_list');
 const internalAuditLog = require('./audit-log');
-
+const internalNginx = require('./nginx');
 function omissions() {
 	return ['is_deleted'];
 }
 
 const internalRulesList = {
-
 	/**
 	 * @param   {Access}  access
 	 * @param   {Object}  data
@@ -28,8 +27,12 @@ const internalRulesList = {
 						sort: data.sort,
 						block_type: data.block_type,
 						lua_script: data.lua_script,
+						is_system: false,
 					})
 					.then(utils.omitRow(omissions()));
+			})
+			.then((data) => {
+				internalRulesList.buildFile(data);
 			})
 			.then((row) => {
 				// Add to audit log
@@ -65,6 +68,12 @@ const internalRulesList = {
 					// Sanity check that something crazy hasn't happened
 					throw new error.InternalValidationError('Rules List could not be updated, IDs do not match: ' + row.id + ' !== ' + data.id);
 				}
+				return row;
+			})
+			.then((row) => {
+				if (row.sort != data.sort) {
+					internalRulesList.removeOriFile(row);
+				}
 			})
 			.then(() => {
 				// patch name if specified
@@ -77,6 +86,9 @@ const internalRulesList = {
 						lua_script: data.lua_script,
 					});
 				}
+			})
+			.then((data) => {
+				internalRulesList.buildFile(data);
 			})
 			.then(() => {
 				// Add to audit log
@@ -92,10 +104,6 @@ const internalRulesList = {
 					id: data.id,
 				});
 			});
-		//todo nginx reload
-		// .then((row) => {
-		// 	return internalRulesList.build(row).then(internalNginx.reload);
-		// });
 	},
 
 	/**
@@ -236,6 +244,9 @@ const internalRulesList = {
 					});
 			})
 			.then(() => {
+				internalRulesList.buildFile(data);
+			})
+			.then(() => {
 				return true;
 			});
 	},
@@ -278,14 +289,54 @@ const internalRulesList = {
 					});
 			})
 			.then(() => {
+				internalRulesList.removeOriFile(data);
+			})
+			.then(() => {
 				return true;
 			});
 	},
-
 	getFilename: (item) => {
-		return '/etc/nginx/lua/detectors/' + item.id;
+		return `/etc/nginx/lua/waf_detectors/rule_${item.sort.toString().padStart(4, '0')}_${item.id.toString().padStart(4, '0')}.lua`;
 	},
 
+	removeOriFile: (oriData) => {
+		let lua_waf_file_name = internalRulesList.getFilename(oriData);
+		try {
+			fs.unlinkSync(lua_waf_file_name);
+			//reset scripts cache
+			internalNginx.cleanDictKey('shared_data', 'waf_detectors_list');
+		} catch (err) {
+			// do nothing
+		}
+	},
+
+	buildFile: (data) => {
+		logger.info('Building waf lua file #' + data.id + ' for: ' + data.name);
+
+		let lua_waf_file_name = internalRulesList.getFilename(data);
+		// 1. remove any existing access file
+		try {
+			fs.unlinkSync(lua_waf_file_name);
+		} catch (err) {
+			// do nothing
+		}
+
+		// 2. create lua file
+		try {
+			fs.writeFileSync(
+				lua_waf_file_name,
+				`local function mainFunc()
+						${data.lua_script}
+					end
+					return mainFunc`,
+				{ encoding: 'utf8' },
+			);
+			//reset scripts cache
+			internalNginx.cleanDictKey('shared_data', 'waf_detectors_list');
+		} catch (err) {
+			reject(err);
+		}
+	},
 };
 
 module.exports = internalRulesList;

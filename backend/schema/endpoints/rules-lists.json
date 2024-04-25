@@ -38,6 +38,9 @@
 		"lua_script": {
 			"type": "string"
 		},
+		"is_system": {
+			"type": "boolean"
+		},
 		"block_counter": {
 			"type": "integer"
 		}
@@ -69,6 +72,9 @@
 		},
 		"lua_script": {
 			"$ref": "#/definitions/lua_script"
+		},
+		"is_system": {
+			"$ref": "#/definitions/is_system"
 		},
 		"block_counter": {
 			"$ref": "#/definitions/block_counter"
@@ -125,6 +131,9 @@
 					"lua_script": {
 						"$ref": "#/definitions/lua_script"
 					},
+					"is_system": {
+						"$ref": "#/definitions/is_system"
+					},
 					"block_counter": {
 						"$ref": "#/definitions/block_counter"
 					}
@@ -167,6 +176,9 @@
 					},
 					"lua_script": {
 						"$ref": "#/definitions/lua_script"
+					},
+					"is_system": {
+						"$ref": "#/definitions/is_system"
 					},
 					"block_counter": {
 						"$ref": "#/definitions/block_counter"

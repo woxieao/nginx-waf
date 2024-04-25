@@ -1,6 +1,6 @@
 -- local cjson = require("cjson")
 
--- local json_file_path = "/etc/nginx/lua/detectors/lua_list.json"
+-- local json_file_path = "/etc/nginx/lua/waf_detectors/lua_list.json"
 
 -- local file = io.open(json_file_path, "r")
 -- if file then

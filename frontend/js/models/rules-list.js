@@ -15,6 +15,7 @@ const model = Backbone.Model.extend({
       sort: 100,
       block_type: "others",
       lua_script: "",
+      is_system: true,
       block_counter: 0,
     };
   },

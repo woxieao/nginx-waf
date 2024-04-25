@@ -158,7 +158,8 @@ exports.up = function (knex/*, Promise*/) {
 				table.integer('enabled').notNull().unsigned().defaultTo(0);
 				table.integer('sort').notNull().unsigned().defaultTo(0);				
 				table.string('block_type').notNull().defaultTo('');
-				table.string('lua_script').notNull().defaultTo('');
+				table.string('lua_script').notNull().defaultTo('');	
+				table.integer('is_system').notNull().unsigned().defaultTo(0);
 				table.integer('block_counter').notNull().unsigned().defaultTo(0);				
 				table.integer('is_deleted').notNull().unsigned().defaultTo(0);
 			});
