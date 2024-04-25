@@ -334,7 +334,8 @@ const internalRulesList = {
 			local function mainFunc()
 					${data.lua_script}
 				end
-				return mainFunc`,
+				return mainFunc
+				`,
 			{ encoding: 'utf8' },
 		);
 		//reset scripts cache

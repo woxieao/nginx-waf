@@ -117,7 +117,7 @@ const internalNginx = {
 	},
 	cleanDictKey: (shared_dict_name, key_name) => {
 		logger.info(`Clean DictKey[${shared_dict_name}:${key_name}]`);
-		return utils.exec(`/etc/nginx/bin/resty -e 'ngx.shared.${shared_dict_name}:delete('${key_name}')`);
+		return utils.exec(`/etc/nginx/bin/resty -e "ngx.shared.${shared_dict_name}:delete('${key_name}')"`);
 	},
 
 	/**
