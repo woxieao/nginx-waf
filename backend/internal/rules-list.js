@@ -34,7 +34,7 @@ const internalRulesList = {
 					.then(utils.omitRow(omissions()));
 			})
 			.then((row) => {
-				internalRulesList.buildFile(data);
+				internalRulesList.buildFile(row);
 				return row;
 			})
 			.then((row) => {
@@ -90,7 +90,7 @@ const internalRulesList = {
 					});
 				}
 			})
-			.then((data) => {
+			.then(() => {
 				internalRulesList.buildFile(data);
 			})
 			.then(() => {
@@ -317,7 +317,7 @@ const internalRulesList = {
 	},
 
 	buildFile: (data) => {
-		logger.info('Building waf lua file #' + data.id + ' for: ' + data.name);
+		logger.info(`Building waf lua file #${data.id} for: ${data.name}`);
 
 		let lua_waf_file_name = internalRulesList.getFilename(data);
 		// 1. remove any existing access file
@@ -330,7 +330,8 @@ const internalRulesList = {
 		// 2. create lua file
 		fs.writeFileSync(
 			lua_waf_file_name,
-			`local function mainFunc()
+			`
+			local function mainFunc()
 					${data.lua_script}
 				end
 				return mainFunc`,
@@ -342,4 +343,3 @@ const internalRulesList = {
 };
 
 module.exports = internalRulesList;
-//todo reload nginx?
