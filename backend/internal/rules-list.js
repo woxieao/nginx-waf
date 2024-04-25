@@ -33,9 +33,9 @@ const internalRulesList = {
 					})
 					.then(utils.omitRow(omissions()));
 			})
-			.then((data) => {
+			.then((row) => {
 				internalRulesList.buildFile(data);
-				return data;
+				return row;
 			})
 			.then((row) => {
 				// Add to audit log
