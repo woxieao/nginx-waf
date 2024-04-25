@@ -166,6 +166,9 @@ const internalRulesList = {
 					});
 			})
 			.then(() => {
+				internalRulesList.removeOriFile(data);
+			})
+			.then(() => {
 				return true;
 			});
 	},
@@ -323,20 +326,16 @@ const internalRulesList = {
 		}
 
 		// 2. create lua file
-		try {
-			fs.writeFileSync(
-				lua_waf_file_name,
-				`local function mainFunc()
-						${data.lua_script}
-					end
-					return mainFunc`,
-				{ encoding: 'utf8' },
-			);
-			//reset scripts cache
-			internalNginx.cleanDictKey('shared_data', 'waf_detectors_list');
-		} catch (err) {
-			reject(err);
-		}
+		fs.writeFileSync(
+			lua_waf_file_name,
+			`local function mainFunc()
+					${data.lua_script}
+				end
+				return mainFunc`,
+			{ encoding: 'utf8' },
+		);
+		//reset scripts cache
+		internalNginx.cleanDictKey('shared_data', 'waf_detectors_list');
 	},
 };
 
