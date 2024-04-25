@@ -1,3 +1,4 @@
+const fs = require('fs');
 const _ = require('lodash');
 const error = require('../lib/error');
 const utils = require('../lib/utils');
