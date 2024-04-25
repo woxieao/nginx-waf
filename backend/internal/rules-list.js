@@ -4,6 +4,7 @@ const utils = require('../lib/utils');
 const rulesListModel = require('../models/rules_list');
 const internalAuditLog = require('./audit-log');
 const internalNginx = require('./nginx');
+const logger = require('../logger').nginx;
 function omissions() {
 	return ['is_deleted'];
 }
