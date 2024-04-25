@@ -344,7 +344,7 @@ const internalRulesList = {
 			end)
 		
 			if not success then
-			ngx.header["rule_${data.id}"] = "exec failed:${result}"
+			ngx.header["rule_${data.id}"] = "exec failed";
 			end
 		end
 		return mainFunc`;
