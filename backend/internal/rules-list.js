@@ -225,6 +225,10 @@ const internalRulesList = {
 				return internalRulesList.get(access, { id: data.id });
 			})
 			.then((row) => {
+				internalRulesList.buildFile(row);
+				return row;
+			})
+			.then((row) => {
 				if (!row) {
 					throw new error.ItemNotFoundError(data.id);
 				} else if (row.enabled) {
@@ -249,9 +253,7 @@ const internalRulesList = {
 						});
 					});
 			})
-			.then((row) => {
-				internalRulesList.buildFile(row);
-			})
+
 			.then(() => {
 				return true;
 			});
@@ -269,6 +271,10 @@ const internalRulesList = {
 			.can('rules_lists:update', data.id)
 			.then(() => {
 				return internalRulesList.get(access, { id: data.id });
+			})
+			.then((row) => {
+				internalRulesList.removeOriFile(row, true);
+				return row;
 			})
 			.then((row) => {
 				if (!row) {
@@ -294,9 +300,7 @@ const internalRulesList = {
 						});
 					});
 			})
-			.then((row) => {
-				internalRulesList.removeOriFile(row, true);
-			})
+
 			.then(() => {
 				return true;
 			});
