@@ -34,7 +34,7 @@ const internalRulesList = {
 					.then(utils.omitRow(omissions()));
 			})
 			.then((row) => {
-				internalRulesList.buildFile(row);
+				internalRulesList.buildFile(row, true);
 				return row;
 			})
 			.then((row) => {
@@ -91,7 +91,7 @@ const internalRulesList = {
 				}
 			})
 			.then(() => {
-				internalRulesList.buildFile(data);
+				internalRulesList.buildFile(data, true);
 			})
 			.then(() => {
 				// Add to audit log
@@ -227,7 +227,7 @@ const internalRulesList = {
 				return internalRulesList.get(access, { id: data.id });
 			})
 			.then((row) => {
-				internalRulesList.buildFile(row);
+				internalRulesList.buildFile(row, true);
 				return row;
 			})
 			.then((row) => {
@@ -324,7 +324,7 @@ const internalRulesList = {
 		}
 	},
 
-	buildFile: (data) => {
+	buildFile: (data, reload) => {
 		logger.info(`Building waf lua file #${data.id} for: ${data.name}`);
 
 		let lua_waf_file_name = internalRulesList.getFilename(data);
@@ -356,7 +356,9 @@ const internalRulesList = {
 		return mainFunc`;
 		fs.writeFileSync(lua_waf_file_name, script, { encoding: 'utf8' });
 		//reset scripts cache
-		internalNginx.reload();
+		if (reload) {
+			internalNginx.reload();
+		}
 	},
 	initSystemRules: () => {
 		utils.exec('rm -f /etc/nginx/lua/waf_detectors/rule_*.lua').then(() => {
@@ -368,7 +370,7 @@ const internalRulesList = {
 				.then((list) => {
 					for (var i = 0; i < list.length; i++) {
 						var data = list[i];
-						internalRulesList.buildFile(data);
+						internalRulesList.buildFile(data, i === list.length - 1);
 					}
 				});
 		});
