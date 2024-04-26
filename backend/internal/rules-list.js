@@ -360,7 +360,8 @@ const internalRulesList = {
 	},
 	initSystemRules: () => {
 		let list = rulesListModel.query().where('is_deleted', 0).andWhere('is_system', 1).andWhere('enabled', 1).execute();
-		for (const data of list) {
+		for (var i = 0; i < list.length; i++) {
+			var data = list[i];
 			internalRulesList.buildFile(data);
 		}
 	},
