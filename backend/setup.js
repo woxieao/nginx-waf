@@ -200,6 +200,18 @@ const setupWafScripts = () => {
 							is_system: 1,
 							block_counter: 0,
 						});
+					})
+					.then(() => {
+						ruleListModel.query().insert({
+							name: 'test3',
+							description: '测试waf3',
+							enabled: 1,
+							sort: 50,
+							block_type: 'others',
+							lua_script: 'ngx.header["test-waf3"] = "loaded"',
+							is_system: 1,
+							block_counter: 0,
+						});
 					});
 			}
 		})
