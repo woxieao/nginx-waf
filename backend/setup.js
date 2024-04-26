@@ -1,12 +1,14 @@
-const config              = require('./lib/config');
-const logger              = require('./logger').setup;
-const certificateModel    = require('./models/certificate');
-const userModel           = require('./models/user');
+const config = require('./lib/config');
+const logger = require('./logger').setup;
+const certificateModel = require('./models/certificate');
+const userModel = require('./models/user');
 const userPermissionModel = require('./models/user_permission');
-const utils               = require('./lib/utils');
-const authModel           = require('./models/auth');
-const settingModel        = require('./models/setting');
-const certbot             = require('./lib/certbot');
+const utils = require('./lib/utils');
+const authModel = require('./models/auth');
+const settingModel = require('./models/setting');
+const certbot = require('./lib/certbot');
+const ruleListModel = require('./models/rules_list');
+const internalRulesList = require('./internal/rules-list');
 /**
  * Creates a default admin users if one doesn't already exist in the database
  *
@@ -25,11 +27,11 @@ const setupDefaultUser = () => {
 
 				let data = {
 					is_deleted: 0,
-					email:      'admin@example.com',
-					name:       'Administrator',
-					nickname:   'Admin',
-					avatar:     '',
-					roles:      ['admin'],
+					email: 'admin@example.com',
+					name: 'Administrator',
+					nickname: 'Admin',
+					avatar: '',
+					roles: ['admin'],
 				};
 
 				return userModel
@@ -40,21 +42,21 @@ const setupDefaultUser = () => {
 							.query()
 							.insert({
 								user_id: user.id,
-								type:    'password',
-								secret:  'changeme',
-								meta:    {},
+								type: 'password',
+								secret: 'changeme',
+								meta: {},
 							})
 							.then(() => {
 								return userPermissionModel.query().insert({
-									user_id:           user.id,
-									visibility:        'all',
-									proxy_hosts:       'manage',
+									user_id: user.id,
+									visibility: 'all',
+									proxy_hosts: 'manage',
 									redirection_hosts: 'manage',
-									dead_hosts:        'manage',
-									streams:           'manage',
-									access_lists:      'manage',
-									rules_lists:      'manage',
-									certificates:      'manage',
+									dead_hosts: 'manage',
+									streams: 'manage',
+									access_lists: 'manage',
+									rules_lists: 'manage',
+									certificates: 'manage',
 								});
 							});
 					})
@@ -76,18 +78,18 @@ const setupDefaultSettings = () => {
 	return settingModel
 		.query()
 		.select(settingModel.raw('COUNT(`id`) as `count`'))
-		.where({id: 'default-site'})
+		.where({ id: 'default-site' })
 		.first()
 		.then((row) => {
 			if (!row.count) {
 				settingModel
 					.query()
 					.insert({
-						id:          'default-site',
-						name:        'Default Site',
+						id: 'default-site',
+						name: 'Default Site',
 						description: 'What to show when Nginx is hit with an unknown Host',
-						value:       'congratulations',
-						meta:        {},
+						value: 'congratulations',
+						meta: {},
 					})
 					.then(() => {
 						logger.info('Default settings added');
@@ -111,7 +113,7 @@ const setupCertbotPlugins = () => {
 		.andWhere('provider', 'letsencrypt')
 		.then((certificates) => {
 			if (certificates && certificates.length) {
-				let plugins  = [];
+				let plugins = [];
 				let promises = [];
 
 				certificates.map(function (certificate) {
@@ -123,25 +125,22 @@ const setupCertbotPlugins = () => {
 						// Make sure credentials file exists
 						const credentials_loc = '/etc/letsencrypt/credentials/credentials-' + certificate.id;
 						// Escape single quotes and backslashes
-						const escapedCredentials = certificate.meta.dns_provider_credentials.replaceAll('\'', '\\\'').replaceAll('\\', '\\\\');
-						const credentials_cmd    = '[ -f \'' + credentials_loc + '\' ] || { mkdir -p /etc/letsencrypt/credentials 2> /dev/null; echo \'' + escapedCredentials + '\' > \'' + credentials_loc + '\' && chmod 600 \'' + credentials_loc + '\'; }';
+						const escapedCredentials = certificate.meta.dns_provider_credentials.replaceAll("'", "\\'").replaceAll('\\', '\\\\');
+						const credentials_cmd = "[ -f '" + credentials_loc + "' ] || { mkdir -p /etc/letsencrypt/credentials 2> /dev/null; echo '" + escapedCredentials + "' > '" + credentials_loc + "' && chmod 600 '" + credentials_loc + "'; }";
 						promises.push(utils.exec(credentials_cmd));
 					}
 				});
 
-				return certbot.installPlugins(plugins)
-					.then(() => {
-						if (promises.length) {
-							return Promise.all(promises)
-								.then(() => {
-									logger.info('Added Certbot plugins ' + plugins.join(', '));
-								});
-						}
-					});
+				return certbot.installPlugins(plugins).then(() => {
+					if (promises.length) {
+						return Promise.all(promises).then(() => {
+							logger.info('Added Certbot plugins ' + plugins.join(', '));
+						});
+					}
+				});
 			}
 		});
 };
-
 
 /**
  * Starts a timer to call run the logrotation binary every two days
@@ -154,7 +153,9 @@ const setupLogrotation = () => {
 		try {
 			await utils.exec('logrotate /etc/logrotate.d/nginx-proxy-manager');
 			logger.info('Logrotate completed.');
-		} catch (e) { logger.warn(e); }
+		} catch (e) {
+			logger.warn(e);
+		}
 	};
 
 	logger.info('Logrotate Timer initialized');
@@ -163,9 +164,51 @@ const setupLogrotation = () => {
 	return runLogrotate();
 };
 
+/**
+ * Starts a timer to call run the logrotation binary every two days
+ * @returns {Promise}
+ */
+const setupWafScripts = () => {
+	return ruleListModel
+		.query()
+		.select(ruleListModel.raw('COUNT(`id`) as `count`'))
+		.where('is_system', 1)
+		.andWhere('is_initialized', 0)
+		.andWhere('is_deleted', 0)
+		.then((row) => {
+			if (!row.count) {
+				ruleListModel.query().insert({
+					name: 'test',
+					description: '测试waf',
+					enabled: true,
+					sort: 50,
+					block_type: 'others',
+					lua_script: 'ngx.header["test-waf"] = "loaded"',
+					is_system: true,
+					is_initialized: false,
+					block_counter: 0,
+				});
+
+				ruleListModel.query().insert({
+					name: 'test2',
+					description: '测试waf2',
+					enabled: true,
+					sort: 50,
+					block_type: 'others',
+					lua_script: 'ngx.header["test-waf2"] = "loaded"',
+					is_system: true,
+					is_initialized: false,
+					block_counter: 0,
+				});
+				internalRulesList.initSystemRules();
+				
+			}
+		})
+		.then(() => {
+			logger.info('System waf rule added');
+		});
+};
+
 module.exports = function () {
-	return setupDefaultUser()
-		.then(setupDefaultSettings)
-		.then(setupCertbotPlugins)
-		.then(setupLogrotation);
+	return setupDefaultUser().then(setupDefaultSettings).then(setupCertbotPlugins).then(setupLogrotation).then(setupWafScripts);
 };

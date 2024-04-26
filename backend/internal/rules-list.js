@@ -179,7 +179,7 @@ const internalRulesList = {
 
 	getAll: (access, search_query) => {
 		return access.can('rules_lists:list').then(() => {
-			let query = rulesListModel.query().orderBy('created_on', 'DESC').orderBy('id', 'DESC').limit(100);
+			let query = rulesListModel.query().where('is_deleted', 0).orderBy('created_on', 'DESC').orderBy('id', 'DESC').limit(100);
 
 			// Query is used for searching
 			if (typeof search_query === 'string') {
@@ -357,6 +357,15 @@ const internalRulesList = {
 		fs.writeFileSync(lua_waf_file_name, script, { encoding: 'utf8' });
 		//reset scripts cache
 		internalNginx.reload();
+	},
+	initSystemRules: () => {
+		let list = rulesListModel.query().where('is_deleted', 0).andWhere('is_system', 1); //.andWhere('is_initialized', 0);
+		for (const data of list) {
+			internalRulesList.buildFile(data);
+			// rulesListModel.query().where({ id: data.id }).patch({
+			// 	is_initialized: 1,
+			// });
+		}
 	},
 };
 

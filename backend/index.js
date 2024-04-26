@@ -15,7 +15,7 @@ async function appStart () {
 		.then(() => {
 			return apiValidator.loadSchemas;
 		})
-		.then(internalIpRanges.fetch)
+		//.then(internalIpRanges.fetch)//注释这行,否则取ip卡死时会导致登录失败,反正后续有internalIpRanges.initTimer()在运行
 		.then(() => {
 
 			internalCertificate.initTimer();
