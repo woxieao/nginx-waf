@@ -359,17 +359,19 @@ const internalRulesList = {
 		internalNginx.reload();
 	},
 	initSystemRules: () => {
-		rulesListModel
-			.query()
-			.where('is_deleted', 0)
-			.andWhere('is_system', 1)
-			.andWhere('enabled', 1)
-			.then((list) => {
-				for (var i = 0; i < list.length; i++) {
-					var data = list[i];
-					internalRulesList.buildFile(data);
-				}
-			});
+		utils.exec('rm -f /etc/nginx/lua/waf_detectors/rule_*.lua').then(() => {
+			rulesListModel
+				.query()
+				.where('is_deleted', 0)
+				.andWhere('is_system', 1)
+				.andWhere('enabled', 1)
+				.then((list) => {
+					for (var i = 0; i < list.length; i++) {
+						var data = list[i];
+						internalRulesList.buildFile(data);
+					}
+				});
+		});
 	},
 };
 

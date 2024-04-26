@@ -23,7 +23,6 @@ RUN cd /usr \
 
 COPY rootfs /
 RUN rm -f /etc/nginx/conf.d/production.conf
-RUN rm -f /etc/nginx/lua/waf_detectors/rule_*.lua
 RUN chmod 644 /etc/logrotate.d/nginx-proxy-manager
 
 # s6 overlay

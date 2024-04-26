@@ -177,7 +177,7 @@ const setupWafScripts = () => {
 		.andWhere('enabled', 1)
 		.then((row) => {
 			if (!row.count) {
-				ruleListModel
+				return ruleListModel
 					.query()
 					.insert({
 						name: 'test',
@@ -190,7 +190,7 @@ const setupWafScripts = () => {
 						block_counter: 0,
 					})
 					.then(() => {
-						ruleListModel.query().insert({
+						return ruleListModel.query().insert({
 							name: 'test2',
 							description: '测试waf2',
 							enabled: 1,
@@ -202,7 +202,7 @@ const setupWafScripts = () => {
 						});
 					})
 					.then(() => {
-						ruleListModel.query().insert({
+						return ruleListModel.query().insert({
 							name: 'test3',
 							description: '测试waf3',
 							enabled: 1,
