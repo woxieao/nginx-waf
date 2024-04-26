@@ -177,29 +177,34 @@ const setupWafScripts = () => {
 		.andWhere('enabled', 1)
 		.then((row) => {
 			if (!row.count) {
-				ruleListModel.query().insert({
-					name: 'test',
-					description: '测试waf',
-					enabled: 1,
-					sort: 50,
-					block_type: 'others',
-					lua_script: 'ngx.header["test-waf"] = "loaded"',
-					is_system: 1,
-					block_counter: 0,
-				});
-
-				ruleListModel.query().insert({
-					name: 'test2',
-					description: '测试waf2',
-					enabled: 1,
-					sort: 50,
-					block_type: 'others',
-					lua_script: 'ngx.header["test-waf2"] = "loaded"',
-					is_system: 1,
-					block_counter: 0,
-				});
-				internalRulesList.initSystemRules();
+				ruleListModel
+					.query()
+					.insert({
+						name: 'test',
+						description: '测试waf',
+						enabled: 1,
+						sort: 50,
+						block_type: 'others',
+						lua_script: 'ngx.header["test-waf"] = "loaded"',
+						is_system: 1,
+						block_counter: 0,
+					})
+					.then(() => {
+						ruleListModel.query().insert({
+							name: 'test2',
+							description: '测试waf2',
+							enabled: 1,
+							sort: 50,
+							block_type: 'others',
+							lua_script: 'ngx.header["test-waf2"] = "loaded"',
+							is_system: 1,
+							block_counter: 0,
+						});
+					});
 			}
+		})
+		.then(() => {
+			internalRulesList.initSystemRules();
 		})
 		.then(() => {
 			logger.info('System waf rule added');
