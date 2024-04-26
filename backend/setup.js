@@ -175,6 +175,7 @@ const setupWafScripts = () => {
 		.where('is_system', 1)
 		.andWhere('is_deleted', 0)
 		.andWhere('enabled', 1)
+		.first()
 		.then((row) => {
 			if (!row.count) {
 				return ruleListModel
