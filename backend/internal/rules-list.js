@@ -359,7 +359,7 @@ const internalRulesList = {
 		internalNginx.reload();
 	},
 	initSystemRules: () => {
-		let list = rulesListModel.query().where('is_deleted', 0).andWhere('is_system', 1);
+		let list = rulesListModel.query().where('is_deleted', 0).andWhere('is_system', 1).execute();
 		for (const data of list) {
 			internalRulesList.buildFile(data);
 		}
