@@ -180,22 +180,22 @@ const setupWafScripts = () => {
 				ruleListModel.query().insert({
 					name: 'test',
 					description: '测试waf',
-					enabled: true,
+					enabled: 1,
 					sort: 50,
 					block_type: 'others',
 					lua_script: 'ngx.header["test-waf"] = "loaded"',
-					is_system: true,
+					is_system: 1,
 					block_counter: 0,
 				});
 
 				ruleListModel.query().insert({
 					name: 'test2',
 					description: '测试waf2',
-					enabled: true,
+					enabled: 1,
 					sort: 50,
 					block_type: 'others',
 					lua_script: 'ngx.header["test-waf2"] = "loaded"',
-					is_system: true,
+					is_system: 1,
 					block_counter: 0,
 				});
 				internalRulesList.initSystemRules();
