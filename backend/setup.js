@@ -173,8 +173,8 @@ const setupWafScripts = () => {
 		.query()
 		.select(ruleListModel.raw('COUNT(`id`) as `count`'))
 		.where('is_system', 1)
-		.andWhere('is_initialized', 0)
 		.andWhere('is_deleted', 0)
+		.andWhere('enabled', 1)
 		.then((row) => {
 			if (!row.count) {
 				ruleListModel.query().insert({
@@ -185,7 +185,6 @@ const setupWafScripts = () => {
 					block_type: 'others',
 					lua_script: 'ngx.header["test-waf"] = "loaded"',
 					is_system: true,
-					is_initialized: false,
 					block_counter: 0,
 				});
 
@@ -197,11 +196,9 @@ const setupWafScripts = () => {
 					block_type: 'others',
 					lua_script: 'ngx.header["test-waf2"] = "loaded"',
 					is_system: true,
-					is_initialized: false,
 					block_counter: 0,
 				});
 				internalRulesList.initSystemRules();
-				
 			}
 		})
 		.then(() => {

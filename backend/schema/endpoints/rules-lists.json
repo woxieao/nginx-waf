@@ -41,9 +41,6 @@
 		"is_system": {
 			"type": "boolean"
 		},
-		"is_initialized": {
-			"type": "boolean"
-		},
 		"block_counter": {
 			"type": "integer"
 		}
@@ -78,9 +75,6 @@
 		},
 		"is_system": {
 			"$ref": "#/definitions/is_system"
-		},
-		"is_initialized": {
-			"$ref": "#/definitions/is_initialized"
 		},
 		"block_counter": {
 			"$ref": "#/definitions/block_counter"
@@ -140,9 +134,6 @@
 					"is_system": {
 						"$ref": "#/definitions/is_system"
 					},
-					"is_initialized": {
-						"$ref": "#/definitions/is_initialized"
-					},
 					"block_counter": {
 						"$ref": "#/definitions/block_counter"
 					}
@@ -188,9 +179,6 @@
 					},
 					"is_system": {
 						"$ref": "#/definitions/is_system"
-					},
-					"is_initialized": {
-						"$ref": "#/definitions/is_initialized"
 					},
 					"block_counter": {
 						"$ref": "#/definitions/block_counter"

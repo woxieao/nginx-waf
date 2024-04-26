@@ -160,7 +160,6 @@ exports.up = function (knex/*, Promise*/) {
 				table.string('block_type').notNull().defaultTo('');
 				table.string('lua_script').notNull().defaultTo('');	
 				table.integer('is_system').notNull().unsigned().defaultTo(0);
-				table.integer('is_initialized').notNull().unsigned().defaultTo(0);
 				table.integer('block_counter').notNull().unsigned().defaultTo(0);				
 				table.integer('is_deleted').notNull().unsigned().defaultTo(0);
 			});
