@@ -179,7 +179,7 @@ const internalRulesList = {
 
 	getAll: (access, search_query) => {
 		return access.can('rules_lists:list').then(() => {
-			let query = rulesListModel.query().where('is_deleted', 0).orderBy('created_on', 'DESC').orderBy('id', 'DESC').limit(100);
+			let query = rulesListModel.query().where('is_deleted', 0).orderBy('enabled', 'DESC').orderBy('sort', 'ASC').orderBy('id', 'ASC');
 
 			// Query is used for searching
 			if (typeof search_query === 'string') {
