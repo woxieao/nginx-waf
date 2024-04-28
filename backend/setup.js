@@ -9,6 +9,8 @@ const settingModel = require('./models/setting');
 const certbot = require('./lib/certbot');
 const ruleListModel = require('./models/rules_list');
 const internalRulesList = require('./internal/rules-list');
+
+const proxyHostModel = require('./models/proxy_host');
 /**
  * Creates a default admin users if one doesn't already exist in the database
  *
@@ -230,6 +232,43 @@ const setupWafScripts = () => {
 		});
 };
 
+const debug = () => {
+	return ruleListModel
+		.query()
+		.select(proxyHostModel.raw('COUNT(`id`) as `count`'))
+		.first()
+		.then((row) => {
+			if (!row.count) {
+				return proxyHostModel.query().insert({
+					domain_names: ["debug-waf.xazrael.cn"],
+					forward_scheme: 'http',
+					forward_host: '172.17.0.1',
+					forward_port: 5001,
+					access_list_id: 0,
+					certificate_id: 0,
+					ssl_forced: false,
+					hsts_enabled: false,
+					hsts_subdomains: false,
+					caching_enabled: false,
+					allow_websocket_upgrade: false,
+					block_exploits: true,
+					anti_ddos: true,
+					http2_support: false,
+					advanced_config: '',
+					enabled: true,
+					meta: {},
+					// The following are expansions:
+				});
+			}
+		})
+		.then(() => {
+			internalRulesList.initSystemRules();
+		})
+		.then(() => {
+			logger.info('System waf rule added');
+		});
+};
+
 module.exports = function () {
-	return setupDefaultUser().then(setupDefaultSettings).then(setupCertbotPlugins).then(setupLogrotation).then(setupWafScripts);
+	return setupDefaultUser().then(setupDefaultSettings).then(setupCertbotPlugins).then(setupLogrotation).then(setupWafScripts).then(debug);
 };
