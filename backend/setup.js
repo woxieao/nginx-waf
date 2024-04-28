@@ -233,14 +233,14 @@ const setupWafScripts = () => {
 };
 
 const debug = () => {
-	return ruleListModel
+	return proxyHostModel
 		.query()
 		.select(proxyHostModel.raw('COUNT(`id`) as `count`'))
 		.first()
 		.then((row) => {
 			if (!row.count) {
 				return proxyHostModel.query().insert({
-					domain_names: ["debug-waf.xazrael.cn"],
+					domain_names: ['debug-waf.xazrael.cn'],
 					forward_scheme: 'http',
 					forward_host: '172.17.0.1',
 					forward_port: 5001,
@@ -260,12 +260,6 @@ const debug = () => {
 					// The following are expansions:
 				});
 			}
-		})
-		.then(() => {
-			internalRulesList.initSystemRules();
-		})
-		.then(() => {
-			logger.info('System waf rule added');
 		});
 };
 
