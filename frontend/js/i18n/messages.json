@@ -610,6 +610,7 @@
       "exec-sort-desc": "数字越小,优先级越高",
       "block-type": "防护类型",
       "block-count": "拦截次数",
+      "exec-count": "执行次数",
       "lua-script": "lua脚本",
       "lua-script-desc": "脚本会按执行顺序运行",
       "script-warning": "在此输入的自定义lua脚本可能会影响服务器性能,请谨慎输入！",

@@ -43,6 +43,9 @@
 		},
 		"block_counter": {
 			"type": "integer"
+		},
+		"exec_counter": {
+			"type": "integer"
 		}
 	},
 	"properties": {
@@ -78,6 +81,9 @@
 		},
 		"block_counter": {
 			"$ref": "#/definitions/block_counter"
+		},
+		"exec_counter": {
+			"$ref": "#/definitions/exec_counter"
 		}
 	},
 	"links": [
@@ -136,6 +142,9 @@
 					},
 					"block_counter": {
 						"$ref": "#/definitions/block_counter"
+					},
+					"exec_counter": {
+						"$ref": "#/definitions/exec_counter"
 					}
 				}
 			},
@@ -182,6 +191,9 @@
 					},
 					"block_counter": {
 						"$ref": "#/definitions/block_counter"
+					},
+					"exec_counter": {
+						"$ref": "#/definitions/exec_counter"
 					}
 				}
 			},

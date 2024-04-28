@@ -115,11 +115,6 @@ const internalNginx = {
 			return utils.exec('/usr/sbin/nginx -s reload');
 		});
 	},
-	// cleanDictKey: (shared_dict_name, key_name) => {
-	// 	logger.info(`Clean DictKey[${shared_dict_name}:${key_name}]`);
-	// 	return utils.exec(`/etc/nginx/bin/resty -e "ngx.shared.${shared_dict_name}:delete('${key_name}')"`);
-	// },
-
 	/**
 	 * @param   {String}  host_type
 	 * @param   {Integer} host_id

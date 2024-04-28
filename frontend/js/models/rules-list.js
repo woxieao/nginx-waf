@@ -17,6 +17,7 @@ const model = Backbone.Model.extend({
       lua_script: "",
       is_system: false,
       block_counter: 0,
+      exec_counter: 0,
     };
   },
 });

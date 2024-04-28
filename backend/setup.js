@@ -181,37 +181,42 @@ const setupWafScripts = () => {
 				return ruleListModel
 					.query()
 					.insert({
-						name: 'test',
-						description: '测试waf',
+						name: 'url_demo',
+						description: '请求参数拦截示例',
 						enabled: 1,
 						sort: 50,
 						block_type: 'others',
-						lua_script: 'ngx.header["test-waf"] = "loaded"',
+						lua_script: `local args = ngx.req.get_uri_args()
+						local test_param = args["test"]
+						if test_param == 'block' then
+							return true;
+						else
+							return false;
+						end
+						`,
 						is_system: 1,
 						block_counter: 0,
+						exec_counter: 0,
 					})
 					.then(() => {
 						return ruleListModel.query().insert({
-							name: 'test2',
-							description: '测试waf2',
+							name: 'ip_blacklist_demo',
+							description: '黑名单Ip拦截示例',
 							enabled: 1,
 							sort: 50,
 							block_type: 'others',
-							lua_script: 'ngx.header["test-waf2"] = "loaded"',
+							lua_script: `local blacklist_ips = {
+								"111.111.111.111", "222.222.222.222"
+								-- 添加其他需要加入黑名单的IP地址
+							}
+							for _, black_ip in ipairs(blacklist_ips) do
+								if black_ip == ip then return true end
+							end
+							return false
+							`,
 							is_system: 1,
 							block_counter: 0,
-						});
-					})
-					.then(() => {
-						return ruleListModel.query().insert({
-							name: 'test3',
-							description: '测试waf3',
-							enabled: 1,
-							sort: 50,
-							block_type: 'others',
-							lua_script: 'ngx.header["test-waf3"] = "loaded"',
-							is_system: 1,
-							block_counter: 0,
+							exec_counter: 0,
 						});
 					});
 			}

