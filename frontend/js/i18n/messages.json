@@ -564,6 +564,7 @@
       "empty-subtitle": "只要您或其他用户更改了某些内容，这些事件的历史记录就会显示在这里。",
       "proxy-host": "域名",
       "redirection-host": "重定向主机",
+      "rules-list":"拦截规则",
       "dead-host": "404主机",
       "stream": "流",
       "user": "用户",
