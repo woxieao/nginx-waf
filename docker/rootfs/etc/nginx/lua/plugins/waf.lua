@@ -23,8 +23,7 @@ local function mainBody()
     local files = listLuaModules("/etc/nginx/lua/waf_detectors/")
 
     for _, moduleName in ipairs(files) do
-        local module = require(moduleName)
-        ngx.header[moduleName] = "loaded"
+        local module = require(moduleName)        
         module()
     end
 end
