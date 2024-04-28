@@ -3350,6 +3350,7 @@ local style_sheet = [[
 	.message {
 		margin-top: 20px;
 		color: #555;
+        font-size: 14px;
 	}
 
 	.details {
@@ -3440,7 +3441,7 @@ local anti_ddos_html_output = [[
 		<p><h1 id="countdowntimer">]]..refresh_auth..[[</h1></p>
         <p class="loading"></p>
 		</div>
-        <div class="message">请稍等片刻，我们正在验证您的请求是否正常...</div>
+        <div class="message">请稍候片刻，我们正在对您的请求进行验证，以确保一切正常...</div>
 
 		<div class="details-container">
         <div class="details-header" >
