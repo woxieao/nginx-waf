@@ -232,37 +232,6 @@ const setupWafScripts = () => {
 		});
 };
 
-const debug = () => {
-	return proxyHostModel
-		.query()
-		.select(proxyHostModel.raw('COUNT(`id`) as `count`'))
-		.first()
-		.then((row) => {
-			if (!row.count) {
-				return proxyHostModel.query().insert({
-					domain_names: ['debug-waf.xazrael.cn'],
-					forward_scheme: 'http',
-					forward_host: '172.17.0.1',
-					forward_port: 5001,
-					access_list_id: 0,
-					certificate_id: 0,
-					ssl_forced: false,
-					hsts_enabled: false,
-					hsts_subdomains: false,
-					caching_enabled: false,
-					allow_websocket_upgrade: false,
-					block_exploits: true,
-					anti_ddos: true,
-					http2_support: false,
-					advanced_config: '',
-					enabled: true,
-					meta: {},
-					// The following are expansions:
-				});
-			}
-		});
-};
-
 module.exports = function () {
-	return setupDefaultUser().then(setupDefaultSettings).then(setupCertbotPlugins).then(setupLogrotation).then(setupWafScripts).then(debug);
+	return setupDefaultUser().then(setupDefaultSettings).then(setupCertbotPlugins).then(setupLogrotation).then(setupWafScripts);
 };
