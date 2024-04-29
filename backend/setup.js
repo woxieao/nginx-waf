@@ -9,7 +9,7 @@ const settingModel = require('./models/setting');
 const certbot = require('./lib/certbot');
 const ruleListModel = require('./models/rules_list');
 const internalRulesList = require('./internal/rules-list');
-
+const fs = require('fs');
 const proxyHostModel = require('./models/proxy_host');
 /**
  * Creates a default admin users if one doesn't already exist in the database
@@ -166,6 +166,22 @@ const setupLogrotation = () => {
 	return runLogrotate();
 };
 
+const initRule = (rule) => {
+	return fs.readFileSync(`/etc/nginx/lua/preset_rules/${rule.name}.lua`, { encoding: 'utf8' }).then((content) => {
+		return ruleListModel.query().insert({
+			name: rule.name,
+			description: rule.description,
+			block_type: rule.block_type,
+			lua_script: content,
+			enabled: 1,
+			sort: 50,
+			is_system: 1,
+			block_counter: 0,
+			exec_counter: 0,
+		});
+	});
+};
+
 /**
  * Starts a timer to call run the logrotation binary every two days
  * @returns {Promise}
@@ -180,48 +196,23 @@ const setupWafScripts = () => {
 		.first()
 		.then((row) => {
 			if (!row.count) {
-				return ruleListModel
-					.query()
-					.insert({
-						name: 'url_demo',
-						description: '请求参数拦截示例',
-						enabled: 1,
-						sort: 50,
+				return initRule({
+					name: 'url_demo',
+					description: '请求参数拦截示例',
+					block_type: 'others',
+				}).then(() => {
+					return initRule({
+						name: 'ip_blacklist_demo',
+						description: '黑名单Ip拦截示例',
 						block_type: 'others',
-						lua_script: `local args = ngx.req.get_uri_args()
-						local test_param = args["test"]
-						if test_param == 'block' then
-							return true;
-						else
-							return false;
-						end
-						`,
-						is_system: 1,
-						block_counter: 0,
-						exec_counter: 0,
-					})
-					.then(() => {
-						return ruleListModel.query().insert({
-							name: 'ip_blacklist_demo',
-							description: '黑名单Ip拦截示例',
-							enabled: 1,
-							sort: 50,
-							block_type: 'others',
-							lua_script: `local blacklist_ips = {
-								"111.111.111.111", "222.222.222.222"
-								-- 添加其他需要加入黑名单的IP地址
-							}
-							local client_ip = ngx.var.remote_addr
-							for _, black_ip in ipairs(blacklist_ips) do
-								if black_ip == client_ip then return true end
-							end
-							return false
-							`,
-							is_system: 1,
-							block_counter: 0,
-							exec_counter: 0,
-						});
 					});
+				}).then(() => {
+					return initRule({
+						name: 'hello_world',
+						description: 'Hello World!',
+						block_type: 'others',
+					});
+				});
 			}
 		})
 		.then(() => {
