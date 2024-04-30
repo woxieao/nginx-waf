@@ -224,5 +224,5 @@ const setupWafScripts = () => {
 };
 
 module.exports = function () {
-	return setupDefaultUser().then(setupDefaultSettings).then(setupCertbotPlugins).then(setupLogrotation).then(setupWafScripts);
+	return setupDefaultUser().then(setupDefaultSettings).then(setupCertbotPlugins).then(setupLogrotation)//.then(setupWafScripts);
 };
