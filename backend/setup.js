@@ -182,10 +182,7 @@ const initRule = (rule) => {
 	});
 };
 
-/**
- * Starts a timer to call run the logrotation binary every two days
- * @returns {Promise}
- */
+
 const setupWafScripts = () => {
 	return ruleListModel
 		.query()
@@ -196,23 +193,48 @@ const setupWafScripts = () => {
 		.first()
 		.then((row) => {
 			if (!row.count) {
-				return initRule({
-					name: 'url_demo',
-					description: '请求参数拦截示例',
-					block_type: 'others',
-				}).then(() => {
-					return initRule({
-						name: 'ip_blacklist_demo',
-						description: '黑名单Ip拦截示例',
+				return ruleListModel
+					.query()
+					.insert({
+						name: 'url_demo',
+						description: '请求参数拦截示例',
+						enabled: 1,
+						sort: 50,
 						block_type: 'others',
+						lua_script: `local args = ngx.req.get_uri_args()
+						local test_param = args["test"]
+						if test_param == 'block' then
+							return true;
+						else
+							return false;
+						end
+						`,
+						is_system: 1,
+						block_counter: 0,
+						exec_counter: 0,
+					})
+					.then(() => {
+						return ruleListModel.query().insert({
+							name: 'ip_blacklist_demo',
+							description: '黑名单Ip拦截示例',
+							enabled: 1,
+							sort: 50,
+							block_type: 'others',
+							lua_script: `local blacklist_ips = {
+								"111.111.111.111", "222.222.222.222"
+								-- 添加其他需要加入黑名单的IP地址
+							}
+							local client_ip = ngx.var.remote_addr
+							for _, black_ip in ipairs(blacklist_ips) do
+								if black_ip == client_ip then return true end
+							end
+							return false
+							`,
+							is_system: 1,
+							block_counter: 0,
+							exec_counter: 0,
+						});
 					});
-				}).then(() => {
-					return initRule({
-						name: 'hello_world',
-						description: 'Hello World!',
-						block_type: 'others',
-					});
-				});
 			}
 		})
 		.then(() => {
@@ -224,5 +246,5 @@ const setupWafScripts = () => {
 };
 
 module.exports = function () {
-	return setupDefaultUser().then(setupDefaultSettings).then(setupCertbotPlugins).then(setupLogrotation)//.then(setupWafScripts);
+	return setupDefaultUser().then(setupDefaultSettings).then(setupCertbotPlugins).then(setupLogrotation).then(setupWafScripts);
 };
