@@ -1,15 +1,15 @@
-local function mainFunc()
-    local function ruleLogic()
-        ngx.header["Hello"] = "World!"
-        return false;
+local rgx = waf.rgxMatch
 
+local function fileNameMatch(v)
+    local m = rgx(v, "\\.(?:as|cer\\b|cdx|ph|jsp|war|class|exe|ht|env|user\\.ini)|php\\.ini", "joi")
+    if m then
+        return m, v
     end
-    local match = ruleLogic();
-    ngx.shared.exec_counter:incr('r_3', 1)
-    if match == true then
-        ngx.shared.block_counter:incr('r_3', 1);
-        ngx.header["Intercepted"] = 3;
-        ngx.exit(ngx.HTTP_FORBIDDEN)
-    end
+    return false
 end
-return mainFunc
+if waf.form then
+    local m, d = waf.knFilter(waf.form["FILES"], fileNameMatch, 1)
+    return m, d, true
+end
+
+return false
