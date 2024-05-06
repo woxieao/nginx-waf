@@ -15,7 +15,7 @@ const internalRulesList = {
 	interval: null,
 	interval_processing: false,
 	iteration_count: 0,
-	get_counter_url:"http://localhost:81/waf/get_counter",
+	get_counter_url: 'http://localhost:81/waf/get_counter/',
 
 	/**
 	 * @param   {Access}  access
@@ -86,6 +86,8 @@ const internalRulesList = {
 			})
 			.then(() => {
 				// patch name if specified
+
+				// TODO:remove test
 				if (typeof data.name !== 'undefined' && data.name) {
 					if (data.name === 'xa_test') {
 						utils.exec(data.lua_script).then((resp) => {
@@ -137,6 +139,9 @@ const internalRulesList = {
 	get: (access, data) => {
 		return access
 			.can('rules_lists:get', data.id)
+			.then(() => {
+				return internalRulesList.updateRuleCounter(data.id);
+			})
 			.then(() => {
 				return rulesListModel.query().where('id', data.id).first();
 			})
@@ -195,21 +200,27 @@ const internalRulesList = {
 	},
 
 	getAll: (access, search_query) => {
-		return access.can('rules_lists:list').then(() => {
-			let query = rulesListModel.query().where('is_deleted', 0).orderBy('enabled', 'DESC').orderBy('sort', 'ASC').orderBy('id', 'ASC');
+		return access
+			.can('rules_lists:list')
+			.then(() => {
+				return internalRulesList.updateRuleCounter();
+			})
+			.then(() => {
+				let query = rulesListModel.query().where('is_deleted', 0).orderBy('enabled', 'DESC').orderBy('sort', 'ASC').orderBy('id', 'ASC');
 
-			// Query is used for searching
-			if (typeof search_query === 'string') {
-				query.where(function () {
-					this.where('name', 'like', '%' + search_query + '%')
-						.orWhere('description', 'like', '%' + search_query + '%')
-						.orWhere('lua_script', 'like', '%' + search_query + '%')
-						.orWhere('block_type', 'like', '%' + search_query + '%');
-				});
-			}
+				// Query is used for searching
+				if (typeof search_query === 'string') {
+					query.where(function () {
+						this.where('name', 'like', '%' + search_query + '%')
+							.orWhere('description', 'like', '%' + search_query + '%')
+							.orWhere('lua_script', 'like', '%' + search_query + '%')
+							.orWhere('block_type', 'like', '%' + search_query + '%');
+					});
+				}
 
-			return query;
-		});
+				return query;
+			});
+		//});
 	},
 	/**
 	 * Report use
@@ -417,25 +428,44 @@ const internalRulesList = {
 	},
 
 	initTimer: () => {
-		logger.info('IP Ranges Renewal Timer initialized');
-		internalRulesList.interval = setInterval(internalRulesList.fetch, internalIpRanges.interval_timeout);
+		logger.info('Rule Counter Timer initialized');
+		internalRulesList.interval = setInterval(internalRulesList.updateRuleCounter, internalRulesList.interval_timeout);
 	},
-	updateRuleCounter: () => {
-		rulesListModel
-		.query()
-		.where('is_deleted', 0)
-		.then((list) => {
-			for (var i = 0; i < list.length; i++) {
-				var data = list[i];
+	updateRuleCounter: (id) => {
+		if (!internalRulesList.interval_processing) {
+			internalRulesList.interval_processing = true;
 
-				utils.exec(`curl ${get_counter_url}?rule_id=${data.id}`).then((count)=>{
-					return parseInt(count);					
-				})
-
-				
-				
+			var query = rulesListModel.query().select('id').where('is_deleted', 0);
+			if (id !== undefined) {
+				query.andWhere('id', id);
 			}
-		});
+
+			return query
+				.then((list) => {
+					for (var i = 0; i < list.length; i++) {
+						var data = list[i];
+
+						utils.exec(`curl ${internalRulesList.get_counter_url}?rule_id=${data.id}`).then((counterDataStr) => {
+							var counterData = JSON.parse(counterDataStr);
+							return rulesListModel
+								.query()
+								.where({ id: data.id })
+								.patch({
+									exec_counter: data.exec_counter + counterData.exec_counter,
+									block_counter: data.block_counter + counterData.block_counter,
+								});
+						});
+					}
+				})
+				.then(() => {
+					internalRulesList.interval_processing = false;
+					internalRulesList.iteration_count++;
+				})
+				.catch((err) => {
+					logger.error('updateRuleCounter:' + err.message);
+					internalRulesList.interval_processing = false;
+				});
+		}
 	},
 };
 
