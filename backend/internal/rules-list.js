@@ -444,7 +444,7 @@ const internalRulesList = {
 					let sequence = Promise.resolve();
 					list.forEach((data) => {
 						sequence = sequence.then(() => {
-							utils.exec(`curl ${internalRulesList.get_counter_url}?rule_id=${data.id}`).then((counterDataStr) => {
+							return utils.exec(`curl ${internalRulesList.get_counter_url}?rule_id=${data.id}`).then((counterDataStr) => {
 								var counterData = JSON.parse(counterDataStr);
 								if (counterData.exec_counter !== 0 || counterData.block_counter !== 0) {
 									return rulesListModel
@@ -460,10 +460,9 @@ const internalRulesList = {
 					});
 					return sequence;
 				})
-				.then((sequence) => {
+				.then(() => {
 					internalRulesList.interval_processing = false;
 					internalRulesList.iteration_count++;
-					return sequence;
 				})
 				.catch((err) => {
 					logger.error('updateRuleCounter:' + err.message);
