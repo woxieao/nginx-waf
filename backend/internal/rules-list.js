@@ -11,6 +11,13 @@ function omissions() {
 }
 
 const internalRulesList = {
+	interval_timeout: 1000 * 60, // 1 minute
+	interval: null,
+	interval_processing: false,
+	iteration_count: 0,
+	get_exec_counter_url:"http://localhost:81/waf/exec_counter",
+	get_block_counter_url:"http://localhost:81/waf/block_counter",
+
 	/**
 	 * @param   {Access}  access
 	 * @param   {Object}  data
@@ -407,6 +414,28 @@ const internalRulesList = {
 						internalRulesList.buildFile(data, i === list.length - 1);
 					}
 				});
+		});
+	},
+
+	initTimer: () => {
+		logger.info('IP Ranges Renewal Timer initialized');
+		internalRulesList.interval = setInterval(internalRulesList.fetch, internalIpRanges.interval_timeout);
+	},
+	updateRuleCounter: () => {
+		rulesListModel
+		.query()
+		.where('is_deleted', 0)
+		.then((list) => {
+			for (var i = 0; i < list.length; i++) {
+				var data = list[i];
+
+				utils.exec(`curl ${get_exec_counter_url}?rule_id=${data.id}`).then((count)=>{
+					return parseInt(count);					
+				})
+
+				
+				
+			}
 		});
 	},
 };
