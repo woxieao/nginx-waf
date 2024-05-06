@@ -435,7 +435,7 @@ const internalRulesList = {
 		if (!internalRulesList.interval_processing) {
 			internalRulesList.interval_processing = true;
 
-			var query = rulesListModel.query().select('id,exec_counter,block_counter').where('is_deleted', 0);
+			var query = rulesListModel.query().select('id', 'exec_counter', 'block_counter').where('is_deleted', 0);
 			if (id !== undefined) {
 				query.andWhere('id', id);
 			}
