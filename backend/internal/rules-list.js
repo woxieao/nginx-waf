@@ -444,7 +444,7 @@ const internalRulesList = {
 					let sequence = Promise.resolve();
 					list.forEach((data) => {
 						sequence = sequence.then(() => {
-							return utils.exec(`curl ${internalRulesList.get_counter_url}?rule_id=${data.id}`).then((counterDataStr) => {
+							return utils.exec(`curl ${internalRulesList.get_counter_url}?rule_id=${data.id}`, {}, true).then((counterDataStr) => {
 								var counterData = JSON.parse(counterDataStr);
 								if (counterData.exec_counter !== 0 || counterData.block_counter !== 0) {
 									return rulesListModel
