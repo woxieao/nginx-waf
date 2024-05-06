@@ -354,8 +354,14 @@ const internalRulesList = {
 				${data.lua_script}
 			end
 			local match = ruleLogic();
+			if ngx.shared.exec_counter:get('r_${data.id}') == nil then
+               ngx.shared.exec_counter:set('r_${data.id}', 0)
+            end
 			ngx.shared.exec_counter:incr('r_${data.id}', 1)
 			if match == true then
+			if ngx.shared.block_counter:get('r_${data.id}') == nil then
+               ngx.shared.block_counter:set('r_${data.id}', 0)
+            end
 				ngx.shared.block_counter:incr('r_${data.id}', 1);				
 				ngx.header["Intercepted"]=${data.id};
 				ngx.exit(ngx.HTTP_FORBIDDEN)
