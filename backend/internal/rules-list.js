@@ -351,7 +351,7 @@ const internalRulesList = {
 			? `
 			local function mainFunc()
 			local function ruleLogic() 
-			${data.lua_script}			
+				${data.lua_script}
 			end
 			local match = ruleLogic();
 			ngx.shared.exec_counter:incr('r_${data.id}', 1)
@@ -367,7 +367,7 @@ const internalRulesList = {
 			local function mainFunc()
 			local success, result = pcall(function()
 				local function ruleLogic()
-					 ${data.lua_script}    
+					 ${data.lua_script}
 				end
 				local match = ruleLogic();
 				ngx.shared.exec_counter:incr('r_${data.id}', 1)
