@@ -15,8 +15,7 @@ const internalRulesList = {
 	interval: null,
 	interval_processing: false,
 	iteration_count: 0,
-	get_exec_counter_url:"http://localhost:81/waf/exec_counter",
-	get_block_counter_url:"http://localhost:81/waf/block_counter",
+	get_counter_url:"http://localhost:81/waf/get_counter",
 
 	/**
 	 * @param   {Access}  access
@@ -429,7 +428,7 @@ const internalRulesList = {
 			for (var i = 0; i < list.length; i++) {
 				var data = list[i];
 
-				utils.exec(`curl ${get_exec_counter_url}?rule_id=${data.id}`).then((count)=>{
+				utils.exec(`curl ${get_counter_url}?rule_id=${data.id}`).then((count)=>{
 					return parseInt(count);					
 				})
 
