@@ -441,19 +441,25 @@ const internalRulesList = {
 			}
 			return query
 				.then((list) => {
+					let sequence = Promise.resolve();
 					list.forEach((data) => {
-						utils.exec(`curl ${internalRulesList.get_counter_url}?rule_id=${data.id}`).then((counterDataStr) => {
-							var counterData = JSON.parse(counterDataStr);
-							logger.info(`rule:${data.id} ___________________________________________${counterDataStr}`);
-							return rulesListModel
-								.query()
-								.where({ id: data.id })
-								.patch({
-									exec_counter: data.exec_counter + counterData.exec_counter,
-									block_counter: data.block_counter + counterData.block_counter,
-								});
+						sequence = sequence.then(() => {
+							utils.exec(`curl ${internalRulesList.get_counter_url}?rule_id=${data.id}`).then((counterDataStr) => {
+								var counterData = JSON.parse(counterDataStr);
+								logger.info(`rule:${data.id} ___________________________________________${counterDataStr}`);
+								if (counterData.exec_counter !== 0 || counterData.block_counter !== 0) {
+									return rulesListModel
+										.query()
+										.where({ id: data.id })
+										.patch({
+											exec_counter: data.exec_counter + counterData.exec_counter,
+											block_counter: data.block_counter + counterData.block_counter,
+										});
+								}
+							});
 						});
 					});
+					return sequence;
 				})
 				.then(() => {
 					internalRulesList.interval_processing = false;
