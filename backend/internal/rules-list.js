@@ -444,9 +444,9 @@ const internalRulesList = {
 				.then((list) => {
 					for (var i = 0; i < list.length; i++) {
 						var data = list[i];
-
 						utils.exec(`curl ${internalRulesList.get_counter_url}?rule_id=${data.id}`).then((counterDataStr) => {
 							var counterData = JSON.parse(counterDataStr);
+							logger.info(`rule:${data.id} ___________________________________________${counterDataStr}`);
 							return rulesListModel
 								.query()
 								.where({ id: data.id })
