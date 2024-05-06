@@ -1,4 +1,4 @@
-local function mainBody()
+local function anti_ddos_main()
     
 
 --[[
@@ -3482,4 +3482,4 @@ ngx.say(anti_ddos_html_output)
 ngx.exit(ngx.HTTP_OK)
 
 end
-return mainBody;
+return anti_ddos_main;

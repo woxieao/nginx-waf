@@ -1,5 +1,5 @@
 ngx.header["xa"] = "test"
-local function mainBody()
+local function waf_main()
     local moduleNames = {}
     local dir = io.popen("ls -v /etc/nginx/lua/waf_detectors/")
     for file in dir:lines() do
@@ -15,4 +15,4 @@ local function mainBody()
         module()
     end
 end
-return mainBody;
+return waf_main;
