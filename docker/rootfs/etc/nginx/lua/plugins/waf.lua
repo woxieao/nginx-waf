@@ -1,4 +1,3 @@
-ngx.header["xa"] = "test"
 local function waf_main()
     local moduleNames = {}
     local dir = io.popen("ls -v /etc/nginx/lua/waf_detectors/")
@@ -10,7 +9,6 @@ local function waf_main()
     dir:close()
 
     for _, moduleName in ipairs(moduleNames) do
-        ngx.header[moduleName] = "1"
         local module = require(moduleName)
         module()
     end
