@@ -431,6 +431,8 @@ const internalRulesList = {
 		logger.info('Rule Counter Timer initialized');
 		internalRulesList.interval = setInterval(internalRulesList.updateRuleCounter, internalRulesList.interval_timeout);
 	},
+
+	
 	updateRuleCounter: (id) => {
 		if (!internalRulesList.interval_processing) {
 			internalRulesList.interval_processing = true;
