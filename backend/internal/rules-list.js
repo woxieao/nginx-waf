@@ -435,15 +435,13 @@ const internalRulesList = {
 		if (!internalRulesList.interval_processing) {
 			internalRulesList.interval_processing = true;
 
-			var query = rulesListModel.query().select('id').where('is_deleted', 0);
+			var query = rulesListModel.query().select('id,exec_counter,block_counter').where('is_deleted', 0);
 			if (id !== undefined) {
 				query.andWhere('id', id);
 			}
-
 			return query
 				.then((list) => {
-					for (var i = 0; i < list.length; i++) {
-						var data = list[i];
+					list.forEach((data) => {
 						utils.exec(`curl ${internalRulesList.get_counter_url}?rule_id=${data.id}`).then((counterDataStr) => {
 							var counterData = JSON.parse(counterDataStr);
 							logger.info(`rule:${data.id} ___________________________________________${counterDataStr}`);
@@ -455,7 +453,7 @@ const internalRulesList = {
 									block_counter: data.block_counter + counterData.block_counter,
 								});
 						});
-					}
+					});
 				})
 				.then(() => {
 					internalRulesList.interval_processing = false;
