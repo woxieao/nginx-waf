@@ -6,6 +6,7 @@ local intercepted_name_key_prefix = "4_";
 local intercepted_block_type_key_prefix = "5_";
 local get_ip = require "get_ip";
 local dict_counter = require "dict_counter";
+local cjson = require "cjson";
 
 local counter_log = {}
 
@@ -51,12 +52,35 @@ function counter_log.log_request()
     intercepted_block_type_counter();
 end
 
-function counter_log.export_log()
+function counter_log.log2json()
     local keys = dict:get_keys()
-
+    local result = {
+        statusDict = {},
+        hostDict = {},
+        ipDict = {},
+        interceptedIdDict = {},
+        interceptedNameDict = {},
+        interceptedBlockTypeDict = {}
+    };
     for i, key in ipairs(keys) do
-        ngx.say("[", i, "]", key, ":", dict:get(key))
+        local prefix = key:sub(1, 2);
+        local keyName = key:sub(3);
+        local keyValue = dict:get(key);
+        if prefix == status_key_prefix then
+            result.statusDict[keyName] = keyValue;
+        elseif prefix == host_key_prefix then
+            result.hostDict[keyName] = keyValue;
+        elseif prefix == ip_key_prefix then
+            result.ipDict[keyName] = keyValue;
+        elseif prefix == intercepted_id_key_prefix then
+            result.interceptedIdDict[keyName] = keyValue;
+        elseif prefix == intercepted_name_key_prefix then
+            result.interceptedNameDict[keyName] = keyValue;
+        elseif prefix == intercepted_block_type_key_prefix then
+            result.interceptedBlockTypeDict[keyName] = keyValue;
+        end
     end
+    return cjson.encode(result);
 end
 
 return counter_log;
