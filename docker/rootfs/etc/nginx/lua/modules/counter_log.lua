@@ -24,21 +24,21 @@ end
 local function intercepted_id_counter()
     if ngx.var.waf_intercepted_id ~= nil then
         dict_counter.incr_counter(dict, intercepted_id_key_prefix ..
-                                      ngx.var.waf_intercepted_id)
+                                      ngx.ctx.waf_intercepted_id)
     end
 end
 
 local function intercepted_name_counter()
     if ngx.var.waf_intercepted_id ~= nil then
         dict_counter.incr_counter(dict, intercepted_name_key_prefix ..
-                                      ngx.var.waf_intercepted_name)
+                                      ngx.ctx.waf_intercepted_name)
     end
 end
 
 local function intercepted_block_type_counter()
     if ngx.var.waf_intercepted_block_type ~= nil then
         dict_counter.incr_counter(dict, intercepted_block_type_key_prefix ..
-                                      ngx.var.waf_intercepted_block_type)
+                                      ngx.ctx.waf_intercepted_block_type)
     end
 end
 
