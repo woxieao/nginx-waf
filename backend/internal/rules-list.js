@@ -382,8 +382,8 @@ const internalRulesList = {
 				ngx.shared.block_counter:incr('r_${data.id}', 1);				
 				ngx.header["Intercepted"]=${data.id};
 				ngx.var.waf_intercepted_id=${data.id};
-				ngx.var.waf_intercepted_name=${data.name};
-				ngx.var.waf_intercepted_block_type=${data.block_type};
+				ngx.var.waf_intercepted_name='${data.name}';
+				ngx.var.waf_intercepted_block_type='${data.block_type}';
 				ngx.exit(ngx.HTTP_FORBIDDEN)
 			end			
 		end
@@ -401,8 +401,8 @@ const internalRulesList = {
 					ngx.shared.block_counter:incr('r_${data.id}', 1);
 					ngx.header["Intercepted"]=${data.id};
 					ngx.var.waf_intercepted_id=${data.id};
-					ngx.var.waf_intercepted_name=${data.name};
-					ngx.var.waf_intercepted_block_type=${data.block_type};
+					ngx.var.waf_intercepted_name='${data.name}';
+					ngx.var.waf_intercepted_block_type='${data.block_type}';
 
 					ngx.exit(ngx.HTTP_FORBIDDEN)
 				end				
