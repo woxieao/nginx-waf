@@ -4,7 +4,7 @@ local ip_key_prefix = "2_";
 local intercepted_id_key_prefix = "3_";
 local intercepted_name_key_prefix = "4_";
 local intercepted_block_type_key_prefix = "5_";
-local get_ip = require "get_ip";
+local helpers = require "helpers";
 local dict_counter = require "dict_counter";
 local cjson = require "cjson";
 
@@ -19,7 +19,7 @@ local function host_counter()
     dict_counter.incr_counter(dict, host_key_prefix .. ngx.var.host)
 end
 local function ip_counter()
-    dict_counter.incr_counter(dict, ip_key_prefix .. get_ip())
+    dict_counter.incr_counter(dict, ip_key_prefix .. helpers.get_client_ip())
 end
 
 local function intercepted_id_counter()
