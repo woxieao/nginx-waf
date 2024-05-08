@@ -4,6 +4,7 @@ local ip_key_prefix = "2_";
 local intercepted_id_key_prefix = "3_";
 local intercepted_name_key_prefix = "4_";
 local intercepted_block_type_key_prefix = "5_";
+local url_key_prefix = "6_";
 local helpers = require "helpers";
 local dict_counter = require "dict_counter";
 local cjson = require "cjson";
@@ -14,7 +15,6 @@ local dict = ngx.shared.counter_log_data;
 local function status_counter()
     dict_counter.incr_counter(dict, status_key_prefix .. ngx.status)
 end
-
 local function host_counter()
     dict_counter.incr_counter(dict, host_key_prefix .. ngx.var.host)
 end
@@ -43,6 +43,9 @@ local function intercepted_block_type_counter()
     end
 end
 
+local function url_counter()
+    dict_counter.incr_counter(dict, url_key_prefix .. ngx.var.request_uri)
+end
 function counter_log.log_request()
     status_counter();
     host_counter();
@@ -50,6 +53,7 @@ function counter_log.log_request()
     intercepted_id_counter();
     intercepted_name_counter();
     intercepted_block_type_counter();
+    url_counter();
 end
 
 function counter_log.log2json()
