@@ -53,7 +53,7 @@ local function url_counter()
 end
 
 local function ua_counter()
-    dict_counter.incr_counter(dict, ua_key_prefix .. ngx.http_user_agent,
+    dict_counter.incr_counter(dict, ua_key_prefix .. ngx.var.http_user_agent,
                               timeout)
 end
 function counter_log.log_request()
