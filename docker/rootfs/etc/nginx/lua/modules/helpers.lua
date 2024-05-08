@@ -6,7 +6,7 @@ function helpers.get_client_ip()
 end
 
 function helpers.get_current_time() return os.time() + 60 * 60 * 8; end
-function helpers.get_current_time_str()
-    return os.date("%Y%m%d%H%M%S", helpers.get_current_time())
+function helpers.get_current_time_str(time)
+    return os.date("%Y%m%d%H%M%S", time or helpers.get_current_time())
 end
 return helpers;

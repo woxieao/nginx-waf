@@ -21,27 +21,35 @@ function qps_log.log_request()
     dict_counter.incr_counter(dict, qph_key_prefix .. hourTimestamp)
     dict_counter.incr_counter(dict, qpd_key_prefix .. dayTimestamp)
 end
-function qps_log.log2json(start_time, end_time)
-    ngx.say(start_time, end_time)
-    local str_len = tostring(start_time);
-    start_time = tonumber(start_time)
-    end_time = tonumber(end_time)
+function qps_log.log2json(start_time, end_time, date_format)
 
-    local key_prefix = "";
-    if str_len == 14 then
+    local time_span = end_time - start_time;
+    local key_prefix;
+    local time2Add;
+
+    if date_format == "%Y%m%d%H%M%S" then
         key_prefix = qps_key_prefix;
-    elseif str_len == 12 then
+        time2Add = 1;
+    elseif date_format == "%Y%m%d%H%M" then
         key_prefix = qpm_key_prefix;
-    elseif str_len == 10 then
+        time2Add = 60;
+    elseif date_format == "%Y%m%d%H" then
         key_prefix = qph_key_prefix;
-    elseif str_len == 8 then
+        time2Add = 60 * 60;
+    elseif date_format == "%Y%m%d" then
         key_prefix = qpd_key_prefix;
+        time2Add = 60 * 60 * 24;
     end
 
     local result = {};
-    for i = start_time, end_time do
+
+    local i = start_time
+    while i < end_time do
+        local formatted_date_time = os.date(date_format, i)
         result[tostring(i)] = (dict:get(key_prefix .. i) or 0);
+        i = i + time2Add
     end
+
     return cjson.encode(result);
 end
 return qps_log;
