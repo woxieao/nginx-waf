@@ -12,9 +12,9 @@ local dict = ngx.shared.qps_log_data;
 function qps_log.log_request()
 
     local secondTimestamp = helpers.get_current_time_str();
-    local minuteTimestamp = secondTimestamp.sub(1, -2);
-    local hourTimestamp = secondTimestamp.sub(1, -4);
-    local dayTimestamp = secondTimestamp.sub(1, -6);
+    local minuteTimestamp = string.sub(secondTimestamp, 1, -3);
+    local hourTimestamp = string.sub(secondTimestamp, 1, -5);
+    local dayTimestamp = string.sub(secondTimestamp, 1, -7);
 
     dict_counter.incr_counter(dict, qps_second_key_prefix .. secondTimestamp)
     dict_counter.incr_counter(dict, qps_minute_key_prefix .. minuteTimestamp)
@@ -24,9 +24,9 @@ end
 function qps_log.log2json(start_time, end_time)
 
     local secondTimestamp = helpers.get_current_time_str();
-    local minuteTimestamp = secondTimestamp.sub(1, -2);
-    local hourTimestamp = secondTimestamp.sub(1, -4);
-    local dayTimestamp = secondTimestamp.sub(1, -6);
+    local minuteTimestamp = string.sub(secondTimestamp, 1, -3);
+    local hourTimestamp = string.sub(secondTimestamp, 1, -5);
+    local dayTimestamp = string.sub(secondTimestamp, 1, -7);
 
     ngx.say(secondTimestamp);
 
