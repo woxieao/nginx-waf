@@ -48,7 +48,7 @@ local function intercepted_block_type_counter()
 end
 
 local function url_counter()
-    dict_counter.incr_counter(request_dict, ngx.var.scheme .. "://" ..
+    dict_counter.incr_counter(url_dict, ngx.var.scheme .. "://" ..
                                   ngx.var.host .. ngx.var.request_uri, timeout)
 end
 
