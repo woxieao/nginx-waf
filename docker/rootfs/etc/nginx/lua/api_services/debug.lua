@@ -3,7 +3,5 @@ local qps_log = require "qps_log";
 
 local helpers = require "helpers"
 
-ngx.say(ngx.var.scheme .. "://" .. ngx.var.host .. ngx.var.request_uri)
-
--- ngx.say(qps_log.log2json(helpers.get_current_time(),
---                          helpers.get_current_time() + 60 * 60 * 10, "h"))
+ngx.say(counter_log.log2json(helpers.get_current_time(),
+                         helpers.get_current_time() + 60 * 60 * 10, "h"))
