@@ -8,44 +8,46 @@ local url_key_prefix = "6_";
 local helpers = require "helpers";
 local dict_counter = require "dict_counter";
 local cjson = require "cjson";
-
+local timeout = 60 * 60 * 24;
 local counter_log = {}
 
 local dict = ngx.shared.counter_log_data;
 local function status_counter()
-    dict_counter.incr_counter(dict, status_key_prefix .. ngx.status)
+    dict_counter.incr_counter(dict, status_key_prefix .. ngx.status, timeout)
 end
 local function host_counter()
-    dict_counter.incr_counter(dict, host_key_prefix .. ngx.var.host)
+    dict_counter.incr_counter(dict, host_key_prefix .. ngx.var.host, timeout)
 end
 local function ip_counter()
-    dict_counter.incr_counter(dict, ip_key_prefix .. helpers.get_client_ip())
+    dict_counter.incr_counter(dict, ip_key_prefix .. helpers.get_client_ip(),
+                              timeout)
 end
 
 local function intercepted_id_counter()
     if ngx.ctx.waf_intercepted_id ~= nil then
         dict_counter.incr_counter(dict, intercepted_id_key_prefix ..
-                                      ngx.ctx.waf_intercepted_id)
+                                      ngx.ctx.waf_intercepted_id, timeout)
     end
 end
 
 local function intercepted_name_counter()
     if ngx.ctx.waf_intercepted_id ~= nil then
         dict_counter.incr_counter(dict, intercepted_name_key_prefix ..
-                                      ngx.ctx.waf_intercepted_name)
+                                      ngx.ctx.waf_intercepted_name, timeout)
     end
 end
 
 local function intercepted_block_type_counter()
     if ngx.ctx.waf_intercepted_block_type ~= nil then
         dict_counter.incr_counter(dict, intercepted_block_type_key_prefix ..
-                                      ngx.ctx.waf_intercepted_block_type)
+                                      ngx.ctx.waf_intercepted_block_type,
+                                  timeout)
     end
 end
 
 local function url_counter()
-    dict_counter.incr_counter(dict, url_key_prefix .. ngx.var.scheme ..
-                                  ngx.var.host .. ngx.var.request_uri)
+    dict_counter.incr_counter(dict, url_key_prefix ..ngx.var.scheme .."://"..  ngx.var.host ..
+                                  ngx.var.request_uri, timeout)
 end
 function counter_log.log_request()
     status_counter();
