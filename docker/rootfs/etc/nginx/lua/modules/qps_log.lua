@@ -22,10 +22,12 @@ function qps_log.log_request()
     dict_counter.incr_counter(dict, qpd_key_prefix .. dayTimestamp)
 end
 function qps_log.log2json(start_time, end_time)
+    ngx.say(start_time, end_time)
     local str_len = tostring(start_time);
     start_time = tonumber(start_time)
     end_time = tonumber(end_time)
-    local key_prefix;
+
+    local key_prefix = "";
     if str_len == 14 then
         key_prefix = qps_key_prefix;
     elseif str_len == 12 then
