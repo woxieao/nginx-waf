@@ -4,7 +4,7 @@ local ip_key_prefix = "2_";
 local intercepted_id_key_prefix = "3_";
 local intercepted_name_key_prefix = "4_";
 local intercepted_block_type_key_prefix = "5_";
-local url_key_prefix = "6_";
+local ua_key_prefix = "6_";
 local helpers = require "helpers";
 local dict_counter = require "dict_counter";
 local cjson = require "cjson";
@@ -12,6 +12,8 @@ local timeout = 60 * 60 * 24;
 local counter_log = {}
 
 local dict = ngx.shared.counter_log_data;
+local url_dict = ngx.shared.url_log_data;
+
 local function status_counter()
     dict_counter.incr_counter(dict, status_key_prefix .. ngx.status, timeout)
 end
@@ -46,8 +48,13 @@ local function intercepted_block_type_counter()
 end
 
 local function url_counter()
-    dict_counter.incr_counter(dict, url_key_prefix ..ngx.var.scheme .."://"..  ngx.var.host ..
-                                  ngx.var.request_uri, timeout)
+    dict_counter.incr_counter(request_dict, ngx.var.scheme .. "://" ..
+                                  ngx.var.host .. ngx.var.request_uri, timeout)
+end
+
+local function ua_counter()
+    dict_counter.incr_counter(dict, ua_key_prefix .. ngx.http_user_agent,
+                              timeout)
 end
 function counter_log.log_request()
     status_counter();
@@ -57,6 +64,7 @@ function counter_log.log_request()
     intercepted_name_counter();
     intercepted_block_type_counter();
     url_counter();
+    ua_counter();
 end
 
 function counter_log.log2json()
@@ -67,7 +75,9 @@ function counter_log.log2json()
         ipDict = {},
         interceptedIdDict = {},
         interceptedNameDict = {},
-        interceptedBlockTypeDict = {}
+        interceptedBlockTypeDict = {},
+        urlDict = {},
+        uaDict = {}
     };
     for i, key in ipairs(keys) do
         local prefix = key:sub(1, 2);
@@ -85,8 +95,21 @@ function counter_log.log2json()
             result.interceptedNameDict[keyName] = keyValue;
         elseif prefix == intercepted_block_type_key_prefix then
             result.interceptedBlockTypeDict[keyName] = keyValue;
+        elseif prefix == ua_key_prefix then
+            result.uaDict[keyName] = keyValue;
         end
     end
+
+    local arr = {}
+    for _, key in ipairs(url_dict:get_keys()) do
+        local value = url_dict:get(key)
+        table.insert(arr, {key = key, value = value})
+    end
+    table.sort(arr, function(a, b) return a.value > b.value end)
+    for i = 1, math.min(#arr, 100) do
+        result.urlDict[arr[i].key] = arr[i].value
+    end
+
     return cjson.encode(result);
 end
 
