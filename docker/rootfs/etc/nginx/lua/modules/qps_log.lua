@@ -21,24 +21,28 @@ function qps_log.log_request()
     dict_counter.incr_counter(dict, qph_key_prefix .. hourTimestamp)
     dict_counter.incr_counter(dict, qpd_key_prefix .. dayTimestamp)
 end
-function qps_log.log2json(start_time, end_time, date_format)
+function qps_log.log2json(start_time, end_time, query_type)
 
     local time_span = end_time - start_time;
     local key_prefix;
     local time2Add;
-
-    if date_format == "%Y%m%d%H%M%S" then
+    local date_format;
+    if query_type == "s" then
         key_prefix = qps_key_prefix;
         time2Add = 1;
-    elseif date_format == "%Y%m%d%H%M" then
+        date_format = "%Y%m%d%H%M%S";
+    elseif query_type == "m" then
         key_prefix = qpm_key_prefix;
         time2Add = 60;
-    elseif date_format == "%Y%m%d%H" then
+        date_format = "%Y%m%d%H%M";
+    elseif query_type == "h" then
         key_prefix = qph_key_prefix;
         time2Add = 60 * 60;
-    elseif date_format == "%Y%m%d" then
+        date_format = "%Y%m%d%H";
+    elseif query_type == "d" then
         key_prefix = qpd_key_prefix;
         time2Add = 60 * 60 * 24;
+        date_format = "%Y%m%d";
     end
 
     local result = {};
