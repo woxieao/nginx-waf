@@ -48,12 +48,14 @@ local function intercepted_block_type_counter()
 end
 
 local function url_counter()
-    dict_counter.incr_counter(url_dict, ngx.var.scheme .. "://" ..
-                                  ngx.var.host .. ngx.var.request_uri, timeout)
+    dict_counter.incr_counter(url_dict,
+                              ngx.var.scheme .. "://" .. ngx.var.host ..
+                                  ngx.var.request_uri, timeout)
 end
 
 local function ua_counter()
-    dict_counter.incr_counter(dict, ua_key_prefix .. ngx.var.http_user_agent,
+    dict_counter.incr_counter(dict,
+                              ua_key_prefix .. ngx.var.http_user_agent or "-",
                               timeout)
 end
 function counter_log.log_request()
