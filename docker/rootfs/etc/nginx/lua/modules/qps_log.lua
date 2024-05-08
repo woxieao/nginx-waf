@@ -46,7 +46,8 @@ function qps_log.log2json(start_time, end_time, date_format)
     local i = start_time
     while i < end_time do
         local formatted_date_time = os.date(date_format, i)
-        result[tostring(i)] = (dict:get(key_prefix .. i) or 0);
+        result[formatted_date_time] = (dict:get(key_prefix ..
+                                                    formatted_date_time) or 0);
         i = i + time2Add
     end
 
