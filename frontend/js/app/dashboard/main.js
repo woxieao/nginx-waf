@@ -2,6 +2,7 @@ const Mn = require("backbone.marionette");
 const Cache = require("../cache");
 const Controller = require("../controller");
 const template = require("./main.ejs");
+const TestView = require("./charts/qps/main.ejs");
 const echarts = require("echarts");
 
 module.exports = Mn.View.extend({
@@ -14,6 +15,7 @@ module.exports = Mn.View.extend({
   ui: {
     links: "a",
     test: ".test-item",
+    test_div: ".test-div",
   },
 
   events: {
@@ -25,40 +27,38 @@ module.exports = Mn.View.extend({
       e.preventDefault();
       window.echartsTest = echarts;
       console.log(document.getElementById("test_xa"));
+
       var myChart = echarts.init(document.getElementById("test_xa"));
 
+      var myChart = echartsTest.init(document.getElementById("test_xa"));
       // 绘制图表
       myChart.setOption({
         title: {
           text: "ECharts 入门示例",
         },
-        grid: { top: 10, bottom: 10, right: 0, left: 0 },
         tooltip: {},
         xAxis: {
-          type: "category",
-          data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-          axisTick: { show: false },
-          show: false,
+          data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"],
         },
-        yAxis: {
-          show: false,
-          type: "value",
-          splitLine: { lineStyle: { type: "dashed" }, show: false },
-        },
+        yAxis: {},
         series: [
           {
-            name: "QPS",
+            name: "销量",
             type: "bar",
-            barGap: "0",
-            barMinHeight: 4,
-            emphasis: {},
-            itemStyle: { borderRadius: [2, 2, 0, 0] },
+            data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
           },
         ],
       });
     },
   },
-
+  test: () => {
+    this.showChildView(
+      "test_div",
+      new TestView({
+        test: "world",
+      })
+    );
+  },
   templateContext: function () {
     return {
       getUserName: function () {
@@ -69,6 +69,8 @@ module.exports = Mn.View.extend({
 
   onRender: function () {
     let view = this;
+
+    view.test();
   },
 
   /**
@@ -78,9 +80,6 @@ module.exports = Mn.View.extend({
 
   initialize: function () {},
   onShow: (a) => {
-    console.log(a);
-
-    console.log(document.getElementById("test_xa"));
-    // 基于准备好的dom，初始化echarts实例
+    console.log("onShow", a);
   },
 });

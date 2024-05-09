@@ -6,7 +6,6 @@ const ErrorView = require("../../error/main");
 const EmptyView = require("../../empty/main");
 const template = require("./main.ejs");
 
-
 module.exports = Mn.View.extend({
   id: "nginx-rules",
   template: template,
@@ -18,17 +17,6 @@ module.exports = Mn.View.extend({
     dimmer: ".dimmer",
     search: ".search-form",
     query: 'input[name="source-query"]',
-  },
-
-  fetch: App.Api.Nginx.RulesLists.getAll,
-
-  showData: function (response) {
-    this.showChildView(
-      "list_region",
-      new ListView({
-        collection: new RulesListModel.Collection(response),
-      })
-    );
   },
 
   showError: function (err) {
@@ -87,7 +75,7 @@ module.exports = Mn.View.extend({
 
       let query = this.ui.query.val();
 
-      this.fetch(["owner", "items", "clients"], query)
+      this.fetch(query)
         .then((response) => this.showData(response))
         .catch((err) => {
           this.showError(err);
@@ -98,11 +86,20 @@ module.exports = Mn.View.extend({
   templateContext: {
     showAddButton: App.Cache.User.canManage("rules_lists"),
   },
+
+  fetch: App.Api.Nginx.RulesLists.getAll,
+  showData: function (response) {
+    this.showChildView(
+      "list_region",
+      new ListView({
+        collection: new RulesListModel.Collection(response),
+      })
+    );
+  },
   onRender: function () {
     let view = this;
-
     view
-      .fetch(["owner", "items", "clients"])
+      .fetch()
       .then((response) => {
         if (!view.isDestroyed()) {
           if (response && response.length) {
