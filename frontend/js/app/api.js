@@ -867,7 +867,7 @@ module.exports = {
        * @param {Object}  data
        */
       test: function (data) {
-        return fetch("get", "waf/get_counter");
+        return fetch("get", "waf/counter_log");
       },      
     },
   },

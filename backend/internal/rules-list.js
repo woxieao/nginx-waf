@@ -15,7 +15,7 @@ const internalRulesList = {
 	interval: null,
 	interval_processing: false,
 	iteration_count: 0,
-	get_counter_url: 'http://localhost:81/waf/get_counter/',
+	get_counter_url: 'http://localhost:81/api/waf/get_counter/',
 
 	/**
 	 * @param   {Access}  access
