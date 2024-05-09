@@ -6,7 +6,7 @@ module.exports = Mn.View.extend({
   template: template,
 
   templateContext: {
-    test: "default",
+    test: this.getOption("test"),
   },
   onRender: function () {
     this.test = "hello";
