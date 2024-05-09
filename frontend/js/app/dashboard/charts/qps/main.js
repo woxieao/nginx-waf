@@ -9,14 +9,12 @@ module.exports = Mn.View.extend({
   templateContext: function () {
     return { data: this.getOption("data") };
   },
-  
 
-
-
-  onShow: () => {
+  onShow: () => {},
+  onRender: function () {
+    this.data = "hello";
     window.echartsTest = echarts;
-    console.log(document.getElementById("test_xa"));
-    var myChart = echarts.init(document.getElementById("test_xa"));
+    console.log(66666, document.getElementById("test_xa"));
     var myChart = echartsTest.init(document.getElementById("test_xa"));
     myChart.setOption({
       title: {
@@ -35,8 +33,5 @@ module.exports = Mn.View.extend({
         },
       ],
     });
-  },
-  onRender: function () {
-    this.data = "hello";
   },
 });
