@@ -5,7 +5,7 @@ const ListView = require("./list/main");
 const ErrorView = require("../../error/main");
 const EmptyView = require("../../empty/main");
 const template = require("./main.ejs");
-const echarts = require("echarts");
+
 
 module.exports = Mn.View.extend({
   id: "nginx-rules",

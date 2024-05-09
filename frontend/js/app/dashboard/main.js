@@ -1,9 +1,8 @@
 const Mn = require("backbone.marionette");
 const Cache = require("../cache");
 const Controller = require("../controller");
-const Api = require("../api");
-const Helpers = require("../../lib/helpers");
 const template = require("./main.ejs");
+const echarts = require("echarts");
 
 module.exports = Mn.View.extend({
   template: template,
