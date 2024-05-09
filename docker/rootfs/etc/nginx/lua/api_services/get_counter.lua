@@ -35,6 +35,7 @@ end
 
 local cjson = require "cjson";
 
+ngx.header.content_type = "application/json; charset=utf-8"
 ngx.say(cjson.encode({
     exec_counter = get_exec_counter(),
     block_counter = get_block_counter()

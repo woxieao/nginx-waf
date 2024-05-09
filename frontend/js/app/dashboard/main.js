@@ -2,7 +2,7 @@ const Mn = require("backbone.marionette");
 const Cache = require("../cache");
 const template = require("./main.ejs");
 const TestView = require("./charts/qps/main");
-const App = require("../../main");
+const App = require("../main");
 
 module.exports = Mn.View.extend({
   template: template,
