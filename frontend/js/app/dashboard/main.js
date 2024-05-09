@@ -1,9 +1,7 @@
 const Mn = require("backbone.marionette");
 const Cache = require("../cache");
-const Controller = require("../controller");
 const template = require("./main.ejs");
 const TestView = require("./charts/qps/main");
-const echarts = require("echarts");
 
 module.exports = Mn.View.extend({
   template: template,
@@ -18,49 +16,16 @@ module.exports = Mn.View.extend({
     test_div: "@ui.test_div",
   },
   events: {
-    "click @ui.links": function (e) {
-      e.preventDefault();
-      Controller.navigate($(e.currentTarget).attr("href"), true);
-    },
     "click @ui.test": function (e) {
       e.preventDefault();
 
       let view = this;
-      console.log(view); 
-      view.test();
-      // window.echartsTest = echarts;
-      // console.log(document.getElementById("test_xa"));
-
-      // var myChart = echarts.init(document.getElementById("test_xa"));
-
-      // var myChart = echartsTest.init(document.getElementById("test_xa"));
-      // // 绘制图表
-      // myChart.setOption({
-      //   title: {
-      //     text: "ECharts 入门示例",
-      //   },
-      //   tooltip: {},
-      //   xAxis: {
-      //     data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"],
-      //   },
-      //   yAxis: {},
-      //   series: [
-      //     {
-      //       name: "销量",
-      //       type: "bar",
-      //       data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
-      //     },
-      //   ],
-      // });
+      console.log(view);
+      this.refreshCharts();
     },
   },
-  test: function () {
-    this.showChildView(
-      "test_div",
-      new TestView({
-        test: "world",
-      })
-    );
+  refreshCharts: function () {
+    this.showQps();
   },
   templateContext: function () {
     return {
@@ -68,12 +33,6 @@ module.exports = Mn.View.extend({
         return Cache.User.get("nickname") || Cache.User.get("name");
       },
     };
-  },
-
-  onRender: function () {
-    let view = this;
-
-    //
   },
 
   /**
@@ -84,5 +43,28 @@ module.exports = Mn.View.extend({
   initialize: function () {},
   onShow: (a) => {
     console.log("onShow", a);
+  },
+  fetch: App.Api.Waf.Log.test,
+  showQps: function () {
+    let view = this;
+    view
+      .fetch()
+      .then((response) => {
+        if (!view.isDestroyed()) {
+          view.showChildView(
+            "test_div",
+            new TestView({
+              data: JSON.stringify(response),
+            })
+          );
+        }
+      })
+      .catch((err) => {
+        view.showError(err);
+      });
+  },
+
+  onRender: function () {
+    this.refreshCharts();
   },
 });
