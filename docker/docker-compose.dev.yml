@@ -38,6 +38,7 @@ services:
       - ../global:/app/global
       - ../docker/rootfs/etc/nginx/conf.d/include:/etc/nginx/conf.d/include
       - ../docker/rootfs/etc/nginx/lua:/etc/nginx/lua
+      - ../frontend/node_modules:/app/node_modules
       
     depends_on:
       - db
