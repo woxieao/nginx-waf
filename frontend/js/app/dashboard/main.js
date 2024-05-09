@@ -23,9 +23,10 @@ module.exports = Mn.View.extend({
     },
     "click @ui.test": function (e) {
       e.preventDefault();
-
+      window.echartsTest = echarts;
       console.log(document.getElementById("test_xa"));
       var myChart = echarts.init(document.getElementById("test_xa"));
+
       // 绘制图表
       myChart.setOption({
         title: {
