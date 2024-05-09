@@ -56,7 +56,7 @@ module.exports = Mn.View.extend({
         }
       })
       .catch((err) => {
-        view.showError(err);
+        console.log(err);
       });
   },
 
