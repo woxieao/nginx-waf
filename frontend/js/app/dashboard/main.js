@@ -51,6 +51,7 @@ module.exports = Mn.View.extend({
     view
       .fetch()
       .then((response) => {
+        console.log(88888, response);
         if (!view.isDestroyed()) {
           view.showChildView(
             "test_div",
