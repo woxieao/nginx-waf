@@ -5,8 +5,8 @@ module.exports = Mn.View.extend({
   tagName: "div",
   template: template,
 
-  templateContext: {
-    test: this.getOption("test"),
+  templateContext: function () {
+    return { test: this.getOption("test") };
   },
   onRender: function () {
     this.test = "hello";
