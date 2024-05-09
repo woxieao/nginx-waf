@@ -83,7 +83,33 @@ module.exports = Mn.View.extend({
     },
 
     "submit @ui.search": function (e) {
+
       e.preventDefault();
+
+      console.log(document.getElementById("test_xa"));
+      // 基于准备好的dom，初始化echarts实例
+      var myChart = echarts.init(document.getElementById("test_xa"));
+      // 绘制图表
+      myChart.setOption({
+        title: {
+          text: "ECharts 入门示例",
+        },
+        tooltip: {},
+        xAxis: {
+          data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"],
+        },
+        yAxis: {},
+        series: [
+          {
+            name: "销量",
+            type: "bar",
+            data: [5, 20, 36, 10, 10, 20],
+          },
+        ],
+      });
+
+
+
       let query = this.ui.query.val();
 
       this.fetch(["owner", "items", "clients"], query)
@@ -96,29 +122,6 @@ module.exports = Mn.View.extend({
 
   templateContext: {
     showAddButton: App.Cache.User.canManage("rules_lists"),
-  },
-  initialize: function () {
-    console.log(document.getElementById("test_xa"));
-    // 基于准备好的dom，初始化echarts实例
-    var myChart = echarts.init(document.getElementById("test_xa"));
-    // 绘制图表
-    myChart.setOption({
-      title: {
-        text: "ECharts 入门示例",
-      },
-      tooltip: {},
-      xAxis: {
-        data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"],
-      },
-      yAxis: {},
-      series: [
-        {
-          name: "销量",
-          type: "bar",
-          data: [5, 20, 36, 10, 10, 20],
-        },
-      ],
-    });
   },
   onRender: function () {
     let view = this;
