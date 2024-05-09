@@ -1,92 +1,86 @@
-const Mn         = require('backbone.marionette');
-const Cache      = require('../cache');
-const Controller = require('../controller');
-const Api        = require('../api');
-const Helpers    = require('../../lib/helpers');
-const template   = require('./main.ejs');
+const Mn = require("backbone.marionette");
+const Cache = require("../cache");
+const Controller = require("../controller");
+const Api = require("../api");
+const Helpers = require("../../lib/helpers");
+const template = require("./main.ejs");
 
 module.exports = Mn.View.extend({
-    template: template,
-    id:       'dashboard',
-    columns:  0,
+  template: template,
+  id: "dashboard",
+  columns: 0,
 
-    stats: {},
+  stats: {},
 
-    ui: {
-        links: 'a'
+  ui: {
+    links: "a",
+    test: ".test-item",
+  },
+
+  events: {
+    "click @ui.links": function (e) {
+      e.preventDefault();
+      Controller.navigate($(e.currentTarget).attr("href"), true);
     },
+    "click @ui.test": function (e) {
+      e.preventDefault();
 
-    events: {
-        'click @ui.links': function (e) {
-            e.preventDefault();
-            Controller.navigate($(e.currentTarget).attr('href'), true);
-        }
+      console.log(document.getElementById("test_xa"));
+      var myChart = echarts.init(document.getElementById("test_xa"));
+      // 绘制图表
+      myChart.setOption({
+        title: {
+          text: "ECharts 入门示例",
+        },
+        grid: { top: 10, bottom: 10, right: 0, left: 0 },
+        tooltip: {},
+        xAxis: {
+          type: "category",
+          data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+          axisTick: { show: false },
+          show: false,
+        },
+        yAxis: {
+          show: false,
+          type: "value",
+          splitLine: { lineStyle: { type: "dashed" }, show: false },
+        },
+        series: [
+          {
+            name: "QPS",
+            type: "bar",
+            barGap: "0",
+            barMinHeight: 4,
+            emphasis: {},
+            itemStyle: { borderRadius: [2, 2, 0, 0] },
+          },
+        ],
+      });
     },
+  },
 
-    templateContext: function () {
-        let view = this;
+  templateContext: function () {
+    return {
+      getUserName: function () {
+        return Cache.User.get("nickname") || Cache.User.get("name");
+      },
+    };
+  },
 
-        return {
-            getUserName: function () {
-                return Cache.User.get('nickname') || Cache.User.get('name');
-            },
+  onRender: function () {
+    let view = this;
+  },
 
-            getHostStat: function (type) {
-                if (view.stats && typeof view.stats.hosts !== 'undefined' && typeof view.stats.hosts[type] !== 'undefined') {
-                    return Helpers.niceNumber(view.stats.hosts[type]);
-                }
+  /**
+   * @param {Object}  [model]
+   */
+  preRender: function (model) {},
 
-                return '-';
-            },
+  initialize: function () {},
+  onShow: (a) => {
+    console.log(a);
 
-            canShow: function (perm) {
-                return Cache.User.isAdmin() || Cache.User.canView(perm);
-            },
-
-            columns: view.columns
-        };
-    },
-
-    onRender: function () {
-        let view = this;
-
-        if (typeof view.stats.hosts === 'undefined') {
-            Api.Reports.getHostStats()
-                .then(response => {
-                    if (!view.isDestroyed()) {
-                        view.stats.hosts = response;
-                        view.render();
-                    }
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-        }
-    },
-
-    /**
-     * @param {Object}  [model]
-     */
-    preRender: function (model) {
-        this.columns = 0;
-
-        // calculate the available columns based on permissions for the objects
-        // and store as a variable
-        //let view = this;
-        let perms = ['proxy_hosts', 'redirection_hosts', 'streams', 'dead_hosts'];
-
-        perms.map(perm => {
-            this.columns += Cache.User.isAdmin() || Cache.User.canView(perm) ? 1 : 0;
-        });
-
-        // Prevent double rendering on initial calls
-        if (typeof model !== 'undefined') {
-            this.render();
-        }
-    },
-
-    initialize: function () {
-        this.preRender();
-        this.listenTo(Cache.User, 'change', this.preRender);
-    }
+    console.log(document.getElementById("test_xa"));
+    // 基于准备好的dom，初始化echarts实例
+  },
 });
