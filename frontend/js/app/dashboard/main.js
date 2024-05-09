@@ -22,30 +22,34 @@ module.exports = Mn.View.extend({
     },
     "click @ui.test": function (e) {
       e.preventDefault();
-      window.echartsTest = echarts;
-      console.log(document.getElementById("test_xa"));
 
-      var myChart = echarts.init(document.getElementById("test_xa"));
+      let view = this;
+      console.log(view);
+      view.test();
+      // window.echartsTest = echarts;
+      // console.log(document.getElementById("test_xa"));
 
-      var myChart = echartsTest.init(document.getElementById("test_xa"));
-      // 绘制图表
-      myChart.setOption({
-        title: {
-          text: "ECharts 入门示例",
-        },
-        tooltip: {},
-        xAxis: {
-          data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"],
-        },
-        yAxis: {},
-        series: [
-          {
-            name: "销量",
-            type: "bar",
-            data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
-          },
-        ],
-      });
+      // var myChart = echarts.init(document.getElementById("test_xa"));
+
+      // var myChart = echartsTest.init(document.getElementById("test_xa"));
+      // // 绘制图表
+      // myChart.setOption({
+      //   title: {
+      //     text: "ECharts 入门示例",
+      //   },
+      //   tooltip: {},
+      //   xAxis: {
+      //     data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"],
+      //   },
+      //   yAxis: {},
+      //   series: [
+      //     {
+      //       name: "销量",
+      //       type: "bar",
+      //       data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
+      //     },
+      //   ],
+      // });
     },
   },
   test: function () {
@@ -67,7 +71,7 @@ module.exports = Mn.View.extend({
   onRender: function () {
     let view = this;
 
-    view.test();
+    //
   },
 
   /**
