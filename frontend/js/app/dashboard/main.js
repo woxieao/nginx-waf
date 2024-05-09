@@ -17,6 +17,9 @@ module.exports = Mn.View.extend({
   regions: {
     test_div: "@ui.test_div",
   },
+  templateContext: {
+    test: "test_str",
+  },
   events: {
     "click @ui.links": function (e) {
       e.preventDefault();
