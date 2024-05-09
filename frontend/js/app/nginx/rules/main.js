@@ -97,30 +97,8 @@ module.exports = Mn.View.extend({
   templateContext: {
     showAddButton: App.Cache.User.canManage("rules_lists"),
   },
-
-  onRender: function () {
-    let view = this;
-
-    view
-      .fetch(["owner", "items", "clients"])
-      .then((response) => {
-        if (!view.isDestroyed()) {
-          if (response && response.length) {
-            view.showData(response);
-          } else {
-            view.showEmpty();
-          }
-        }
-      })
-      .catch((err) => {
-        view.showError(err);
-      })
-      .then(() => {
-        view.ui.dimmer.removeClass("active");
-      });
-
-
-      console.log(document.getElementById("test_xa"));
+  initialize: function () {
+    console.log(document.getElementById("test_xa"));
     // 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById("test_xa"));
     // 绘制图表
@@ -141,5 +119,26 @@ module.exports = Mn.View.extend({
         },
       ],
     });
+  },
+  onRender: function () {
+    let view = this;
+
+    view
+      .fetch(["owner", "items", "clients"])
+      .then((response) => {
+        if (!view.isDestroyed()) {
+          if (response && response.length) {
+            view.showData(response);
+          } else {
+            view.showEmpty();
+          }
+        }
+      })
+      .catch((err) => {
+        view.showError(err);
+      })
+      .then(() => {
+        view.ui.dimmer.removeClass("active");
+      });
   },
 });
