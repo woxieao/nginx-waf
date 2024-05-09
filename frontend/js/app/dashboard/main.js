@@ -2,15 +2,12 @@ const Mn = require("backbone.marionette");
 const Cache = require("../cache");
 const Controller = require("../controller");
 const template = require("./main.ejs");
-const TestView = require("./charts/qps/main.ejs");
+const TestView = require("./charts/qps/main");
 const echarts = require("echarts");
 
 module.exports = Mn.View.extend({
   template: template,
   id: "dashboard",
-  columns: 0,
-
-  stats: {},
 
   ui: {
     links: "a",
@@ -51,7 +48,7 @@ module.exports = Mn.View.extend({
       });
     },
   },
-  test: () => {
+  test: function () {
     this.showChildView(
       "test_div",
       new TestView({
