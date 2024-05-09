@@ -26,7 +26,7 @@ module.exports = Mn.View.extend({
       e.preventDefault();
 
       let view = this;
-      console.log(view);
+      console.log(view); 
       view.test();
       // window.echartsTest = echarts;
       // console.log(document.getElementById("test_xa"));
