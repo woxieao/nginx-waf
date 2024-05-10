@@ -13,7 +13,7 @@ local function mainBody()
                 end
             end
             dir:close()
-            sharedData:set(wafDetectorsKeyName, cjson.encode(moduleNames))
+            sharedData:add(wafDetectorsKeyName, cjson.encode(moduleNames))
             return moduleNames;
         else
             return cjson.decode(moduleNames);

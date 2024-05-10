@@ -61,7 +61,7 @@ module.exports = Mn.View.extend({
           data: interceptedBlockTypeDict,
         },
         {
-          name: "规则名称",
+          name: "命中规则",
           type: "pie",
           radius: ["45%", "60%"],
           labelLine: {
