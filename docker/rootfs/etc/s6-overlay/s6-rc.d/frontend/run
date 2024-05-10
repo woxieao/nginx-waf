@@ -11,7 +11,8 @@ if [ "$DEVELOPMENT" = 'true' ]; then
 	HOME=$NPMHOME
 	export HOME
 	mkdir -p /app/frontend/dist
-	chown -R "$PUID:$PGID" /app/frontend/dist	chown -R 777 /app/frontend/dist
+	chown -R "$PUID:$PGID" /app/frontend/dist
+	chown -R 777 /app/frontend/dist
 
 	log_info 'Starting frontend ...'
 	s6-setuidgid "$PUID:$PGID" yarn install
