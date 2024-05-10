@@ -10,7 +10,7 @@ module.exports = Mn.View.extend({
     return { data: this.getOption("data") };
   },
 
-  onShow: () => {
+  onAttach: () => {
     this.data = "hello";
     window.echartsTest = echarts;
     debugger
