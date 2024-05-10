@@ -608,6 +608,7 @@
       "enabled": "已启用",
       "disabled": "已禁用",
       "exec-sort": "执行顺序",
+      "exec-priority": "执行优先级",
       "exec-sort-desc": "数字越小,优先级越高",
       "block-type": "防护类型",
       "block-count": "拦截次数",
