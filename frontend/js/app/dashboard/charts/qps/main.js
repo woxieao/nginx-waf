@@ -12,8 +12,8 @@ module.exports = Mn.View.extend({
 
   onAttach: () => {
     window.echartsTest = echarts;
-    let view = this;
-    console.log(this.data);
+    let data = this.getOption("data") || {};
+    console.log(data);
     var myChart = echartsTest.init(
       document.getElementsByClassName("echart-sm")[0]
     );
@@ -23,14 +23,14 @@ module.exports = Mn.View.extend({
       },
       tooltip: {},
       xAxis: {
-        data: Object.keys(view.data),
+        data: Object.keys(data),
       },
       yAxis: {},
       series: [
         {
           name: "总请求数",
           type: "bar",
-          data: Object.values(view.data),
+          data: Object.values(data),
         },
       ],
     });

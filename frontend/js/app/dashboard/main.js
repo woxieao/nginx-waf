@@ -43,14 +43,14 @@ module.exports = Mn.View.extend({
   counterLogFetch: App.Api.Waf.Log.counter_log,
 
   showChart: function (uiId, fetchFunc) {
-    let view=this;
+    let view = this;
     fetchFunc()
       .then((response) => {
         if (!view.isDestroyed()) {
           view.showChildView(
             uiId,
             new TestView({
-              data: response,
+              data: response.hostDict,
             })
           );
         }
