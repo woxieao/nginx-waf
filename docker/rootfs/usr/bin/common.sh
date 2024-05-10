@@ -17,7 +17,7 @@ PGID=${PGID:-0}
 # See docker/rootfs/etc/logrotate.d/nginx-proxy-manager
 # and docker/rootfs/etc/nginx/nginx.conf
 #TODO root  to nmp
-NPMUSER=root
+NPMUSER=nmp
 NPMGROUP=root
 NPMHOME=/tmp/npmuserhome
 export NPMUSER NPMGROUP NPMHOME
