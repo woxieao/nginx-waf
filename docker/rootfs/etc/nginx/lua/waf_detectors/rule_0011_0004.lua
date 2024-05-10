@@ -2,7 +2,7 @@
 			local function mainFunc()
 			local success, result = pcall(function()
 				local function ruleLogic()
-					 2
+					 
 				end
 				local match = ruleLogic();
 				ngx.shared.exec_counter:incr('r_4', 1)
@@ -18,6 +18,6 @@
 			end)
 		
 			if not success then ngx.header["rule_4"] = "exec failed"; end
-		end--
-		return mainFunc;--
+		end
+		return mainFunc;
 			
