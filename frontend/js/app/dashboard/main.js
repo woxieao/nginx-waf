@@ -11,10 +11,10 @@ module.exports = Mn.View.extend({
   ui: {
     links: "a",
     test: ".test-btn",
-    qps_div: ".qps-div",
+    url_box: ".url-box",
   },
   regions: {
-    qps_div: "@ui.qps_div",
+    url_box: "@ui.url_box",
   },
   events: {
     "click @ui.test": function (e) {
@@ -51,7 +51,7 @@ module.exports = Mn.View.extend({
           view.showChildView(
             uiId,
             new TestView({
-              data: response.hostDict,
+              data: response.urlDict,
             })
           );
         }
@@ -61,8 +61,8 @@ module.exports = Mn.View.extend({
       });
   },
 
-  showQps: function () {
-    this.showChart("qps_div", this.counterLogFetch);
+  showUrl: function () {
+    this.showChart("url_box", this.counterLogFetch);
   },
 
   onRender: function () {

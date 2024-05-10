@@ -1,10 +1,9 @@
 const Mn = require("backbone.marionette");
-const template = require("./main.ejs");
 const echarts = require("echarts");
 
 module.exports = Mn.View.extend({
   tagName: "div",
-  template: template,
+  template: '',
 
   templateContext: function () {
     return { data1: this.getOption("data") };
@@ -13,11 +12,11 @@ module.exports = Mn.View.extend({
     let data = this.getOption("data") || {};
     window.echartsTest = echarts;
     var myChart = echartsTest.init(
-      document.getElementsByClassName("qps-div")[0]
+      document.getElementsByClassName("url-box")[0]
     );
     myChart.setOption({
       title: {
-        text: "近24H域名访问记录",
+        text: "热点Url(近24H)",
       },
       tooltip: {},
       xAxis: {
