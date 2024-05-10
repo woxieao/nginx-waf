@@ -47,21 +47,11 @@ module.exports = Mn.View.extend({
       let method = App.Api.Nginx.RulesLists.create;
       let is_new = true;
 
-      if (this.model.get("id")) {
-        //copy
-        if (this.isCopy) {
-          var indexInfo = data.name.split("-");
-          var index = 0;
-          if (indexInfo.length > 1) {
-            index = parseInt(indexInfo[indexInfo.length - 1]);
-          }
-          data.name = `${data.name}-${index ? index + 1 : 1}`;
-        } else {
-          // edit
-          is_new = false;
-          method = App.Api.Nginx.RulesLists.update;
-          data.id = this.model.get("id");
-        }
+      if (!this.isCopy && this.model.get("id")) {
+        // edit
+        is_new = false;
+        method = App.Api.Nginx.RulesLists.update;
+        data.id = this.model.get("id");
       }
 
       this.ui.buttons.prop("disabled", true).addClass("btn-disabled");
