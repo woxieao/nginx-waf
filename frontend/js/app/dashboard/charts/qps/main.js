@@ -13,6 +13,7 @@ module.exports = Mn.View.extend({
   onShow: () => {
     this.data = "hello";
     window.echartsTest = echarts;
+    debugger
     console.log(66666, document.getElementsByClassName("echart-sm")[0]);
     var myChart = echartsTest.init(
       document.getElementsByClassName("echart-sm")[0]
@@ -36,7 +37,10 @@ module.exports = Mn.View.extend({
     });
   },
   onRender: function () {
+    debugger
     console.log(77777, document.getElementsByClassName("echart-sm")[0]);
+    
+    window.echartsTest = echarts;
     var myChart = echartsTest.init(
       document.getElementsByClassName("echart-sm")[0]
     );
