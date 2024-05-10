@@ -16,8 +16,9 @@ PGID=${PGID:-0}
 # ensure all references to this user is also changed.
 # See docker/rootfs/etc/logrotate.d/nginx-proxy-manager
 # and docker/rootfs/etc/nginx/nginx.conf
-NPMUSER=npm
-NPMGROUP=npm
+#TODO root  to nmp
+NPMUSER=root
+NPMGROUP=root
 NPMHOME=/tmp/npmuserhome
 export NPMUSER NPMGROUP NPMHOME
 
