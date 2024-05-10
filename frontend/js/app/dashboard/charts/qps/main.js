@@ -12,7 +12,7 @@ module.exports = Mn.View.extend({
 
   onAttach: () => {
     
-    console.log(00000);
+    console.log(-11111111111);
     console.log(this.data);
     console.log(this.getOption("data"));
     
