@@ -50,7 +50,7 @@ module.exports = Mn.View.extend({
 
     window.echartsTest = echarts;
     var myChart = echartsTest.init(
-      document.getElementsByClassName("url-box")[0]
+      document.getElementsByClassName("status-box")[0]
     );
     myChart.setOption(option);
   },
