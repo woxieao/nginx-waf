@@ -1,9 +1,10 @@
 const Mn = require("backbone.marionette");
 const echarts = require("echarts");
+const template = require("./main.ejs");
 
 module.exports = Mn.View.extend({
   tagName: "div",
-  template: '',
+  template:  template,
 
   templateContext: function () {
     return { data1: this.getOption("data") };
