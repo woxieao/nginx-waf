@@ -11,34 +11,29 @@ module.exports = Mn.View.extend({
   },
 
   onAttach: () => {
-    this.data = "hello";
     window.echartsTest = echarts;
-    debugger
-    console.log(66666, document.getElementsByClassName("echart-sm")[0]);
+    let view = this;
+    console.log(this.data);
     var myChart = echartsTest.init(
       document.getElementsByClassName("echart-sm")[0]
     );
     myChart.setOption({
       title: {
-        text: "ECharts 入门示例",
+        text: "近24H域名访问记录",
       },
       tooltip: {},
       xAxis: {
-        data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"],
+        data: Object.keys(view.data),
       },
       yAxis: {},
       series: [
         {
-          name: "销量",
+          name: "总请求数",
           type: "bar",
-          data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
+          data: Object.values(view.data),
         },
       ],
     });
   },
-  onRender: function () {
-    debugger
-    console.log(77777, document.getElementsByClassName("echart-sm")[0]);
-
-  },
+  onRender: function () {},
 });
