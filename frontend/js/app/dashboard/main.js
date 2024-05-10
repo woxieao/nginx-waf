@@ -26,7 +26,7 @@ module.exports = Mn.View.extend({
     },
   },
   refreshCharts: function () {
-    this.showQps();
+    this.showUrlLog();
   },
   templateContext: function () {
     return {
@@ -61,7 +61,7 @@ module.exports = Mn.View.extend({
       });
   },
 
-  showUrl: function () {
+  showUrlLog: function () {
     this.showChart("url_box", this.counterLogFetch);
   },
 
