@@ -47,7 +47,7 @@ module.exports = Mn.View.extend({
       },
       series: [
         {
-          name: "攻击类别",
+          name: "攻击类型",
           type: "pie",
           selectedMode: "single",
           radius: [0, "30%"],
