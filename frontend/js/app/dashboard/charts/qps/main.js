@@ -10,8 +10,7 @@ module.exports = Mn.View.extend({
     return { data: this.getOption("data") };
   },
 
-  onShow: () => {},
-  onRender: function () {
+  onShow: () => {
     this.data = "hello";
     window.echartsTest = echarts;
     console.log(66666, document.getElementById("test_xa"));
@@ -34,4 +33,5 @@ module.exports = Mn.View.extend({
       ],
     });
   },
+  onRender: function () {},
 });
