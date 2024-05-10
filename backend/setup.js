@@ -195,7 +195,7 @@ const setupWafScripts = () => {
 		.then((row) => {
 			if (!row.count) {
 				return initRule({
-					name: 'url_demo',
+					name: 'sql_demo',
 					description: '请求参数拦截示例',
 					block_type: 'others',
 				})
