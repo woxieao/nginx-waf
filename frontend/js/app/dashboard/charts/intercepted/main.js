@@ -27,7 +27,7 @@ module.exports = Mn.View.extend({
     );
     var interceptedBlockTypeDict = Object.entries(
       data.interceptedBlockTypeDict
-    ).map(([name, value]) => ({ name: keyMap[name], value, selected: true }));
+    ).map(([name, value]) => ({ name: keyMap[name], value }));
 
     console.log(interceptedNameDict, interceptedBlockTypeDict);
     option = option = {
