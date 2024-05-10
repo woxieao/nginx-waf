@@ -14,13 +14,18 @@ module.exports = Mn.View.extend({
     data = Object.entries(data).map(([name, value]) => ({ name, value }));
 
     option = {
+      title: {
+        text: '响应状态',
+        subtext: '近24H',
+        left: 'center'
+      },
       tooltip: {
         trigger: "item",
       },
       legend: { orient: "vertical", left: "right" },
       series: [
         {
-          name: "响应状态",
+          name: "状态码",
           type: "pie",
           radius: ["40%", "70%"],
           avoidLabelOverlap: false,

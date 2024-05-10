@@ -1,7 +1,8 @@
 const Mn = require("backbone.marionette");
 const Cache = require("../cache");
 const template = require("./main.ejs");
-const TestView = require("./charts/qps/main");
+const StatusView = require("./charts/status/main");
+const InterceptedView = require("./charts/intercepted/main");
 const App = require("../main");
 
 module.exports = Mn.View.extend({
@@ -12,21 +13,34 @@ module.exports = Mn.View.extend({
     links: "a",
     test: ".test-btn",
     status_box: ".status-box",
+    intercepted_box: ".intercepted-box",
   },
   regions: {
     status_box: "@ui.status_box",
+    intercepted_box: "@ui.intercepted_box",
   },
   events: {
     "click @ui.test": function (e) {
       e.preventDefault();
-
-      let view = this;
-      console.log(view);
       this.refreshCharts();
     },
   },
   refreshCharts: function () {
-    this.showStatusLog();
+    let view = this;
+    view
+      .counterLogFetch()
+      .then((response) => {
+        if (!view.isDestroyed()) {
+          view.showInterceptedLog({
+            interceptedNameDict: response.interceptedNameDict,
+            interceptedBlockTypeDict: response.interceptedBlockTypeDict,
+          });
+          view.showStatusLog(response.statusDict);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   },
   templateContext: function () {
     return {
@@ -42,26 +56,21 @@ module.exports = Mn.View.extend({
   },
   counterLogFetch: App.Api.Waf.Log.counter_log,
 
-  showChart: function (uiId, fetchFunc) {
-    let view = this;
-    fetchFunc()
-      .then((response) => {
-        if (!view.isDestroyed()) {
-          view.showChildView(
-            uiId,
-            new TestView({
-              data: response.statusDict,
-            })
-          );
-        }
+  showStatusLog: function (data) {
+    this.showChildView(
+      "status_box",
+      new StatusView({
+        data: data,
       })
-      .catch((err) => {
-        console.log(err);
-      });
+    );
   },
-
-  showStatusLog: function () {
-    this.showChart("status_box", this.counterLogFetch);
+  showInterceptedLog: function (data) {
+    this.showChildView(
+      "intercepted_box",
+      new InterceptedView({
+        data: data,
+      })
+    );
   },
 
   onRender: function () {
