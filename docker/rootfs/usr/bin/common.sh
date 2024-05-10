@@ -18,7 +18,7 @@ PGID=${PGID:-0}
 # and docker/rootfs/etc/nginx/nginx.conf
 #TODO root  to nmp
 NPMUSER=nmp
-NPMGROUP=root
+NPMGROUP=nmp
 NPMHOME=/tmp/npmuserhome
 export NPMUSER NPMGROUP NPMHOME
 
