@@ -4,33 +4,54 @@ const template = require("./main.ejs");
 
 module.exports = Mn.View.extend({
   tagName: "div",
-  template:  template,
+  template: template,
 
   templateContext: function () {
     return { data1: this.getOption("data") };
   },
   onRender: function () {
     let data = this.getOption("data") || {};
+    data = Object.entries(data).map(([name, value]) => ({ name, value }));
+
+    option = {
+      tooltip: {
+        trigger: "item",
+      },
+      legend: { orient: "vertical", left: "right" },
+      series: [
+        {
+          name: "响应状态",
+          type: "pie",
+          radius: ["40%", "70%"],
+          avoidLabelOverlap: false,
+          itemStyle: {
+            borderRadius: 10,
+            borderColor: "#fff",
+            borderWidth: 2,
+          },
+          label: {
+            show: false,
+            position: "center",
+          },
+          emphasis: {
+            label: {
+              show: true,
+              fontSize: 40,
+              fontWeight: "bold",
+            },
+          },
+          labelLine: {
+            show: false,
+          },
+          data: data,
+        },
+      ],
+    };
+
     window.echartsTest = echarts;
     var myChart = echartsTest.init(
       document.getElementsByClassName("url-box")[0]
     );
-    myChart.setOption({
-      title: {
-        text: "热点Url(近24H)",
-      },
-      tooltip: {},
-      xAxis: {
-        data: Object.keys(data),
-      },
-      yAxis: {},
-      series: [
-        {
-          name: "总请求数",
-          type: "bar",
-          data: Object.values(data),
-        },
-      ],
-    });
+    myChart.setOption(option);
   },
 });

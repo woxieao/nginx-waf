@@ -11,10 +11,10 @@ module.exports = Mn.View.extend({
   ui: {
     links: "a",
     test: ".test-btn",
-    url_box: ".url-box",
+    status_box: ".status-box",
   },
   regions: {
-    url_box: "@ui.url_box",
+    status_box: "@ui.status_box",
   },
   events: {
     "click @ui.test": function (e) {
@@ -26,7 +26,7 @@ module.exports = Mn.View.extend({
     },
   },
   refreshCharts: function () {
-    this.showUrlLog();
+    this.showStatusLog();
   },
   templateContext: function () {
     return {
@@ -46,12 +46,11 @@ module.exports = Mn.View.extend({
     let view = this;
     fetchFunc()
       .then((response) => {
-        console.log(22222,response);
         if (!view.isDestroyed()) {
           view.showChildView(
             uiId,
             new TestView({
-              data: response.urlDict,
+              data: response.statusDict,
             })
           );
         }
@@ -61,8 +60,8 @@ module.exports = Mn.View.extend({
       });
   },
 
-  showUrlLog: function () {
-    this.showChart("url_box", this.counterLogFetch);
+  showStatusLog: function () {
+    this.showChart("status_box", this.counterLogFetch);
   },
 
   onRender: function () {
