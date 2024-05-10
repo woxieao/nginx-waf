@@ -50,7 +50,7 @@ module.exports = Mn.View.extend({
           view.showChildView(
             uiId,
             new TestView({
-              data: response.hostDict,
+              data: response,
             })
           );
         }
