@@ -10,7 +10,7 @@ module.exports = Mn.View.extend({
 
   ui: {
     links: "a",
-    test: ".test-item",
+    test: ".test-btn",
     qps_div: ".qps-div",
   },
   regions: {
