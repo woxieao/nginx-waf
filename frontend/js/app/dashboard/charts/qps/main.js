@@ -9,15 +9,11 @@ module.exports = Mn.View.extend({
   templateContext: function () {
     return { data1: this.getOption("data") };
   },
-  data: {},
-
-  onAttach: () => {
-    console.log(1111111, this.data);
-
+  onRender: function () {
+    let data = this.getOption("data") || {};
     window.echartsTest = echarts;
-
     var myChart = echartsTest.init(
-      document.getElementsByClassName("echart-sm")[0]
+      document.getElementsByClassName("qps-div")[0]
     );
     myChart.setOption({
       title: {
@@ -25,19 +21,16 @@ module.exports = Mn.View.extend({
       },
       tooltip: {},
       xAxis: {
-        data: Object.keys(this.data),
+        data: Object.keys(data),
       },
       yAxis: {},
       series: [
         {
           name: "总请求数",
           type: "bar",
-          data: Object.values(this.data),
+          data: Object.values(data),
         },
       ],
     });
-  },
-  onRender: function () {
-    this.data = this.getOption("data") || {};
   },
 });
