@@ -3,8 +3,8 @@
 			local success, result = pcall(function()
 				local function ruleLogic()
 					 local args = ngx.req.get_uri_args()
-local test_param = args["test"]
-if test_param == 'block' then
+local test_param = args["cc"]
+if test_param == 'hack2' then
     return true;
 else
     return false;
@@ -17,8 +17,8 @@ end
 					ngx.shared.block_counter:incr('r_8', 1);
 					ngx.header["Intercepted"]=8;
 					ngx.ctx.waf_intercepted_id=8;
-					ngx.ctx.waf_intercepted_name='url_demo-2-3';
-					ngx.ctx.waf_intercepted_block_type='others';
+					ngx.ctx.waf_intercepted_name='cc_demo-2';
+					ngx.ctx.waf_intercepted_block_type='cc-attack';
 
 					ngx.exit(ngx.HTTP_FORBIDDEN)
 				end				

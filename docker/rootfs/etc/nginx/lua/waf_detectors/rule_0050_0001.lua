@@ -2,8 +2,8 @@
 			local function mainFunc()
 			local function ruleLogic() 
 				local args = ngx.req.get_uri_args()
-local test_param = args["test"]
-if test_param == 'block' then
+local test_param = args["sql"]
+if test_param == 'hack' then
     return true;
 else
     return false;
@@ -22,7 +22,7 @@ end
 				ngx.shared.block_counter:incr('r_1', 1);				
 				ngx.header["Intercepted"]=1;
 				ngx.ctx.waf_intercepted_id=1;
-				ngx.ctx.waf_intercepted_name='url_demo';
+				ngx.ctx.waf_intercepted_name='sql_demo';
 				ngx.ctx.waf_intercepted_block_type='others';
 				ngx.exit(ngx.HTTP_FORBIDDEN)
 			end			

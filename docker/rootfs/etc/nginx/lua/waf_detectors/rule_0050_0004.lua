@@ -2,7 +2,14 @@
 			local function mainFunc()
 			local success, result = pcall(function()
 				local function ruleLogic()
-					 sasas
+					 local args = ngx.req.get_uri_args()
+local test_param = args["sql"]
+if test_param == 'hack1' then
+    return true;
+else
+    return false;
+end
+
 				end
 				local match = ruleLogic();
 				ngx.shared.exec_counter:incr('r_4', 1)
@@ -10,8 +17,8 @@
 					ngx.shared.block_counter:incr('r_4', 1);
 					ngx.header["Intercepted"]=4;
 					ngx.ctx.waf_intercepted_id=4;
-					ngx.ctx.waf_intercepted_name='sasa';
-					ngx.ctx.waf_intercepted_block_type='others';
+					ngx.ctx.waf_intercepted_name='sql_demo-1';
+					ngx.ctx.waf_intercepted_block_type='sql-injection';
 
 					ngx.exit(ngx.HTTP_FORBIDDEN)
 				end				

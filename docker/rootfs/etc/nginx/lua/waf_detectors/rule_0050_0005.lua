@@ -2,15 +2,13 @@
 			local function mainFunc()
 			local success, result = pcall(function()
 				local function ruleLogic()
-					 local blacklist_ips = {
-    "111.111.111.111", "222.222.222.222"
-    -- 添加其他需要加入黑名单的IP地址
-}
-local client_ip = ngx.var.remote_addr
-for _, black_ip in ipairs(blacklist_ips) do
-    if black_ip == client_ip then return true end
+					 local args = ngx.req.get_uri_args()
+local test_param = args["sql"]
+if test_param == 'hack2' then
+    return true;
+else
+    return false;
 end
-return false
 
 				end
 				local match = ruleLogic();
@@ -19,8 +17,8 @@ return false
 					ngx.shared.block_counter:incr('r_5', 1);
 					ngx.header["Intercepted"]=5;
 					ngx.ctx.waf_intercepted_id=5;
-					ngx.ctx.waf_intercepted_name='ip_blacklist_demo2';
-					ngx.ctx.waf_intercepted_block_type='others';
+					ngx.ctx.waf_intercepted_name='sql_demo-2';
+					ngx.ctx.waf_intercepted_block_type='sql-injection';
 
 					ngx.exit(ngx.HTTP_FORBIDDEN)
 				end				
