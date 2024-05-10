@@ -9,7 +9,7 @@ module.exports = Mn.View.extend({
   buildItemView: function (item, itemViewType, itemViewOptions) {
     var index = this.collection.indexOf(item);
     var options = _.extend({ model: item }, itemViewOptions, {
-      $index: index,
+      indexer: index,
     });
     var view = new itemViewType(options);
     return view;
