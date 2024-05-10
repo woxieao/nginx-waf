@@ -47,7 +47,7 @@ module.exports = Mn.View.extend({
     },
   },
 
-  templateContext: {
+  templateContext: { //
     canManage: App.Cache.User.canManage("rules_lists"),
   },
 
