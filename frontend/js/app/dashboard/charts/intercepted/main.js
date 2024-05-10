@@ -31,11 +31,18 @@ module.exports = Mn.View.extend({
 
     console.log(interceptedNameDict, interceptedBlockTypeDict);
     option = option = {
+      title: {
+        text: "拦截情况",
+        subtext: "近24H",
+        left: "center",
+      },
       tooltip: {
         trigger: "item",
         formatter: "{a} <br/>{b}: {c} ({d}%)",
       },
       legend: {
+        orient: "vertical",
+        left: "right",
         data: Object.values(keyMap),
       },
       series: [
