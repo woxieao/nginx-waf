@@ -5,15 +5,6 @@ const template = require("./item.ejs");
 module.exports = Mn.View.extend({
   template: template,
   tagName: "tr",
-
-  buildItemView: function (item, itemViewType, itemViewOptions) {
-    var index = this.collection.indexOf(item);
-    var options = _.extend({ model: item }, itemViewOptions, {
-      indexer: index,
-    });
-    var view = new itemViewType(options);
-    return view;
-  },
   ui: {
     edit: "a.edit",
     able: "a.able",
@@ -47,10 +38,9 @@ module.exports = Mn.View.extend({
     },
   },
 
-  templateContext: { //
+  templateContext: {
     canManage: App.Cache.User.canManage("rules_lists"),
   },
-
   initialize: function () {
     this.listenTo(this.model, "change", this.render);
   },
