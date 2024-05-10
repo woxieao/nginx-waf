@@ -31,7 +31,7 @@ const internalRulesList = {
 					.insertAndFetch({
 						name: data.name,
 						description: data.description,
-						enabled: true,
+						enabled: data.enabled,
 						sort: data.sort,
 						block_type: data.block_type,
 						lua_script: data.lua_script,

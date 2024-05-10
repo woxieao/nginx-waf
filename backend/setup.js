@@ -212,11 +212,18 @@ const setupWafScripts = () => {
 							description: 'Hello World!',
 							block_type: 'others',
 						});
+					})
+					.then(() => {
+						return true;
 					});
+			} else {
+				return false;
 			}
 		})
-		.then(() => {
-			internalRulesList.initSystemRules();
+		.then((isFirstTime) => {
+			if (isFirstTime) {
+				internalRulesList.initSystemRules();
+			}
 		})
 		.then(() => {
 			logger.info('System waf rule added');

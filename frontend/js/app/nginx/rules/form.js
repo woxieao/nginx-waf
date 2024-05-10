@@ -41,9 +41,8 @@ module.exports = Mn.View.extend({
         sort: parseInt(form_data.sort, 10),
         block_type: form_data.block_type,
         lua_script: form_data.lua_script,
+        enabled: true,
       };
-
-      console.log(data);
 
       let method = App.Api.Nginx.RulesLists.create;
       let is_new = true;

@@ -27,7 +27,7 @@
     <div class="dropdown-menu dropdown-menu-right">
       <span class="dropdown-header"><%- i18n('rules-lists', 'rule-id') %> #<%- id %></span>
       <a href="#" class="edit dropdown-item"><i class="dropdown-icon fe fe-edit"></i> <%-  is_system? i18n('rules-lists', 'view'):i18n('str', 'edit') %></a>
-
+      <a href="#" class="copy dropdown-item"><i class="dropdown-icon fe fe-copy"></i> <%-  i18n('rules-lists', 'copy') %></a>
       <a href="#" class="able dropdown-item"><i class="dropdown-icon fe fe-power"></i> <%- i18n('str', enabled ?'disable' : 'enable') %></a>
       <% if (!is_system) { %>
       <div class="dropdown-divider"></div>
