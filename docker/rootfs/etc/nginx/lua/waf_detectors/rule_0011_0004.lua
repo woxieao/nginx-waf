@@ -18,6 +18,6 @@
 			end)
 		
 			if not success then ngx.header["rule_4"] = "exec failed"; end
-		end
+		end--
 		return mainFunc;--
 			
