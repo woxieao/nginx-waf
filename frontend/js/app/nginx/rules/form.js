@@ -79,7 +79,32 @@ module.exports = Mn.View.extend({
   },
 
   initialize: function (options) {
-    this.isCopy = options.isCopy;
+    if ((this.isCopy = options.isCopy)) {
+      this.model = new RulesListModel.Model();
+
+      var name = options.model.get("name");
+      var indexInfo = name.split("-");
+      var index = 0;
+      if (indexInfo.length > 1) {
+        index = parseInt(indexInfo[indexInfo.length - 1]);
+        if (index) {
+          name = `${name.substring(0, name.lastIndexOf("-"))}-${
+            index ? index + 1 : 1
+          }`;
+        }
+      } else {
+        name = `${name}-1`;
+      }
+
+      this.model.set("name", name);
+      this.model.set("description", options.model.get("description"));
+      this.model.set("enabled", true);
+      this.model.set("sort", options.model.get("sort"));
+      this.model.set("block_type", options.model.get("block_type"));
+      this.model.set("lua_script", options.model.get("lua_script"));
+      this.model.set("is_system", false);
+    }
+
     if (typeof options.model === "undefined" || !options.model) {
       this.model = new RulesListModel.Model();
     }
