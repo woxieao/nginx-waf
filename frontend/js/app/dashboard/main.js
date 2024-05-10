@@ -46,6 +46,7 @@ module.exports = Mn.View.extend({
     let view = this;
     fetchFunc()
       .then((response) => {
+        console.log(22222,response);
         if (!view.isDestroyed()) {
           view.showChildView(
             uiId,
