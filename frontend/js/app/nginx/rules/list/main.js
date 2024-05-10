@@ -22,7 +22,7 @@ module.exports = Mn.View.extend({
 
     templateContext: {
         canManage: App.Cache.User.canManage('rules_lists')
-    },
+    }, 
 
     onRender: function () {
         this.showChildView('body', new TableBody({
