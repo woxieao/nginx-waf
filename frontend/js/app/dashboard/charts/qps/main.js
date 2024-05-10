@@ -13,8 +13,10 @@ module.exports = Mn.View.extend({
   onShow: () => {
     this.data = "hello";
     window.echartsTest = echarts;
-    console.log(66666, document.getElementById("test_xa"));
-    var myChart = echartsTest.init(document.getElementById("test_xa"));
+    console.log(66666, document.getElementsByClassName("echart-sm")[0]);
+    var myChart = echartsTest.init(
+      document.getElementsByClassName("echart-sm")[0]
+    );
     myChart.setOption({
       title: {
         text: "ECharts 入门示例",

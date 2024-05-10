@@ -11,10 +11,10 @@ module.exports = Mn.View.extend({
   ui: {
     links: "a",
     test: ".test-item",
-    test_div: ".test-div",
+    qps_div: ".qps-div",
   },
   regions: {
-    test_div: "@ui.test_div",
+    qps_div: "@ui.qps_div",
   },
   events: {
     "click @ui.test": function (e) {
@@ -40,15 +40,14 @@ module.exports = Mn.View.extend({
   onShow: (a) => {
     console.log("onShow", a);
   },
-  fetch: App.Api.Waf.Log.test,
-  showQps: function () {
-    let view = this;
-    view
-      .fetch()
+  counterLogFetch: App.Api.Waf.Log.counter_log,
+
+  showChart: function (uiId, fetchFunc) {
+    fetchFunc()
       .then((response) => {
         if (!view.isDestroyed()) {
           view.showChildView(
-            "test_div",
+            uiId,
             new TestView({
               data: JSON.stringify(response),
             })
@@ -58,6 +57,10 @@ module.exports = Mn.View.extend({
       .catch((err) => {
         console.log(err);
       });
+  },
+
+  showQps: function () {
+    this.showChart("qps_div", this.counterLogFetch);
   },
 
   onRender: function () {
