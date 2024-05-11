@@ -30,7 +30,7 @@ module.exports = Mn.View.extend({
 
     ip_box: "@ui.ip_box",
     url_box: "@ui.url_box",
-    ua_box: { el: ".ua_box", replaceElement: true },
+    ua_box: { el: ".ua-box", replaceElement: true },
   },
   events: {
     "click @ui.test": function (e) {
