@@ -16,13 +16,12 @@ module.exports = Mn.View.extend({
     option = {
       title: {
         text: '响应状态',
-        subtext: '近24H',
         left: 'center'
       },
       tooltip: {
         trigger: "item",
       },
-      legend: { orient: "vertical", left: "right" },
+      legend: { orient: "vertical", left: "left" },
       series: [
         {
           name: "状态码",

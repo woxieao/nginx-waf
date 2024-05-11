@@ -33,7 +33,6 @@ module.exports = Mn.View.extend({
     option = option = {
       title: {
         text: "拦截情况", 
-        subtext: "近24H",
         left: "center",
       },
       tooltip: {
@@ -42,7 +41,7 @@ module.exports = Mn.View.extend({
       },
       legend: {
         orient: "vertical",
-        left: "right",
+        left: "left",
         data: Object.values(keyMap),
       },
       series: [

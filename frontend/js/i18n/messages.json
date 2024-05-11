@@ -598,7 +598,8 @@
       "disabled": "未防护",
       "count":"次数",
       "request-path":"请求路径",
-      "request-ip":"访问Ip"
+      "request-ip":"访问Ip",
+      "request-host":"请求域名"
     },
     "rules-lists": {
       "delete-confirm": "您确定要删除此拦截规则吗？",
