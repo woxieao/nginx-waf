@@ -121,7 +121,14 @@ module.exports = Mn.View.extend({
       key: name,
       value: value,
     }));
-    data = data.sort((a, b) => b.value - a.value);
+    data=data.sort((a, b) => {
+      var aValue = a.value;
+      var bValue = b.value;
+      if (aValue === bValue) {
+          return a.key.localeCompare(b.key);
+      }
+      return aValue > bValue ? -1 : 1;
+  });
     this.showChildView(
       regionId,
       new TableBody({
