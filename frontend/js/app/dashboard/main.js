@@ -114,13 +114,14 @@ module.exports = Mn.View.extend({
     //         App.Controller.showNginxAccessListForm();
     //     }
     // }));
-  }, 
+  },
 
   showListLog: function (regionId, data) {
     data = Object.entries(data).map(([name, value]) => ({
       key: name,
       value: value,
     }));
+    data = data.sort((a, b) => b.value - a.value);
     this.showChildView(
       regionId,
       new TableBody({
