@@ -11,7 +11,7 @@ services:
     ports:
       - 3080:80
       - 3081:81
-      - 3443:443
+      - 4443:443
     networks:
       - nginx_proxy_manager
     environment:
