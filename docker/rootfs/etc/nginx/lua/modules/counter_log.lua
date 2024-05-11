@@ -6,6 +6,7 @@ local intercepted_name_key_prefix = "4_";
 local intercepted_block_type_key_prefix = "5_";
 local ua_os_key_prefix = "6_";
 local ua_browser_key_prefix = "7_";
+local url_key_prefix = "8_";
 local helpers = require "helpers";
 local dict_counter = require "dict_counter";
 local cjson = require "cjson";
@@ -13,7 +14,6 @@ local timeout = 60 * 60 * 24;
 local counter_log = {}
 
 local dict = ngx.shared.counter_log_data;
-local url_dict = ngx.shared.url_log_data;
 
 local function status_counter()
     dict_counter.incr_counter(dict, status_key_prefix .. ngx.status, timeout)
@@ -49,7 +49,7 @@ local function intercepted_block_type_counter()
 end
 
 local function url_counter()
-    dict_counter.incr_counter(url_dict,
+    dict_counter.incr_counter(dict,
                               ngx.var.scheme .. "://" .. ngx.var.host ..
                                   ngx.var.uri, timeout)
 end
@@ -136,19 +136,10 @@ function counter_log.log2json()
             result.uaOsDict[keyName] = keyValue;
         elseif prefix == ua_browser_key_prefix then
             result.uaBrowserDict[keyName] = keyValue;
+        elseif prefix == url_key_prefix then
+            result.urlDict[keyName] = keyValue;
         end
     end
-
-    local arr = {}
-    for _, key in ipairs(url_dict:get_keys()) do
-        local value = url_dict:get(key)
-        table.insert(arr, {key = key, value = value})
-    end
-    table.sort(arr, function(a, b) return a.value > b.value end)
-    for i = 1, math.min( 100,#arr) do
-        result.urlDict[arr[i].key] = arr[i].value
-    end
-
     return cjson.encode(result);
 end
 
