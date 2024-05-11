@@ -37,7 +37,7 @@ module.exports = Mn.View.extend({
       },
       tooltip: {
         trigger: "item",
-        formatter: "{a} <br/>{b}: {c}",
+        
       },
       legend: {
         orient: "vertical",
