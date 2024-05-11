@@ -30,9 +30,8 @@ module.exports = Mn.View.extend({
   regions: {
     status_box: "@ui.status_box",
     intercepted_box: "@ui.intercepted_box",
-
+    ua_box: "@ui.ip_box",
     ip_box: "@ui.ip_box",
-
     url_box: { el: ".url-box", replaceElement: true },
   },
   events: {
