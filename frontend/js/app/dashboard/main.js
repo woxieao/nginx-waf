@@ -21,7 +21,6 @@ module.exports = Mn.View.extend({
     test: ".test-btn",
     status_box: ".status-box",
     intercepted_box: ".intercepted-box",
-    ua_box: ".ua-box",
     ip_box: ".ip-box",
     url_box: ".url-box",
   },
@@ -31,7 +30,7 @@ module.exports = Mn.View.extend({
 
     ip_box: "@ui.ip_box",
     url_box: "@ui.url_box",
-    ua_box: "@ui.ua_box",
+    ua_box: { el: ".ua_box", replaceElement: true },
   },
   events: {
     "click @ui.test": function (e) {
