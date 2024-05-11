@@ -31,10 +31,7 @@ module.exports = Mn.View.extend({
 
     ip_box: "@ui.ip_box",
     url_box: "@ui.url_box",
-    ua_box: {
-      el: "@ui.ua_box",
-      replaceElement: true,
-    },
+    ua_box: "@ui.ua_box",
   },
   events: {
     "click @ui.test": function (e) {
@@ -93,10 +90,10 @@ module.exports = Mn.View.extend({
 
   showUaLog: function (data) {
     data = Object.entries(data).map(([name, value]) => ({
-      ua: name,
-      count: value,
+      key: name,
+      value: value,
     }));
-    console.log(7777777777, data);
+    console.log(7777777777, data, new CounterItemModel.Collection(data));
     this.showChildView(
       "ua_box",
       new UaTableBody({
