@@ -16,9 +16,10 @@ module.exports = Mn.View.extend({
       name,
       value,
     }));
-    var uaBrowserDict = Object.entries(data.uaBrowserDict).map(
-      ([name, value]) => ({ name: keyMap[name], value })
-    );
+    var uaBrowserDict =Object.entries(data.uaBrowserDict).map(([name, value]) => ({
+      name,
+      value,
+    }));
 
     data = Object.entries(data).map(([name, value]) => ({ name, value }));
     var option = {
