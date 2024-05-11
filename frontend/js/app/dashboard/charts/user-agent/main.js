@@ -16,13 +16,31 @@ module.exports = Mn.View.extend({
       name,
       value,
     }));
-    var uaBrowserDict =Object.entries(data.uaBrowserDict).map(([name, value]) => ({
-      name,
-      value,
-    }));
+    var uaBrowserDict = Object.entries(data.uaBrowserDict).map(
+      ([name, value]) => ({
+        name,
+        value,
+      })
+    );
 
-    
     var option = {
+      title: {
+        text: "客户端",
+        subtext: "近24H",
+        left: "center",
+      },
+      legend: [
+        {
+          orient: "vertical",
+          left: "left",
+          data: Object.keys(data.uaBrowserDict),
+        },
+        {
+          orient: "vertical",
+          left: "right",
+          data: Object.keys(data.uaOsDict),
+        },
+      ],
       tooltip: { trigger: "item" },
       series: [
         {
