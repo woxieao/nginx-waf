@@ -4,7 +4,7 @@ const template = require("./item.ejs");
 module.exports = Mn.View.extend({
   template: template,
   tagName: "tr",
-  className:"log-row scroll-tbody",
+  className: "log-row",
   ui: {},
 
   templateContext: {},

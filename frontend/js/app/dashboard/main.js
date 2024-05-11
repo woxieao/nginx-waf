@@ -11,7 +11,7 @@ const App = require("../main");
 
 const TableBody = Mn.CollectionView.extend({
   tagName: "tbody",
-  className: "log-row",
+  className: "log-row scroll-tbody",
   childView: ItemView,
 });
 module.exports = Mn.View.extend({
