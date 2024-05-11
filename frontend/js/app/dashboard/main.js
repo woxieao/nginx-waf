@@ -3,8 +3,14 @@ const Cache = require("../cache");
 const template = require("./main.ejs");
 const StatusView = require("./charts/status/main");
 const InterceptedView = require("./charts/intercepted/main");
+
+const UaView = require("./list/ua/item");
 const App = require("../main");
 
+const UaTableBody = Mn.CollectionView.extend({
+  tagName: "tbody",
+  childView: UaView,
+});
 module.exports = Mn.View.extend({
   template: template,
   id: "dashboard",
@@ -14,10 +20,19 @@ module.exports = Mn.View.extend({
     test: ".test-btn",
     status_box: ".status-box",
     intercepted_box: ".intercepted-box",
+    ip_box: ".ip-box",
+    url_box: ".url-box",
   },
   regions: {
     status_box: "@ui.status_box",
     intercepted_box: "@ui.intercepted_box",
+
+    ip_box: "@ui.ip_box",
+    url_box: "@ui.url_box",
+    ua_box: {
+      el: "tbody",
+      replaceElement: true,
+    },
   },
   events: {
     "click @ui.test": function (e) {
@@ -36,6 +51,7 @@ module.exports = Mn.View.extend({
             interceptedBlockTypeDict: response.interceptedBlockTypeDict,
           });
           view.showStatusLog(response.statusDict);
+          view.showUaLog(response.uaDict);
         }
       })
       .catch((err) => {
@@ -69,6 +85,20 @@ module.exports = Mn.View.extend({
       "intercepted_box",
       new InterceptedView({
         data: data,
+      })
+    );
+  },
+
+  showUaLog: function (data) {
+    data = Object.entries(data).map(([name, value]) => ({
+      ua: name,
+      count: value,
+    }));
+    console.log(7777777777, data);
+    this.showChildView(
+      "ua_box",
+      new UaTableBody({
+        collection: data,
       })
     );
   },

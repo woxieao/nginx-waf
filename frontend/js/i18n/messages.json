@@ -595,7 +595,8 @@
       "waf_name": "防火墙",
       "anit_ddos_name": "增强防护",
       "enabled": "防护中",
-      "disabled": "未防护"
+      "disabled": "未防护",
+      "count":"次数"
     },
     "rules-lists": {
       "delete-confirm": "您确定要删除此拦截规则吗？",
