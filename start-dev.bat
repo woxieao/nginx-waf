@@ -1,1 +1,1 @@
-docker compose -f D:\Data\ymgit\DockerApps\nginx-waf\docker\docker-compose.dev.yml  up  --remove-orphans --force-recreate --build
+docker compose -f docker\docker-compose.dev.yml  up  --remove-orphans --force-recreate --build
