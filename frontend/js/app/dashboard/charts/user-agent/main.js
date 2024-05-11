@@ -21,7 +21,7 @@ module.exports = Mn.View.extend({
       value,
     }));
 
-    data = Object.entries(data).map(([name, value]) => ({ name, value }));
+    
     var option = {
       tooltip: { trigger: "item" },
       series: [
@@ -66,7 +66,7 @@ module.exports = Mn.View.extend({
 
     window.echartsTest = echarts;
     var myChart = echartsTest.init(
-      document.getElementsByClassName("intercepted-box")[0]
+      document.getElementsByClassName("ua-box")[0]
     );
     myChart.setOption(option);
   },

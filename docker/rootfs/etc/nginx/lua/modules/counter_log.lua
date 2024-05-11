@@ -51,7 +51,7 @@ end
 local function url_counter()
     dict_counter.incr_counter(url_dict,
                               ngx.var.scheme .. "://" .. ngx.var.host ..
-                                  ngx.var.request_uri, timeout)
+                                  ngx.var.request_path, timeout)
 end
 
 local function get_os_from_ua(userAgent)
@@ -74,10 +74,6 @@ local function get_browser_from_ua(userAgent)
         if string.find(userAgent, "Chrome") then return "Chrome"; end
         if string.find(userAgent, "Safari") then return "Safari"; end
         if string.find(userAgent, "Firefox") then return "Firefox"; end
-        if string.find(userAgent, "") then return ""; end
-        if string.find(userAgent, "") then return ""; end
-        if string.find(userAgent, "") then return ""; end
-        if string.find(userAgent, "") then return ""; end
     end
     return "Others";
 
