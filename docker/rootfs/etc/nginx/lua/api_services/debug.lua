@@ -3,7 +3,7 @@ local qps_log = require "qps_log";
 
 local helpers = require "helpers"
 ngx.header.content_type = "application/json; charset=utf-8"
-ngx.say("333")
+ngx.say("332223")
 
 local function get_os_from_ua(userAgent)
     if userAgent ~= nil then
