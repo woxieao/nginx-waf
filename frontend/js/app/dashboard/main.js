@@ -10,6 +10,7 @@ const App = require("../main");
 
 const UaTableBody = Mn.CollectionView.extend({
   tagName: "tbody",
+  className: "log-row",
   childView: UaView,
 });
 module.exports = Mn.View.extend({
@@ -87,10 +88,8 @@ module.exports = Mn.View.extend({
     );
   },
 
-  showEmptyLog: function() {
-
+  showEmptyLog: function () {
     // let manage = App.Cache.User.canManage('access_lists');
-
     // this.showChildView('list_region', new EmptyView({
     //     title:      App.i18n('access-lists', 'empty'),
     //     subtitle:   App.i18n('all-hosts', 'empty-subtitle', {manage: manage}),
@@ -101,7 +100,7 @@ module.exports = Mn.View.extend({
     //         App.Controller.showNginxAccessListForm();
     //     }
     // }));
-},
+  },
   showUaLog: function (data) {
     data = Object.entries(data).map(([name, value]) => ({
       key: name,
