@@ -47,3 +47,14 @@ a:hover {
 .echart-h400{
     height: 400px;
 }
+.log-row{
+    width:100%;
+    display: block;
+}
+.overflow-hidden {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    width: 80%;
+}

@@ -30,23 +30,15 @@
 
 <div class="row">
   <div class="col-sm-4 col-lg-4 ">
-
-    <div class="card-body no-padding min-100">
-      <div class="dimmer active">
-        <div class="loader"></div>
-        <div class="dimmer-content list-region">
-          <table class="table table-hover table-outline table-vcenter card-table">
-            <thead>
-              <th>User-Agent</th>
-              <th width="30"><%- i18n('waf', 'count') %></th>
-            </thead>
-            <tbody class="ua-box">
-              <!-- ua -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+    <table class="table table-hover table-outline table-vcenter card-table log-row">
+      <thead>
+        <th>User-Agent</th>
+        <th width="80"><%- i18n('waf', 'count') %></th>
+      </thead>
+      <tbody class="ua-box log-row">
+        <!-- ua -->
+      </tbody>
+    </table>
   </div>
   <div class="col-sm-4 col-lg-4 ip-box echart-h400">
     <!-- ip -->
