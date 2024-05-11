@@ -33,7 +33,7 @@ module.exports = Mn.View.extend({
           labelLine: { show: false },
           data: uaOsDict,
           tooltip: {
-            formatter: (ve) => `客户端(${ve.data.label}): ${ve.data.value}`,
+            formatter: (ve) => `客户端(${ve.data.name}): ${ve.data.value}`,
           },
           minAngle: 10,
           minShowLabelAngle: 1,
@@ -58,7 +58,7 @@ module.exports = Mn.View.extend({
           minAngle: 10,
           minShowLabelAngle: 1,
           tooltip: {
-            formatter: (ve) => `浏览器(${ve.data.label}): ${ve.data.value}`,
+            formatter: (ve) => `浏览器(${ve.data.name}): ${ve.data.value}`,
           },
         },
       ],
