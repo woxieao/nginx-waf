@@ -46,7 +46,7 @@ module.exports = Mn.View.extend({
       },
       series: [
         {
-          name: "拦截攻击类型",
+          name: "攻击类型",
           type: "pie",
           selectedMode: "single",
           radius: [0, "30%"],
@@ -60,7 +60,7 @@ module.exports = Mn.View.extend({
           data: interceptedBlockTypeDict,
         },
         {
-          name: "命中规则名称",
+          name: "规则名称",
           type: "pie",
           radius: ["45%", "60%"],
           labelLine: {

@@ -360,7 +360,8 @@
       "theme": "主题由<a href=\"{url}\" target=\"_blank\">Tabler</a>提供"
     },
     "dashboard": {
-      "title": "您好{name}"
+      "title": "您好,{name}",
+      "refresh":"刷新"
     },
     "all-hosts": {
       "empty-subtitle": "{manage, select, true{为什么不创建一个？} other{您没有权限创建一个。}}",

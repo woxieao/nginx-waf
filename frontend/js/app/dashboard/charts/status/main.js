@@ -26,7 +26,7 @@ module.exports = Mn.View.extend({
         {
           name: "状态码",
           type: "pie",
-          radius: ["45%", "60%"],
+          radius: ["35%", "60%"],
           avoidLabelOverlap: false,
           itemStyle: {
             borderRadius: 10,
