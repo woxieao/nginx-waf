@@ -114,7 +114,7 @@ module.exports = Mn.View.extend({
     //         App.Controller.showNginxAccessListForm();
     //     }
     // }));
-  },
+  }, 
 
   showListLog: function (regionId, data) {
     data = Object.entries(data).map(([name, value]) => ({
