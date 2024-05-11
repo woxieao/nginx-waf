@@ -6,13 +6,13 @@ const InterceptedView = require("./charts/intercepted/main");
 const UaView = require("./charts/user-agent/main");
 
 const CounterItemModel = require("../../models/counter-item");
-const UrlView = require("./list/url/item");
+const ItemView = require("./list/item");
 const App = require("../main");
 
-const UrlTableBody = Mn.CollectionView.extend({
+const TableBody = Mn.CollectionView.extend({
   tagName: "tbody",
   className: "log-row",
-  childView: UrlView,
+  childView: ItemView,
 });
 module.exports = Mn.View.extend({
   template: template,
@@ -24,15 +24,14 @@ module.exports = Mn.View.extend({
     status_box: ".status-box",
     intercepted_box: ".intercepted-box",
     ua_box: ".ua-box",
-    ip_box: ".ip-box",
     url_box: ".url-box",
   },
   regions: {
     status_box: "@ui.status_box",
     intercepted_box: "@ui.intercepted_box",
     ua_box: "@ui.ip_box",
-    ip_box: "@ui.ip_box",
     url_box: { el: ".url-box", replaceElement: true },
+    ip_box: { el: ".ip-box", replaceElement: true },
   },
   events: {
     "click @ui.test": function (e) {
@@ -56,6 +55,7 @@ module.exports = Mn.View.extend({
             uaBrowserDict: response.uaBrowserDict,
           });
           view.showUrlLog(response.urlDict);
+          view.showIpLog(response.ipDict);
         }
       })
       .catch((err) => {
@@ -115,18 +115,24 @@ module.exports = Mn.View.extend({
     //     }
     // }));
   },
-  showUrlLog: function (data) {
+
+  showListLog: function (regionId, data) {
     data = Object.entries(data).map(([name, value]) => ({
       key: name,
       value: value,
     }));
-    console.log(7777777777, data, new CounterItemModel.Collection(data));
     this.showChildView(
-      "url_box",
-      new UrlTableBody({
+      regionId,
+      new TableBody({
         collection: new CounterItemModel.Collection(data),
       })
     );
+  },
+  showUrlLog: function (data) {
+    this.showListLog("url_box", data);
+  },
+  showIpLog: function (data) {
+    this.showListLog("ip_box", data);
   },
 
   onRender: function () {
