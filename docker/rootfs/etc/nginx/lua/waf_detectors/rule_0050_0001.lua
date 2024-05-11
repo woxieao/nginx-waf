@@ -12,12 +12,12 @@ end
 			end
 			local match = ruleLogic();
 			if ngx.shared.exec_counter:get('r_1') == nil then
-               ngx.shared.exec_counter:set('r_1', 0)
+               ngx.shared.exec_counter:add('r_1', 0);
             end
-			ngx.shared.exec_counter:incr('r_1', 1)
+			ngx.shared.exec_counter:incr('r_1', 1);
 			if match == true then
 			if ngx.shared.block_counter:get('r_1') == nil then
-               ngx.shared.block_counter:set('r_1', 0)
+               ngx.shared.block_counter:add('r_1', 0);
             end
 				ngx.shared.block_counter:incr('r_1', 1);				
 				ngx.header["Intercepted"]=1;
