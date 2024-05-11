@@ -31,13 +31,8 @@ module.exports = Mn.View.extend({
       legend: [
         {
           orient: "vertical",
-          left: "left",
-          data: Object.keys(data.uaBrowserDict),
-        },
-        {
-          orient: "vertical",
           left: "right",
-          data: Object.keys(data.uaOsDict),
+          data: Object.keys(data.uaBrowserDict),
         },
       ],
       tooltip: { trigger: "item" },

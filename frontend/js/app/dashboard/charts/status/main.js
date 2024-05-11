@@ -21,12 +21,12 @@ module.exports = Mn.View.extend({
       tooltip: {
         trigger: "item",
       },
-      legend: { orient: "vertical", left: "left" },
+      legend: { orient: "vertical", left: "right" },
       series: [
         {
           name: "状态码",
           type: "pie",
-          radius: ["40%", "70%"],
+          radius: ["45%", "60%"],
           avoidLabelOverlap: false,
           itemStyle: {
             borderRadius: 10,

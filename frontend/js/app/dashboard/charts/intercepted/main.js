@@ -41,7 +41,7 @@ module.exports = Mn.View.extend({
       },
       legend: {
         orient: "vertical",
-        left: "left",
+        left: "right",
         data: Object.values(keyMap),
       },
       series: [
