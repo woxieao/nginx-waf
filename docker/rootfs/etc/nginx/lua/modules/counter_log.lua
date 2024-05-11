@@ -50,8 +50,8 @@ end
 
 local function url_counter()
     dict_counter.incr_counter(dict,
-                              ngx.var.scheme .. "://" .. ngx.var.host ..
-                                  ngx.var.uri, timeout)
+                              url_key_prefix .. ngx.var.scheme .. "://" ..
+                                  ngx.var.host .. ngx.var.uri, timeout)
 end
 
 local function get_os_from_ua(userAgent)
