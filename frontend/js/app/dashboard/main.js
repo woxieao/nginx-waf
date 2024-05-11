@@ -4,6 +4,7 @@ const template = require("./main.ejs");
 const StatusView = require("./charts/status/main");
 const InterceptedView = require("./charts/intercepted/main");
 
+const CounterItemModel = require("../../models/counter-item");
 const UaView = require("./list/ua/item");
 const App = require("../main");
 
@@ -20,6 +21,7 @@ module.exports = Mn.View.extend({
     test: ".test-btn",
     status_box: ".status-box",
     intercepted_box: ".intercepted-box",
+    ua_box: ".ua-box",
     ip_box: ".ip-box",
     url_box: ".url-box",
   },
@@ -29,10 +31,7 @@ module.exports = Mn.View.extend({
 
     ip_box: "@ui.ip_box",
     url_box: "@ui.url_box",
-    ua_box: {
-      el: "tbody",
-      replaceElement: true,
-    },
+    ua_box: "@ui.ua_box",
   },
   events: {
     "click @ui.test": function (e) {
@@ -91,14 +90,14 @@ module.exports = Mn.View.extend({
 
   showUaLog: function (data) {
     data = Object.entries(data).map(([name, value]) => ({
-      ua: name,
-      count: value,
+      key: name,
+      value: value,
     }));
-    console.log(7777777777, data);
+    console.log(7777777777, data, new CounterItemModel.Collection(data));
     this.showChildView(
       "ua_box",
       new UaTableBody({
-        collection: data,
+        collection: new CounterItemModel.Collection(data),
       })
     );
   },

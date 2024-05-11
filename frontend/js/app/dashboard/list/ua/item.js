@@ -8,6 +8,7 @@ module.exports = Mn.View.extend({
 
   templateContext: {},
   initialize: function () {
+    console.log(888888, this.model);
     this.listenTo(this.model, "change", this.render);
   },
 });
