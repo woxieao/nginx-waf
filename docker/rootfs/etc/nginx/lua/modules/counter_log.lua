@@ -145,7 +145,7 @@ function counter_log.log2json()
         table.insert(arr, {key = key, value = value})
     end
     table.sort(arr, function(a, b) return a.value > b.value end)
-    for i = 1, math.min(#arr, 100) do
+    for i = 1, math.min( 100,#arr) do
         result.urlDict[arr[i].key] = arr[i].value
     end
 
