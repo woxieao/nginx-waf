@@ -3,15 +3,16 @@ const Cache = require("../cache");
 const template = require("./main.ejs");
 const StatusView = require("./charts/status/main");
 const InterceptedView = require("./charts/intercepted/main");
+const UaView = require("./charts/user-agent/main");
 
 const CounterItemModel = require("../../models/counter-item");
-const UaView = require("./list/ua/item");
+const UrlView = require("./list/url/item");
 const App = require("../main");
 
-const UaTableBody = Mn.CollectionView.extend({
+const UrlTableBody = Mn.CollectionView.extend({
   tagName: "tbody",
   className: "log-row",
-  childView: UaView,
+  childView: UrlView,
 });
 module.exports = Mn.View.extend({
   template: template,
@@ -22,6 +23,7 @@ module.exports = Mn.View.extend({
     test: ".test-btn",
     status_box: ".status-box",
     intercepted_box: ".intercepted-box",
+    ua_box: ".ua-box",
     ip_box: ".ip-box",
     url_box: ".url-box",
   },
@@ -30,8 +32,8 @@ module.exports = Mn.View.extend({
     intercepted_box: "@ui.intercepted_box",
 
     ip_box: "@ui.ip_box",
-    url_box: "@ui.url_box",
-    ua_box: { el: ".ua-box", replaceElement: true },
+
+    url_box: { el: ".url-box", replaceElement: true },
   },
   events: {
     "click @ui.test": function (e) {
@@ -50,7 +52,11 @@ module.exports = Mn.View.extend({
             interceptedBlockTypeDict: response.interceptedBlockTypeDict,
           });
           view.showStatusLog(response.statusDict);
-          view.showUaLog(response.uaDict);
+          view.showUaLog({
+            uaOsDict: response.uaOsDict,
+            uaBrowserDict: response.uaBrowserDict,
+          });
+          view.showUrlLog(response.urlDict);
         }
       })
       .catch((err) => {
@@ -88,6 +94,15 @@ module.exports = Mn.View.extend({
     );
   },
 
+  showUaLog: function (data) {
+    this.showChildView(
+      "ua_box",
+      new UaView({
+        data: data,
+      })
+    );
+  },
+
   showEmptyLog: function () {
     // let manage = App.Cache.User.canManage('access_lists');
     // this.showChildView('list_region', new EmptyView({
@@ -101,15 +116,15 @@ module.exports = Mn.View.extend({
     //     }
     // }));
   },
-  showUaLog: function (data) {
+  showUrlLog: function (data) {
     data = Object.entries(data).map(([name, value]) => ({
       key: name,
       value: value,
     }));
     console.log(7777777777, data, new CounterItemModel.Collection(data));
     this.showChildView(
-      "ua_box",
-      new UaTableBody({
+      "url_box",
+      new UrlTableBody({
         collection: new CounterItemModel.Collection(data),
       })
     );

@@ -4,7 +4,8 @@ local ip_key_prefix = "2_";
 local intercepted_id_key_prefix = "3_";
 local intercepted_name_key_prefix = "4_";
 local intercepted_block_type_key_prefix = "5_";
-local ua_key_prefix = "6_";
+local ua_os_key_prefix = "6_";
+local ua_browser_key_prefix = "7_";
 local helpers = require "helpers";
 local dict_counter = require "dict_counter";
 local cjson = require "cjson";
@@ -53,11 +54,47 @@ local function url_counter()
                                   ngx.var.request_uri, timeout)
 end
 
-local function ua_counter()
-    dict_counter.incr_counter(dict,
-                              ua_key_prefix .. ngx.var.http_user_agent or "-",
+local function get_os_from_ua(userAgent)
+    if userAgent ~= nil then
+        if string.find(userAgent, "Win") then return "Windows"; end
+        if string.find(userAgent, "Mac") then return "macOS"; end
+        if string.find(userAgent, "Linux") then return "Linux"; end
+        if string.find(userAgent, "Android") then return "Android"; end
+        if string.find(userAgent, "like Mac") then return "iOS"; end
+    end
+    return "Others";
+end
+local function get_browser_from_ua(userAgent)
+    if userAgent ~= nil then
+        if string.find(userAgent, "OPR") then return "Opera"; end
+        if string.find(userAgent, "Edg") then return "Microsoft Edge"; end
+        if string.find(userAgent, "MSIE") then
+            return "Microsoft Internet Explorer";
+        end
+        if string.find(userAgent, "Chrome") then return "Chrome"; end
+        if string.find(userAgent, "Safari") then return "Safari"; end
+        if string.find(userAgent, "Firefox") then return "Firefox"; end
+        if string.find(userAgent, "") then return ""; end
+        if string.find(userAgent, "") then return ""; end
+        if string.find(userAgent, "") then return ""; end
+        if string.find(userAgent, "") then return ""; end
+    end
+    return "Others";
+
+end
+
+local function ua_os_counter()
+    dict_counter.incr_counter(dict, ua_os_key_prefix ..
+                                  get_os_from_ua(ngx.var.http_user_agent),
                               timeout)
 end
+
+local function ua_browser_counter()
+    dict_counter.incr_counter(dict, ua_browser_key_prefix ..
+                                  get_browser_from_ua(ngx.var.http_user_agent),
+                              timeout)
+end
+
 function counter_log.log_request()
     status_counter();
     host_counter();
@@ -66,7 +103,8 @@ function counter_log.log_request()
     intercepted_name_counter();
     intercepted_block_type_counter();
     url_counter();
-    ua_counter();
+    ua_os_counter();
+    ua_browser_counter();
 end
 
 function counter_log.log2json()
@@ -79,7 +117,8 @@ function counter_log.log2json()
         interceptedNameDict = {},
         interceptedBlockTypeDict = {},
         urlDict = {},
-        uaDict = {}
+        uaOsDict = {},
+        uaBrowserDict = {}
     };
     for i, key in ipairs(keys) do
         local prefix = key:sub(1, 2);
@@ -97,8 +136,10 @@ function counter_log.log2json()
             result.interceptedNameDict[keyName] = keyValue;
         elseif prefix == intercepted_block_type_key_prefix then
             result.interceptedBlockTypeDict[keyName] = keyValue;
-        elseif prefix == ua_key_prefix then
-            result.uaDict[keyName] = keyValue;
+        elseif prefix == ua_os_key_prefix then
+            result.uaOsDict[keyName] = keyValue;
+        elseif prefix == ua_browser_key_prefix then
+            result.uaBrowserDict[keyName] = keyValue;
         end
     end
 
