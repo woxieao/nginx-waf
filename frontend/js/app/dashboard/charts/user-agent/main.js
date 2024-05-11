@@ -46,7 +46,7 @@ module.exports = Mn.View.extend({
         {
           name: "客户端",
           type: "pie",
-          radius: ["30%", "45%"],
+          radius: ["20%", "35%"],
           label: { position: "inner", fontSize: 14 },
           labelLine: { show: false },
           data: uaOsDict,
@@ -64,7 +64,7 @@ module.exports = Mn.View.extend({
         {
           name: "浏览器",
           type: "pie",
-          radius: ["65%", "80%"],
+          radius: ["45%", "60%"],
           label: { show: false },
           itemStyle: {
             borderRadius: 2,
