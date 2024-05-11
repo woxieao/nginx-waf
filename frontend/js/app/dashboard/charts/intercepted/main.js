@@ -32,7 +32,7 @@ module.exports = Mn.View.extend({
     console.log(interceptedNameDict, interceptedBlockTypeDict);
     option = option = {
       title: {
-        text: "拦截情况",//
+        text: "拦截情况",
         subtext: "近24H",
         left: "center",
       },
