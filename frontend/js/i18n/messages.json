@@ -361,7 +361,8 @@
     },
     "dashboard": {
       "title": "您好,{name}",
-      "refresh":"刷新"
+      "refresh":"刷新",
+      "live-data":"实时请求情况"
     },
     "all-hosts": {
       "empty-subtitle": "{manage, select, true{为什么不创建一个？} other{您没有权限创建一个。}}",
