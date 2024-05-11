@@ -11,7 +11,7 @@ if hash docker 2>/dev/null && docker compose --version >/dev/null 2>&1; then
 	cd "${DIR}/.."
 	echo -e "${BLUE}❯ ${CYAN}Starting Dev Stack ...${RESET}"
 
-	docker compose up restart 
+	docker compose restart 
 
 	echo ""
 	echo -e "${CYAN}Admin UI:     http://127.0.0.1:3081${RESET}"
