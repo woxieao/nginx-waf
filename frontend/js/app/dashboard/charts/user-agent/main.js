@@ -59,7 +59,7 @@ module.exports = Mn.View.extend({
           name: "浏览器",
           type: "pie",
           radius: ["45%", "60%"],
-          label: { show: false },
+          label: { show: true },
           itemStyle: {
             borderRadius: 2,
             borderWidth: 2,

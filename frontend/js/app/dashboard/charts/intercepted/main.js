@@ -32,12 +32,11 @@ module.exports = Mn.View.extend({
     console.log(interceptedNameDict, interceptedBlockTypeDict);
     option = option = {
       title: {
-        text: "拦截情况", 
+        text: "拦截情况",
         left: "center",
       },
       tooltip: {
         trigger: "item",
-        
       },
       legend: {
         orient: "vertical",
@@ -67,36 +66,9 @@ module.exports = Mn.View.extend({
             length: 30,
           },
           label: {
-            backgroundColor: "#F6F8FC",
-            borderColor: "#8C8D8E",
-            borderWidth: 1,
-            borderRadius: 4,
-            rich: {
-              a: {
-                color: "#6E7079",
-                lineHeight: 22,
-                align: "center",
-              },
-              hr: {
-                borderColor: "#8C8D8E",
-                width: "100%",
-                borderWidth: 1,
-                height: 0,
-              },
-              b: {
-                color: "#4C5058",
-                fontSize: 14,
-                fontWeight: "bold",
-                lineHeight: 33,
-              },
-              per: {
-                color: "#fff",
-                backgroundColor: "#4C5058",
-                padding: [3, 4],
-                borderRadius: 4,
-              },
-            },
+            show: true,
           },
+
           data: interceptedNameDict,
         },
       ],
