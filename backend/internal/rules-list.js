@@ -384,7 +384,8 @@ const internalRulesList = {
 				ngx.ctx.waf_intercepted_id=${data.id};
 				ngx.ctx.waf_intercepted_name='${data.name}';
 				ngx.ctx.waf_intercepted_block_type='${data.block_type}';
-				ngx.exit(ngx.HTTP_FORBIDDEN)
+				
+				ngx.exit(ngx.ctx.status_code or ngx.HTTP_FORBIDDEN)
 			end			
 		end
 		return mainFunc
@@ -410,7 +411,7 @@ const internalRulesList = {
 					ngx.ctx.waf_intercepted_name='${data.name}';
 					ngx.ctx.waf_intercepted_block_type='${data.block_type}';
 
-					ngx.exit(ngx.HTTP_FORBIDDEN)
+					ngx.exit(ngx.ctx.status_code or ngx.HTTP_FORBIDDEN)
 				end				
 			end)
 		
