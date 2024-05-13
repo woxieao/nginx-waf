@@ -1,9 +1,7 @@
 local pattern = { "jscript",
     "onsubmit",
     "copyparentfolder",
-    "document",
     "javascript",
-    "meta",
     "onchange",
     "onmove",
     "onkeydown",
@@ -16,7 +14,6 @@ local pattern = { "jscript",
     "onmouseover",
     "vbscript:",
     "<![cdata[",
-    "http:",
     ".innerhtml",
     "settimeout",
     "shell:",
@@ -56,7 +53,13 @@ local pattern = { "jscript",
     "onload" };
 local helpers = require "helpers";
 local args = ngx.req.get_uri_args();
+ngx.req.read_body()
+local body_data = ngx.req.get_body_data()
 if helpers.arr_contains(args, pattern) then
+    return true;
+end
+
+if helpers.arr_contains({ body_data = body_data }, pattern) then
     return true;
 end
 return false
