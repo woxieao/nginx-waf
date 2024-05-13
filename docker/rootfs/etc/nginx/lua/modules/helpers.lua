@@ -6,7 +6,24 @@ function helpers.get_client_ip()
 end
 
 function helpers.get_current_time() return os.time() + 60 * 60 * 8; end
+
 function helpers.get_current_time_str(time)
     return os.date("%Y%m%d%H%M%S", time or helpers.get_current_time())
 end
+
+function helpers.arr_contains(request_arr, matches_arr)
+    return true;
+    -- for _, request_arg in ipairs(request_arr) do
+    --     if request_arg ~= nil then
+    --         request_arg = string.lower(request_arg)
+    --         for _, match in ipairs(matches_arr) do
+    --             if string.find(request_arg, match, 1, true) ~= nil then
+    --                 return true
+    --             end
+    --         end
+    --     end
+    -- end
+    -- return false
+end
+
 return helpers;
