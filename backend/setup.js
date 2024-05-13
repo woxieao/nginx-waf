@@ -201,8 +201,8 @@ const setupWafScripts = () => {
 				})
 					.then(() => {
 						return initRule({
-							name: 'ip_blacklist_demo',
-							description: '黑名单Ip拦截示例',
+							name: 'ip_blacklist',
+							description: '黑名单Ip拦截',
 							block_type: 'others',
 						});
 					})
