@@ -1,6 +1,3 @@
-local helpers = require "helpers";
-local args = ngx.req.get_uri_args()
-
 local pattern = { "jscript",
     "onsubmit",
     "copyparentfolder",
@@ -57,7 +54,8 @@ local pattern = { "jscript",
     "createtextrange",
     "<input",
     "onload" };
-
+local helpers = require "helpers";
+local args = ngx.req.get_uri_args();
 if helpers.arr_contains(args, pattern) then
     return true;
 end

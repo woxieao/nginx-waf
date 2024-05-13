@@ -1,18 +1,61 @@
-local counter_log = require "counter_log";
-local qps_log = require "qps_log";
-
-local helpers = require "helpers"
-ngx.header.content_type = "application/json; charset=utf-8"
-ngx.say("332223")
-
-local function get_os_from_ua(userAgent)
-    if userAgent ~= nil then
-        if string.find(userAgent, "Win") then return "Windows"; end
-        if string.find(userAgent, "Mac") then return "macOS"; end
-        if string.find(userAgent, "Linux") then return "Linux"; end
-        if string.find(userAgent, "Android") then return "Android"; end
-        if string.find(userAgent, "like Mac") then return "iOS"; end
-    end
-    return "Others";
-end
-ngx.say(get_os_from_ua(ngx.var.http_user_agent))
+local pattern = { "jscript",
+    "onsubmit",
+    "copyparentfolder",
+    "document",
+    "javascript",
+    "meta",
+    "onchange",
+    "onmove",
+    "onkeydown",
+    "onkeyup",
+    "activexobject",
+    "onerror",
+    "onmouseup",
+    "ecmascript",
+    "bexpression",
+    "onmouseover",
+    "vbscript:",
+    "<![cdata[",
+    "http:",
+    ".innerhtml",
+    "settimeout",
+    "shell:",
+    "onabort",
+    "asfunction:",
+    "onkeypress",
+    "onmousedown",
+    "onclick",
+    ".fromcharcode",
+    "background-image:",
+    "x-javascript",
+    "ondragdrop",
+    "onblur",
+    "mocha:",
+    "javascript:",
+    "onfocus",
+    "lowsrc",
+    "getparentfolder",
+    "onresize",
+    "@import",
+    "alert",
+    "script",
+    "onselect",
+    "onmouseout",
+    "application",
+    "onmousemove",
+    "background",
+    ".execscript",
+    "livescript:",
+    "vbscript",
+    "getspecialfolder",
+    ".addimport",
+    "iframe",
+    "onunload",
+    "createtextrange",
+    "<input",
+    "onload" };
+local helpers = require "helpers";
+local args = ngx.req.get_uri_args();
+ngx.say(6);
+ngx.say(args);
+ngx.say(7);
