@@ -25,7 +25,7 @@ module.exports = Mn.View.extend({
 
     var option = {
       title: {
-        text: "客户端",
+        text: "客户端1",
         left: "center",
       },
       legend: [
@@ -64,7 +64,7 @@ module.exports = Mn.View.extend({
                 "#73b9bc",
                 "#7289ab",
                 "#91ca8c",
-                "#f49f42",
+                "#f49f42", 
               ];
               return colorList[colors.dataIndex];
             },
