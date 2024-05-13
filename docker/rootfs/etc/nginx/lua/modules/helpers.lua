@@ -13,14 +13,12 @@ end
 
 function helpers.arr_contains(request_arr, matches_arr)
     ngx.say(1)
-    ngx.say(4)
-    ngx.say(nil)
-    ngx.say(5)
-    ngx.say(request_arr)
-    ngx.say(3)
-    for _, request_arg in ipairs(request_arr) do
+    for id, request_arg in ipairs(request_arr) do
         ngx.say(2)
-        ngx.say(request_arg )
+        ngx.say(id)
+        ngx.say(3)
+        ngx.say(request_arg)
+        ngx.say(4)
         if request_arg ~= nil then
             
             request_arg = string.lower(request_arg)
