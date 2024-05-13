@@ -25,7 +25,7 @@ module.exports = Mn.View.extend({
 
     var option = {
       title: {
-        text: "客户端1",
+        text: "客户端", 
         left: "center",
       },
       legend: [
