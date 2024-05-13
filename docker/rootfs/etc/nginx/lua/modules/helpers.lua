@@ -17,7 +17,6 @@ function helpers.arr_contains(request_arr, matches_arr)
             request_arg = string.lower(request_arg)
             for _, match in ipairs(matches_arr) do
                 if string.find(request_arg, match, 1, true) ~= nil then
-                    ngx.say( match)
                     return true
                 end
             end
