@@ -3,3 +3,4 @@
 ._*
 .vscode
 certbot-help.txt
+/docker/rootfs/etc/nginx/lua/waf_detectors/

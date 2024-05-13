@@ -17,7 +17,7 @@ return false
                ngx.shared.exec_counter:add('r_2', 0);
             end
 			ngx.shared.exec_counter:incr('r_2', 1);
-			if match == true then
+			if match == true then 
 			if ngx.shared.block_counter:get('r_2') == nil then
                ngx.shared.block_counter:add('r_2', 0);
             end
