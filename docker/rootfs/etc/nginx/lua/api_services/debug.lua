@@ -57,5 +57,5 @@ local pattern = { "jscript",
 local helpers = require "helpers";
 local args = ngx.req.get_uri_args();
 ngx.say(6);
-ngx.say({"1","2"});
+ngx.say({ ss = 1 });
 ngx.say(7);
