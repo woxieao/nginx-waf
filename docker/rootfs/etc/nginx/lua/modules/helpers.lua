@@ -14,7 +14,9 @@ end
 function helpers.arr_contains(request_arr, matches_arr)
     for _, request_arg in ipairs(request_arr) do
         if request_arg ~= nil then
+            
             request_arg = string.lower(request_arg)
+            ngx.say(request_arg )
             for _, match in ipairs(matches_arr) do
                 if string.find(request_arg, match, 1, true) ~= nil then
                     return true
