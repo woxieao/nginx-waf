@@ -12,18 +12,17 @@ function helpers.get_current_time_str(time)
 end
 
 function helpers.arr_contains(request_arr, matches_arr)
-    return true;
-    -- for _, request_arg in ipairs(request_arr) do
-    --     if request_arg ~= nil then
-    --         request_arg = string.lower(request_arg)
-    --         for _, match in ipairs(matches_arr) do
-    --             if string.find(request_arg, match, 1, true) ~= nil then
-    --                 return true
-    --             end
-    --         end
-    --     end
-    -- end
-    -- return false
+    for _, request_arg in ipairs(request_arr) do
+        if request_arg ~= nil then
+            request_arg = string.lower(request_arg)
+            for _, match in ipairs(matches_arr) do
+                if string.find(request_arg, match, 1, true) ~= nil then
+                    return true
+                end
+            end
+        end
+    end
+    return false
 end
 
 return helpers;
