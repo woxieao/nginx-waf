@@ -13,6 +13,7 @@ end
 
 function helpers.arr_contains(request_arr, matches_arr)
     ngx.say(1)
+    ngx.say(4)
     ngx.say(request_arr)
     ngx.say(3)
     for _, request_arg in ipairs(request_arr) do
