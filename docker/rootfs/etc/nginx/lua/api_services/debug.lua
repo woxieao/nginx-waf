@@ -1,3 +1,10 @@
-ngx.shared.debug_dict:set("test", 1, 10)
-ngx.shared.debug_dict:incr("test", 1)
-ngx.say(ngx.shared.debug_dict:get("test"))
+local pattern = "<[\\s]*(iframe|script|body|img|layer|div|meta|style|base|object|input)";
+local str = ngx.req.get_uri_args()['test'];
+local arg = ngx.re.match(str, pattern, 'jo');
+
+ngx.say("start")
+if arg then
+    ngx.say(arg)
+else
+    ngx.say("not matched")
+end
