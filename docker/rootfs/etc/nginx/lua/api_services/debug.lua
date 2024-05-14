@@ -3,7 +3,7 @@ local str = ngx.req.get_uri_args()['test'];
 local captures, err = ngx.re.match(str, pattern, "jo")
 
 ngx.say("start")
-if arg then
+if captures then
     ngx.say(captures)
     ngx.say(err)
 else
