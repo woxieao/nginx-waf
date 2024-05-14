@@ -60,12 +60,8 @@
             <div class="col-md-12">
               <div class="form-group mb-0">
                 <label class="form-label"><%- i18n('rules-lists', 'lua-script-desc') %><span class="form-required">*</span></label>
-                <textarea name="lua_script" rows="8" class="form-control text-monospace" placeholder="if ngx.req.get_uri_args()['hacked']=='true' then
-  return true;
-end
-return false;
-              " required <%- is_system?"disabled":"" %>><%- lua_script %>                
-                </textarea>
+                <textarea name="lua_script" rows="8" class="form-control text-monospace" placeholder="if ngx.req.get_uri_args()['test']=='true' then ngx.say('hello world'); end
+              " required <%- is_system?"disabled":"" %>><%- lua_script %></textarea>
               </div>
               <p class="small text-gray"><i class="fe fe-alert-triangle"></i> <%- i18n('rules-lists', 'script-warning') %></p>
             </div>

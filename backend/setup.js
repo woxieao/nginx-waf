@@ -253,8 +253,15 @@ const setupWafScripts = () => {
 					})
 					.then(() => {
 						return initRule({
-							name: 'xss',
-							description: '拦截XSS攻击',
+							name: 'xss_tags',
+							description: '拦截HTML标签',
+							block_type: 'xss',
+						});
+					})
+					.then(() => {
+						return initRule({
+							name: 'xss_events',
+							description: '拦截HTML事件',
 							block_type: 'xss',
 						});
 					})

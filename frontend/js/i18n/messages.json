@@ -647,7 +647,8 @@
       "pass-auth": "将身份验证传递给主机",
       "access-add": "添加",
       "auth-add": "添加",
-      "search": "搜索拦截规则..."
+      "search": "搜索拦截规则...",
+      "lua-scripts":"拦截脚本"
     },
     "block-type": {
       "sql-injection": "SQL注入",
