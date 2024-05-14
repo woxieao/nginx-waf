@@ -4,7 +4,8 @@ function dict_counter.incr_counter(dict, key, timeout)
     if dict ~= nil then
         local count = dict:get(key);
         if count == nil then dict:add(key, 0, timeout) end
-        dict:incr(key, 1)
+        return dict:incr(key, 1)
     end
 end
+
 return dict_counter;
