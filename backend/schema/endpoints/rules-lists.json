@@ -33,7 +33,7 @@
 		},
 		"block_type": {
 			"type": "string",
-			"enum": ["others", "sql-injection", "xss", "path-traversal", "sensitive-path", "cc-attack", "malicious-file-upload"]
+			"enum": ["others", "sql-injection", "xss", "ip-policy", "sensitive-path","malicious-crawlers", "cc-attack", "malicious-file-upload"]
 		},
 		"lua_script": {
 			"type": "string"

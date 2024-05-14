@@ -5,6 +5,7 @@ local cache_seconds = 60 * 60 * 24;
 local max_request_count = 60000;
 --
 if ip_recorder.incr(cache_seconds) > max_request_count then
+    ngx.ctx.status_code = 429;
     return true;
 end
 return false;

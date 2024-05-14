@@ -42,9 +42,10 @@
                   <option value="others" <%- block_type === "others" ? 'selected' : '' %>><%- i18n('block-type', 'others') %></option>
                   <option value="sql-injection" <%- block_type === "sql-injection" ? 'selected' : '' %>><%- i18n('block-type', 'sql-injection') %></option>
                   <option value="xss" <%- block_type === "xss" ? 'selected' : '' %>><%- i18n('block-type', 'xss') %></option>
-                  <option value="path-traversal" <%- block_type === "path-traversal" ? 'selected' : '' %>><%- i18n('block-type', 'path-traversal') %></option>
+                  <option value="ip-policy" <%- block_type === "ip-policy" ? 'selected' : '' %>><%- i18n('block-type', 'ip-policy') %></option>
                   <option value="sensitive-path" <%- block_type === "sensitive-path" ? 'selected' : '' %>><%- i18n('block-type', 'sensitive-path') %></option>
                   <option value="cc-attack" <%- block_type === "cc-attack" ? 'selected' : '' %>><%- i18n('block-type', 'cc-attack') %></option>
+                  <option value="malicious-crawlers" <%- block_type === "malicious-crawlers" ? 'selected' : '' %>><%- i18n('block-type', 'malicious-crawlers') %></option>                  
                   <option value="malicious-file-upload" <%- block_type === "malicious-file-upload" ? 'selected' : '' %>><%- i18n('block-type', 'malicious-file-upload') %></option>
                 </select>
               </div>

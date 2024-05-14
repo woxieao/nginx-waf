@@ -173,7 +173,7 @@ const initRule = (rule) => {
 		block_type: rule.block_type,
 		lua_script: content,
 		enabled: 1,
-		sort: 50,
+		sort:rule.sort===undefined?50:rule.sort,
 		is_system: 1,
 		block_counter: 0,
 		exec_counter: 0,
@@ -194,23 +194,89 @@ const setupWafScripts = () => {
 		.first()
 		.then((row) => {
 			if (!row.count) {
+				// "sql-injection": "SQL注入",
+				// "xss": "跨站脚本攻击",
+				// "ip-policy": "IP访问控制",
+				// "malicious-crawlers":"恶意爬虫",
+				// "sensitive-path": "敏感目录",
+				// "cc-attack": "CC攻击",
+				// "malicious-file-upload": "恶意文件上传",
+				// "others": "其他"
 				return initRule({
-					name: 'sql_demo',
-					description: '请求参数拦截示例',
-					block_type: 'others',
+					name: 'ip_whitelist',
+					description: 'IP白名单,该IP范围内的请求直接放行',
+					block_type: 'ip-policy',
+					sort:0
 				})
 					.then(() => {
 						return initRule({
 							name: 'ip_blacklist',
-							description: '黑名单Ip拦截',
-							block_type: 'others',
+							description: 'IP黑名单,该IP范围内的请求直接拦截',
+							block_type: 'ip-policy',
+							sort:1
 						});
 					})
 					.then(() => {
 						return initRule({
-							name: 'hello_world',
-							description: 'Hello World!',
-							block_type: 'others',
+							name: 'cc_blocker_per_minute',
+							description: '单个IP请求次数限制(每分钟)',
+							block_type: 'cc-attack',
+						});
+					})
+					.then(() => {
+						return initRule({
+							name: 'cc_blocker_per_hour',
+							description: '单个IP请求次数限制(每小时)',
+							block_type: 'cc-attack',
+						});
+					})
+					.then(() => {
+						return initRule({
+							name: 'cc_blocker_per_day',
+							description: '单个IP请求次数限制(每天)',
+							block_type: 'cc-attack',
+						});
+					})
+					.then(() => {
+						return initRule({
+							name: 'rogue_crawler',
+							description: '拦截流氓爬虫',
+							block_type: 'malicious-crawlers',
+						});
+					})
+					.then(() => {
+						return initRule({
+							name: 'scanner',
+							description: '拦截扫描工具',
+							block_type: 'malicious-crawlers',
+						});
+					})
+					.then(() => {
+						return initRule({
+							name: 'xss',
+							description: '拦截XSS攻击',
+							block_type: 'xss',
+						});
+					})
+					.then(() => {
+						return initRule({
+							name: 'sql_injection',
+							description: '拦截数据库注入',
+							block_type: 'sql-injection',
+						});
+					})
+					.then(() => {
+						return initRule({
+							name: 'sensitive_path',
+							description: '拦截敏感目录',
+							block_type: 'sensitive-path',
+						});
+					})
+					.then(() => {
+						return initRule({
+							name: 'big_stream_block',
+							description: '拦截过大报文',
+							block_type: 'malicious-file-upload',
 						});
 					})
 					.then(() => {

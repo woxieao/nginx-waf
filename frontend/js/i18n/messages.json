@@ -652,7 +652,8 @@
     "block-type": {
       "sql-injection": "SQL注入",
       "xss": "跨站脚本攻击",
-      "path-traversal": "目录遍历",
+      "ip-policy": "IP访问控制",
+      "malicious-crawlers":"恶意爬虫",
       "sensitive-path": "敏感目录",
       "cc-attack": "CC攻击",
       "malicious-file-upload": "恶意文件上传",
