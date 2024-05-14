@@ -1,12 +1,18 @@
-local cjson = require "cjson";
 local pattern = "<[\\s]*(iframe|script|body|img|layer|div|meta|style|base|object|input)";
-local str = ngx.req.get_uri_args()['test'];
+local args = ngx.req.get_uri_args();
+ngx.req.read_body()
+local body_data = ngx.req.get_body_data()
 
-local captures, err = ngx.re.match(str, pattern, "jo")
 
-ngx.say("start")
-if captures then
-    ngx.say(cjson.encode(captures))
-else
-    ngx.say("not matched")
+for id, request_arg in pairs(args) do
+    local captures, _ = ngx.re.match(request_arg, pattern, "jo")
+    if captures then
+        ngx.say(1)
+    end
 end
+local body_captures, _ = ngx.re.match(body_data, pattern, "jo")
+if body_captures then
+    ngx.say(1)
+end
+
+ngx.say(2)
