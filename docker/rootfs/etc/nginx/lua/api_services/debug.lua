@@ -1,18 +1,15 @@
-local pattern ="(onafterprint|onbeforeprint|onbeforeunload|onblur|oncanplay|oncanplaythrough|onchange|onclick|oncontextmenu|ondblclick|ondrag|ondragend|ondragenter|ondragleave|ondragover|ondragstart|ondrop|ondurationchange|onemptied|onended|onerror|onfocus|onformchange|onforminput|onhaschange|oninput|oninvalid|onkeydown|onkeypress|onkeyup|onload|onloadeddata|onloadedmetadata|onloadstart|onmessage|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|onmousewheel|onoffline|ononline|onpagehide|onpageshow|onpause|onplay|onplaying|onpopstate|onprogress|onratechange|onreadystatechange|onredo|onreset|onresize|onscroll|onseeked|onseeking|onselect|onstalled|onstorage|onsubmit|onsuspend|ontimeupdate|onundo|onunload|onvolumechange|onwaiting)\\s*=";
+local cjson = require "cjson";
+local str_list = {};
+
 local args = ngx.req.get_uri_args();
+for _, value in pairs(args) do
+    table.insert(str_list, value);
+end
+local headers = ngx.req.get_headers();
+for _, value in pairs(headers) do
+    table.insert(str_list, value);
+end
 ngx.req.read_body()
-local body_data = ngx.req.get_body_data()
+table.insert(str_list, ngx.req.get_body_data());
 
-
-for id, request_arg in pairs(args) do
-    local captures, _ = ngx.re.match(request_arg, pattern, "jo")
-    if captures then
-        ngx.say(1)
-    end
-end
-local body_captures, _ = ngx.re.match(body_data, pattern, "jo")
-if body_captures then
-    ngx.say(1)
-end
-
-ngx.say(2)
+ngx.say(cjson.encode(str_list));
