@@ -1,1 +1,5 @@
-ngx.say(ngx.var.uri )
+pcall(function()
+    ngx.say({ ss = {} })
+    todo
+    ngx.say(123);
+end)
