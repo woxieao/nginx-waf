@@ -8,7 +8,7 @@ function ip_recorder.incr(type, time)
 end
 
 function ip_recorder.get_ip_request_count(type)
-    return dict:get(type, helpers.get_client_ip()) or 0;
+    return dict:get(type, type .. "_" .. helpers.get_client_ip()) or 0;
 end
 
 return ip_recorder;

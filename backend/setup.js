@@ -203,26 +203,27 @@ const setupWafScripts = () => {
 				})
 				.then(() => {
 					return initRule({
+						file_name: 'ip_blacklist',
+						name:"IP黑名单",
+						description: 'IP黑名单,该IP范围内的请求直接拦截',
+						block_type: 'ip-policy',
+						sort:0
+					});
+				})
+				.then(() => {
+					return initRule({
 						file_name: 'path_whitelist',
 						name:"路径白名单",
 						description: '对指定路径可以放行,不进行规则校验',
 						block_type: 'others',
 						sort:0
 					});
-				}).then(() => {
-					return initRule({
-						file_name: 'ip_blacklist',
-						name:"IP黑名单",
-						description: 'IP黑名单,该IP范围内的请求直接拦截',
-						block_type: 'ip-policy',
-						sort:1
-					});
 				})
 					.then(() => {
 						return initRule({
 							file_name: 'cc_blocker_per_minute',
 							name:"每分钟请求次数达到上限",
-							description: '单个IP请求次数限制(每分钟)',
+							description: '单个IP请求次数限制,每分钟最多能访问600次',
 							block_type: 'cc-attack',
 						});
 					})
@@ -230,7 +231,7 @@ const setupWafScripts = () => {
 						return initRule({
 							file_name: 'cc_blocker_per_hour',
 							name:"每小时请求次数达到上限",
-							description: '单个IP请求次数限制(每小时)',
+							description: '单个IP请求次数限制,每小时最多能访问6000次',
 							block_type: 'cc-attack',
 						});
 					})
@@ -238,7 +239,7 @@ const setupWafScripts = () => {
 						return initRule({
 							file_name: 'cc_blocker_per_day',
 							name:"每天请求次数达到上限",
-							description: '单个IP请求次数限制(每天)',
+							description: '单个IP请求次数限制,每天最多能访问60000次',
 							block_type: 'cc-attack',
 						});
 					})					

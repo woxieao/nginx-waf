@@ -617,7 +617,7 @@
       "exec-priority": "执行优先级",
       "exec-sort-desc": "数字越小,优先级越高",
       "block-type": "防护类型",
-      "block-count": "拦截次数",
+      "hid-count": "命中次数",
       "exec-count": "执行次数",
       "lua-script": "lua脚本",
       "lua-script-desc": "脚本会按执行顺序运行",
