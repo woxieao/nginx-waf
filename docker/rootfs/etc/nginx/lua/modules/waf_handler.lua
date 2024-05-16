@@ -61,7 +61,7 @@ function _M.detection_request(matched, rule_id, rule_name, block_type)
     <div class="container">
         <h1>访问被拒绝</h1>
         <p>由于可疑活动，您的请求已被阻止。</p>
-        <p>拦截类型：<span class="reason">]] .. rule_name .. [[</span></p>
+        <p>拦截类型：<span class="reason">【]] .. rule_name .. [[】</span></p>
         <p>您的IP地址：<span class="ip-address">]] ..  helpers.get_client_ip() .. [[</span></p>
         <div class="warning">
             <p><strong>警告：</strong>您的请求已被记录。如果可疑行为继续，您的请求可能会被永久封禁。</p>
@@ -79,6 +79,7 @@ function _M.detection_request(matched, rule_id, rule_name, block_type)
         ngx.ctx.waf_intercepted_name = rule_name;
         ngx.ctx.waf_intercepted_block_type = block_type;
         if _M.is_show_detail() then
+            ngx.header.content_type = "text/html; charset=utf-8"
             ngx.status = ngx.ctx.status_code or ngx.HTTP_FORBIDDEN;
             ngx.say(html);
         end

@@ -245,7 +245,7 @@ const setupWafScripts = () => {
 					.then(() => {
 						return initRule({
 							file_name: 'big_stream_block',
-							name:"请求报文长度过大",
+							name:"请求过大",
 							description: '拦截过大报文',
 							block_type: 'malicious-file-upload',
 						});
@@ -261,8 +261,8 @@ const setupWafScripts = () => {
 					.then(() => {
 						return initRule({
 							file_name: 'scanner',
-							name:"扫描工具",
-							description: '拦截扫描工具',
+							name:"恶意扫描工具",
+							description: '拦截恶意扫描工具',
 							block_type: 'malicious-crawlers',
 						});
 					})

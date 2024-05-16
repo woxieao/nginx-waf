@@ -75,7 +75,7 @@ module.exports = Mn.View.extend({
 
       let query = this.ui.query.val();
 
-      this.fetch(query)
+      this.fetch([],query)
         .then((response) => this.showData(response))
         .catch((err) => {
           this.showError(err);
