@@ -143,6 +143,7 @@ module.exports = Mn.View.extend({
       "sensitive-path": "敏感目录",
       "cc-attack": "CC攻击",
       "malicious-file-upload": "恶意文件上传",
+      "malicious-functions": "恶意函数执行",
       others: "其他",
     };
 

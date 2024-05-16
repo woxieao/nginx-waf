@@ -166,7 +166,7 @@ const setupLogrotation = () => {
 };
 
 const initRule = (rule) => {
-	var content = fs.readFileSync(`/etc/nginx/lua/preset_rules/${rule.name}.lua`, { encoding: 'utf8' });
+	var content = fs.readFileSync(`/etc/nginx/lua/preset_rules/${rule.file_name}.lua`, { encoding: 'utf8' });
 	return ruleListModel.query().insert({
 		name: rule.name,
 		description: rule.description,
@@ -194,96 +194,244 @@ const setupWafScripts = () => {
 		.first()
 		.then((row) => {
 			if (!row.count) {
-				// "sql-injection": "SQL注入",
-				// "xss": "跨站脚本攻击",
-				// "ip-policy": "IP访问控制",
-				// "malicious-crawlers":"恶意爬虫",
-				// "sensitive-path": "敏感目录",
-				// "cc-attack": "CC攻击",
-				// "malicious-file-upload": "恶意文件上传",
-				// "others": "其他"
-				return initRule({
-					name: 'ip_whitelist',
-					description: 'IP白名单,该IP范围内的请求直接放行',
+				return  initRule({
+					file_name: 'ip_whitelist',
+					name:"IP白名单",
+					description: '对指定IP可以放行,不进行规则校验',
 					block_type: 'ip-policy',
 					sort:0
 				})
+				.then(() => {
+					return initRule({
+						file_name: 'path_whitelist',
+						name:"路径白名单",
+						description: '对指定路径可以放行,不进行规则校验',
+						block_type: 'others',
+						sort:0
+					});
+				}).then(() => {
+					return initRule({
+						file_name: 'ip_blacklist',
+						name:"IP黑名单",
+						description: 'IP黑名单,该IP范围内的请求直接拦截',
+						block_type: 'ip-policy',
+						sort:1
+					});
+				})
 					.then(() => {
 						return initRule({
-							name: 'ip_blacklist',
-							description: 'IP黑名单,该IP范围内的请求直接拦截',
-							block_type: 'ip-policy',
-							sort:1
-						});
-					})
-					.then(() => {
-						return initRule({
-							name: 'cc_blocker_per_minute',
+							file_name: 'cc_blocker_per_minute',
+							name:"每分钟请求次数达到上限",
 							description: '单个IP请求次数限制(每分钟)',
 							block_type: 'cc-attack',
 						});
 					})
 					.then(() => {
 						return initRule({
-							name: 'cc_blocker_per_hour',
+							file_name: 'cc_blocker_per_hour',
+							name:"每小时请求次数达到上限",
 							description: '单个IP请求次数限制(每小时)',
 							block_type: 'cc-attack',
 						});
 					})
 					.then(() => {
 						return initRule({
-							name: 'cc_blocker_per_day',
+							file_name: 'cc_blocker_per_day',
+							name:"每天请求次数达到上限",
 							description: '单个IP请求次数限制(每天)',
 							block_type: 'cc-attack',
+						});
+					})					
+					.then(() => {
+						return initRule({
+							file_name: 'big_stream_block',
+							name:"请求报文长度过大",
+							description: '拦截过大报文',
+							block_type: 'malicious-file-upload',
 						});
 					})
 					.then(() => {
 						return initRule({
-							name: 'rogue_crawler',
+							file_name: 'rogue_crawler',
+							name:"流氓爬虫",
 							description: '拦截流氓爬虫',
 							block_type: 'malicious-crawlers',
 						});
 					})
 					.then(() => {
 						return initRule({
-							name: 'scanner',
+							file_name: 'scanner',
+							name:"扫描工具",
 							description: '拦截扫描工具',
 							block_type: 'malicious-crawlers',
 						});
 					})
 					.then(() => {
 						return initRule({
-							name: 'xss_tags',
+							file_name: 'xss_tags',
+							name:"XSS标签拦截",
 							description: '拦截HTML标签',
 							block_type: 'xss',
 						});
 					})
 					.then(() => {
 						return initRule({
-							name: 'xss_events',
+							file_name: 'xss_events',
+							name:"XSS事件拦截",
 							description: '拦截HTML事件',
 							block_type: 'xss',
 						});
 					})
 					.then(() => {
 						return initRule({
-							name: 'sql_injection',
+							file_name: 'sql_injection_0',
+							name:"数据库注入-0",
 							description: '拦截数据库注入',
 							block_type: 'sql-injection',
 						});
 					})
 					.then(() => {
 						return initRule({
-							name: 'sensitive_path',
-							description: '拦截敏感目录',
-							block_type: 'sensitive-path',
+							file_name: 'sql_injection_1',
+							name:"数据库注入-1",
+							description: '拦截数据库注入',
+							block_type: 'sql-injection',
 						});
 					})
 					.then(() => {
 						return initRule({
-							name: 'big_stream_block',
-							description: '拦截过大报文',
+							file_name: 'sql_injection_2',
+							name:"数据库注入-2",
+							description: '拦截数据库注入',
+							block_type: 'sql-injection',
+						});
+					})
+					.then(() => {
+						return initRule({
+							file_name: 'sql_injection_3',
+							name:"数据库注入-3",
+							description: '拦截数据库注入',
+							block_type: 'sql-injection',
+						});
+					})
+					.then(() => {
+						return initRule({
+							file_name: 'sql_injection_4',
+							name:"数据库注入-4",
+							description: '拦截数据库注入',
+							block_type: 'sql-injection',
+						});
+					})
+					.then(() => {
+						return initRule({
+							file_name: 'sql_injection_5',
+							name:"数据库注入-5",
+							description: '拦截数据库注入',
+							block_type: 'sql-injection',
+						});
+					})
+					.then(() => {
+						return initRule({
+							file_name: 'sql_injection_6',
+							name:"数据库注入-6",
+							description: '拦截数据库注入',
+							block_type: 'sql-injection',
+						});
+					})
+					.then(() => {
+						return initRule({
+							file_name: 'sql_injection_7',
+							name:"数据库注入-7",
+							description: '拦截数据库注入',
+							block_type: 'sql-injection',
+						});
+					})
+					.then(() => {
+						return initRule({
+							file_name: 'sql_injection_8',
+							name:"数据库注入-8",
+							description: '拦截数据库注入',
+							block_type: 'sql-injection',
+						});
+					})
+					.then(() => {
+						return initRule({
+							file_name: 'sql_injection_9',
+							name:"数据库注入-9",
+							description: '拦截数据库注入',
+							block_type: 'sql-injection',
+						});
+					})
+					.then(() => {
+						return initRule({
+							file_name: 'sql_injection_10',
+							name:"数据库注入-10",
+							description: '拦截数据库注入',
+							block_type: 'sql-injection',
+						});
+					})		
+					.then(() => {
+						return initRule({
+							file_name: 'useragent_atk',
+							name:"恶意User-Agent",
+							description: '拦截恶意User-Agent',
+							block_type: 'others',
+						});
+					})		
+					.then(() => {
+						return initRule({
+							file_name: 'log4j',
+							name:"Log4J漏洞",
+							description: '拦截Log4J漏洞',
+							block_type: 'others',
+						});
+					})		
+					.then(() => {
+						return initRule({
+							file_name: 'malicious_functions',
+							name:"恶意函数执行",
+							description: '恶意函数执行',
 							block_type: 'malicious-file-upload',
+						});
+					})				
+					.then(() => {
+						return initRule({
+							file_name: 'sensitive_path_0',
+							name:"敏感目录-0",
+							description: '拦截敏感目录',
+							block_type: 'sensitive-path',
+						});
+					})		
+					.then(() => {
+						return initRule({
+							file_name: 'sensitive_path_1',
+							name:"敏感目录-1",
+							description: '拦截敏感目录',
+							block_type: 'sensitive-path',
+						});
+					})		
+					.then(() => {
+						return initRule({
+							file_name: 'sensitive_path_2',
+							name:"敏感目录-2",
+							description: '拦截敏感目录',
+							block_type: 'sensitive-path',
+						});
+					})		
+					.then(() => {
+						return initRule({
+							file_name: 'sensitive_path_3',
+							name:"敏感目录-3",
+							description: '拦截敏感目录',
+							block_type: 'sensitive-path',
+						});
+					})		
+					.then(() => {
+						return initRule({
+							file_name: 'sensitive_path_4',
+							name:"敏感目录-4",
+							description: '拦截敏感目录',
+							block_type: 'sensitive-path',
 						});
 					})
 					.then(() => {

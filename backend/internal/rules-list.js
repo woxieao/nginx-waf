@@ -364,67 +364,19 @@ const internalRulesList = {
 		}
 
 		// 2. create lua file
-		var script = data.is_system
-			? `
-			local function mainFunc()
-			local function ruleLogic() 
-				${data.lua_script}
-			end
-			if ngx.ctx.trust_request~=true then 
-
-				local match = ruleLogic();
-				if ngx.shared.exec_counter:get('r_${data.id}') == nil then
-            	   ngx.shared.exec_counter:add('r_${data.id}', 0);
-            	end
-				ngx.shared.exec_counter:incr('r_${data.id}', 1);
-				if match == true then
-				if ngx.shared.block_counter:get('r_${data.id}') == nil then
-            	   ngx.shared.block_counter:add('r_${data.id}', 0);
-            	end
-					ngx.shared.block_counter:incr('r_${data.id}', 1);				
-					ngx.header["Intercepted"]=${data.id};
-					ngx.ctx.waf_intercepted_id=${data.id};
-					ngx.ctx.waf_intercepted_name='${data.name}';
-					ngx.ctx.waf_intercepted_block_type='${data.block_type}';
-
-					ngx.exit(ngx.ctx.status_code or ngx.HTTP_FORBIDDEN)
-				end				
-			end		
-		end
-		return mainFunc
-		`
-			: `
-			local function mainFunc()
-			local success, result = pcall(function()
-				local function ruleLogic()
-					 ${data.lua_script}
-				end
-				if ngx.ctx.trust_request~=true then 
-
-					local match = ruleLogic();
-					if ngx.shared.exec_counter:get('r_${data.id}') == nil then
-               			ngx.shared.exec_counter:add('r_${data.id}', 0)
-            		end				
-					ngx.shared.exec_counter:incr('r_${data.id}', 1);
-					if match == true then
-					if ngx.shared.block_counter:get('r_${data.id}') == nil then
-						ngx.shared.block_counter:add('r_${data.id}', 0);
-			 		end
-						ngx.shared.block_counter:incr('r_${data.id}', 1);
-						ngx.header["Intercepted"]=${data.id};
-						ngx.ctx.waf_intercepted_id=${data.id};
-						ngx.ctx.waf_intercepted_name='${data.name}';
-						ngx.ctx.waf_intercepted_block_type='${data.block_type}';
-
-						ngx.exit(ngx.ctx.status_code or ngx.HTTP_FORBIDDEN)
-					end		
-				end		
-			end)
-		
-			if not success then ngx.header["rule_${data.id}"] = "exec failed"; end
-		end
-		return mainFunc
-			`;
+		var script = `
+local waf_handler = require "waf_handler";
+local function mainFunc()
+    local function ruleLogic();
+	${data.lua_script}
+    end
+    if ngx.ctx.trust_request ~= true then
+        local matched = ruleLogic();
+		waf_handler.detection_request(matched,${data.id},'${data.name}','${data.block_type}');
+    end
+end
+return mainFunc;
+		`			;
 		fs.writeFileSync(lua_waf_file_name, script, { encoding: 'utf8' });
 		//reset scripts cache
 		if (reload) {

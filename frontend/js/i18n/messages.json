@@ -361,8 +361,8 @@
     },
     "dashboard": {
       "title": "您好,{name}",
-      "refresh":"刷新",
-      "live-data":"请求实况"
+      "refresh": "刷新",
+      "live-data": "请求实况"
     },
     "all-hosts": {
       "empty-subtitle": "{manage, select, true{为什么不创建一个？} other{您没有权限创建一个。}}",
@@ -598,10 +598,10 @@
       "anit_ddos_name": "增强防护",
       "enabled": "防护中",
       "disabled": "未防护",
-      "count":"次数",
-      "request-path":"请求路径",
-      "request-ip":"访问Ip",
-      "request-host":"请求域名"
+      "count": "次数",
+      "request-path": "请求路径",
+      "request-ip": "访问Ip",
+      "request-host": "请求域名"
     },
     "rules-lists": {
       "delete-confirm": "您确定要删除此拦截规则吗？",
@@ -648,16 +648,17 @@
       "access-add": "添加",
       "auth-add": "添加",
       "search": "搜索拦截规则...",
-      "lua-scripts":"拦截脚本"
+      "lua-scripts": "拦截脚本"
     },
     "block-type": {
       "sql-injection": "SQL注入",
       "xss": "跨站脚本攻击",
       "ip-policy": "IP访问控制",
-      "malicious-crawlers":"恶意爬虫",
+      "malicious-crawlers": "恶意爬虫",
       "sensitive-path": "敏感目录",
       "cc-attack": "CC攻击",
       "malicious-file-upload": "恶意文件上传",
+      "malicious-functions": "恶意函数执行",
       "others": "其他"
     }
   }

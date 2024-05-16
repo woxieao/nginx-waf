@@ -1,5 +1,5 @@
 local helpers = require "helpers"
 local pattern =
-"<[\\s]*(iframe|script|body|img|layer|div|meta|style|base|object|input)";
+"(bin\\(|ascii\\(|benchmark\\(|concat_ws\\(|group_concat\\(|strcmp\\(|left\\(|datadir\\(|greatest\\()";
 
 return helpers.reg_match_list(helpers.get_all_request_input_string(), pattern)

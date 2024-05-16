@@ -11,18 +11,38 @@ function helpers.get_current_time_str(time)
     return os.date("%Y%m%d%H%M%S", time or helpers.get_current_time())
 end
 
-function helpers.arr_contains(request_arr, matches_arr)
-    for id, request_arg in pairs(request_arr) do
-        if request_arg ~= nil then
-            request_arg = string.lower(request_arg)
-            for _, match in ipairs(matches_arr) do
-                if string.find(request_arg, match, 1, true) ~= nil then
-                    return true
-                end
-            end
-        end
+function helpers.reg_match(input, pattern)
+    local captures, _ = ngx.re.match(input, pattern, "joi")
+    if captures then
+        return true;
     end
     return false
+end
+
+function helpers.reg_match_list(input_list, pattern)
+    for _, input in ipairs(input_list) do
+        if helpers.reg_match(input, pattern) then
+            return true;
+        end
+    end
+    return false;
+end
+
+function helpers.get_all_request_input_string()
+    local str_list = {};
+
+    local args = ngx.req.get_uri_args();
+    for _, value in pairs(args) do
+        table.insert(str_list, value);
+    end
+    local headers = ngx.req.get_headers();
+    for _, value in pairs(headers) do
+        table.insert(str_list, value);
+    end
+    ngx.req.read_body()
+    table.insert(str_list, ngx.req.get_body_data());
+
+    return str_list;
 end
 
 return helpers;
