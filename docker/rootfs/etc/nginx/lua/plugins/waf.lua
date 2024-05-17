@@ -1,6 +1,6 @@
 local function mainBody()
     local function listLuaModules(folderPath)
-        local sharedData = ngx.shared.shared_data
+        local sharedData = ngx.shared.local_cache
         local wafDetectorsKeyName = "waf_detectors_list";
         local cjson = require "cjson";
         local moduleNames = sharedData:get(wafDetectorsKeyName);
