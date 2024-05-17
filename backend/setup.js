@@ -246,8 +246,8 @@ const setupWafScripts = () => {
 					.then(() => {
 						return initRule({
 							file_name: 'big_stream_block',
-							name:"请求过大",
-							description: '拦截过大报文',
+							name:"请求报文过大",
+							description: '拦截大于10m的请求',
 							block_type: 'malicious-file-upload',
 						});
 					})
@@ -371,14 +371,14 @@ const setupWafScripts = () => {
 							block_type: 'sql-injection',
 						});
 					})
-					.then(() => {
-						return initRule({
-							file_name: 'sql_injection_11',
-							name:"数据库注入-11",
-							description: '拦截数据库注入',
-							block_type: 'sql-injection',
-						});
-					})		
+					// .then(() => {
+					// 	return initRule({
+					// 		file_name: 'sql_injection_11',
+					// 		name:"数据库注入-11",
+					// 		description: '拦截数据库注入',
+					// 		block_type: 'sql-injection',
+					// 	});
+					// })		
 					.then(() => {
 						return initRule({
 							file_name: 'useragent_atk',

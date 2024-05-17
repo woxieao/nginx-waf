@@ -1,5 +1,5 @@
---限制请求报文大小为50m以内
-local max_body_length = 50 * 1024 * 1024;
+--限制请求报文大小为10m以内
+local max_body_length = 10 * 1024 * 1024;
 local headers = ngx.req.get_headers()
 local content_length = tonumber(headers["content-length"] or 0)
 
