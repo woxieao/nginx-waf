@@ -69,7 +69,7 @@ local function get_browser_from_ua(userAgent)
         if string.find(userAgent, "OPR") then return "Opera"; end
         if string.find(userAgent, "Edg") then return "Microsoft Edge"; end
         if string.find(userAgent, "MSIE") then
-            return "Microsoft Internet Explorer";
+            return "IE";
         end
         if string.find(userAgent, "Chrome") then return "Chrome"; end
         if string.find(userAgent, "Safari") then return "Safari"; end
