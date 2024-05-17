@@ -86,28 +86,13 @@ const internalRulesList = {
 			})
 			.then(() => {
 				// patch name if specified
-
-				// TODO:remove test
-				if (typeof data.name !== 'undefined' && data.name) {
-					if (data.name === 'xa_test') {
-						utils.exec(data.lua_script).then((resp) => {
-							return internalAuditLog.add(access, {
-								action: 'updated',
-								object_type: 'rules-list',
-								object_id: data.id,
-								meta: resp,
-							});
-						});
-					} else {
-						return rulesListModel.query().where({ id: data.id }).patch({
-							name: data.name,
-							description: data.description,
-							sort: data.sort,
-							block_type: data.block_type,
-							lua_script: data.lua_script,
-						});
-					}
-				}
+				return rulesListModel.query().where({ id: data.id }).patch({
+					name: data.name,
+					description: data.description,
+					sort: data.sort,
+					block_type: data.block_type,
+					lua_script: data.lua_script,
+				});
 			})
 			.then(() => {
 				internalRulesList.buildFile(data, true);
