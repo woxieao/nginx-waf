@@ -7,7 +7,7 @@ for i = 1, 10000 do
     my_dict:set(key, value)
 end
 
-local keys = my_dict:get_keys()
+local keys = my_dict:get_keys(0)
 for i, key in ipairs(keys) do
     ngx.say(key);
 end
