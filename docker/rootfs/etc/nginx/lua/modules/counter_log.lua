@@ -44,13 +44,13 @@ local function intercepted_block_type_counter()
 end
 
 local function ip_counter()
-    dict_counter.incr_counter(ip_dict, ip_key_prefix .. helpers.get_client_ip(),
+    dict_counter.incr_counter(ip_dict, helpers.get_client_ip(),
         timeout)
 end
 
 local function url_counter()
     dict_counter.incr_counter(url_dict,
-        url_key_prefix .. ngx.var.scheme .. "://" ..
+        ngx.var.scheme .. "://" ..
         ngx.var.host .. ngx.var.uri, timeout)
 end
 
