@@ -19,8 +19,8 @@ cat <<EOF > "$DOCKER_COMPOSE_FILE"
 version: '3.8'
 services:
   app:
-    container_name: wezhan-waf-app
-    image: 'wezhan-waf'
+    container_name: nginx-waf-app
+    image: 'nginx-waf'
     restart: unless-stopped
     ports:
       - '80:80'
@@ -35,5 +35,5 @@ echo "docker-compose.yml file created at $DOCKER_COMPOSE_FILE"
 
 docker compose -f /clouddream/nginx-proxy-manage/docker-compose.yml down
 
-docker compose -f /clouddream/wezhan-waf/docker-compose.yml up -d
+docker compose -f /clouddream/nginx-waf/docker-compose.yml up -d
 

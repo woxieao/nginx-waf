@@ -27,13 +27,13 @@ exports.up = function (knex/*, Promise*/) {
 		table.integer('is_deleted').notNull().unsigned().defaultTo(0);
 	}).then(()=>{
 		logger.info('[' + migrate_name + '] rules_list Table created');
-		knex.schema.table('user_permission', (table) => {
+		return knex.schema.table('user_permission', (table) => {
 			table.string('rules_lists').notNull().defaultTo('manage');
 		})	
 	})
 	.then(function () {
 		logger.info('[' + migrate_name + '] user_permission Table altered');
-		knex.schema.table('proxy_host', (table) => {
+		return 	knex.schema.table('proxy_host', (table) => {
 			table.integer('anti_ddos').notNull().unsigned().defaultTo(0);
 		})
 	})
