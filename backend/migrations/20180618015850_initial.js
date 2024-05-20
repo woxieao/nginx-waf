@@ -52,8 +52,7 @@ exports.up = function (knex/*, Promise*/) {
 				table.string('redirection_hosts').notNull();
 				table.string('dead_hosts').notNull();
 				table.string('streams').notNull();
-				table.string('access_lists').notNull();
-				table.string('rules_lists').notNull();
+				table.string('access_lists').notNull();				
 				table.string('certificates').notNull();
 				table.unique('user_id');
 			});
@@ -75,7 +74,6 @@ exports.up = function (knex/*, Promise*/) {
 				table.integer('ssl_forced').notNull().unsigned().defaultTo(0);
 				table.integer('caching_enabled').notNull().unsigned().defaultTo(0);
 				table.integer('block_exploits').notNull().unsigned().defaultTo(0);
-				table.integer('anti_ddos').notNull().unsigned().defaultTo(0);
 				table.text('advanced_config').notNull().defaultTo('');
 				table.json('meta').notNull();
 			});
@@ -95,7 +93,6 @@ exports.up = function (knex/*, Promise*/) {
 				table.integer('certificate_id').notNull().unsigned().defaultTo(0);
 				table.integer('ssl_forced').notNull().unsigned().defaultTo(0);
 				table.integer('block_exploits').notNull().unsigned().defaultTo(0);
-				table.integer('anti_ddos').notNull().unsigned().defaultTo(0);
 				table.text('advanced_config').notNull().defaultTo('');
 				table.json('meta').notNull();
 			});
@@ -148,25 +145,6 @@ exports.up = function (knex/*, Promise*/) {
 		})
 		.then(() => {
 			logger.info('[' + migrate_name + '] access_list Table created');
-
-			return knex.schema.createTable('rules_list', (table) => {
-				table.increments().primary();
-				table.dateTime('created_on').notNull();
-				table.dateTime('modified_on').notNull();
-				table.string('name').notNull().defaultTo('');
-				table.string('description').notNull().defaultTo('');				
-				table.integer('enabled').notNull().unsigned().defaultTo(0);
-				table.integer('sort').notNull().unsigned().defaultTo(0);				
-				table.string('block_type').notNull().defaultTo('');
-				table.text('lua_script','longtext').notNull().defaultTo('');	
-				table.integer('is_system').notNull().unsigned().defaultTo(0);
-				table.integer('block_counter').notNull().unsigned().defaultTo(0);	
-				table.integer('exec_counter').notNull().unsigned().defaultTo(0);				
-				table.integer('is_deleted').notNull().unsigned().defaultTo(0);
-			});
-		})
-		.then(() => {
-			logger.info('[' + migrate_name + '] rules_list Table created');
 
 			return knex.schema.createTable('certificate', (table) => {
 				table.increments().primary();
