@@ -6,8 +6,6 @@ cd /clouddream/nginx-waf/;
 cd /clouddream/nginx-waf/;
 docker buildx build --platform linux/amd64 -f /clouddream/nginx-waf/Dockerfile -t nginx-waf .
 
-docker login --username=ops02@clouddream registry.cn-hangzhou.aliyuncs.com
-P@ssw0rd4AliyunCR
 
 --杭州
 docker tag nginx-waf registry.cn-hangzhou.aliyuncs.com/clouddreamappstore/nginx-waf:latest
