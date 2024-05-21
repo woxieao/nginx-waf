@@ -614,7 +614,7 @@ const internalProxyHost = {
 
 				if (access_data.permission_visibility !== 'all') {
 					query.andWhere('owner_user_id', access.token.getUserId(1))
-					.orWhere("domain_names","not like","%.wezhan.cn");					
+				//	.orWhere("domain_names","not like","%.wezhan.cn");					
 					
 				}
 	
