@@ -3,7 +3,6 @@ const Mn = require("backbone.marionette");
 const Controller = require("../../controller");
 const Cache = require("../../cache");
 const template = require("./main.ejs");
-const App             = require('../../main');
 module.exports = Mn.View.extend({
   id: "menu",
   className: "header collapse d-lg-flex p-0",
