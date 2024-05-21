@@ -610,13 +610,16 @@ const internalProxyHost = {
 		return access
 			.can('proxy_hosts:list')
 			.then((access_data) => {
-				let query = proxyHostModel.query().whereNot('domain_names','like' ,'%.wezhan.cn').groupBy('id').allowGraph('[owner,access_list,certificate]').orderBy('domain_names', 'ASC');
+				let query = proxyHostModel.query().where('is_deleted', 0).groupBy('id').allowGraph('[owner,access_list,certificate]').orderBy('domain_names', 'ASC');
 
-				// if (access_data.permission_visibility !== 'all') {
-				// 	//query.andWhere('owner_user_id', access.token.getUserId(1))
-				// 	query.andWhere('domain_names','not like' ,'%.wezhan.cn')
-				// }
-	
+				if (access_data.permission_visibility !== 'all') {
+					query .whereNot(function () {
+						this.where(owner_user_id, access.token.getUserId(1)).orWhereNot('domain_names', 'like', '%wezhan.cn');
+					  })
+					// query.andWhere('owner_user_id', access.token.getUserId(1));					
+					// //todo wezhan
+					// query.whereNot('domain_names',  'like', '%wezhan.cn');					
+				}
 				
 				// Query is used for searching
 				if (typeof search_query === 'string') {
