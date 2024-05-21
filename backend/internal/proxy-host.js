@@ -406,7 +406,7 @@ const internalProxyHost = {
 	 */
 	block_exploits_enable: (access, data) => {
 		return access
-			.can('rules_lists:update', data.id)
+			.can('proxy_hosts:get', data.id)
 			.then(() => {
 				return internalProxyHost.get(access, {
 					id: data.id,
@@ -456,7 +456,7 @@ const internalProxyHost = {
 	 */
 	block_exploits_disable: (access, data) => {
 		return access
-			.can('rules_lists:update', data.id)
+			.can('proxy_hosts:get', data.id)
 			.then(() => {
 				return internalProxyHost.get(access, { id: data.id });
 			})
