@@ -507,7 +507,7 @@ const internalProxyHost = {
 	 */
 	anti_ddos_enable: (access, data) => {
 		return access
-			.can('rules_lists:update', data.id)
+			.can('proxy_hosts:get', data.id)
 			.then(() => {
 				return internalProxyHost.get(access, {
 					id: data.id,
@@ -557,7 +557,7 @@ const internalProxyHost = {
 	 */
 	anti_ddos_disable: (access, data) => {
 		return access
-			.can('rules_lists:update', data.id)
+			.can('proxy_hosts:get', data.id)
 			.then(() => {
 				return internalProxyHost.get(access, { id: data.id });
 			})
