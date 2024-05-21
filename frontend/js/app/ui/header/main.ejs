@@ -17,8 +17,7 @@
           </span>
         </a>
         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-          <%- if(isAdmin) {%>
-
+          <%- if(isAdmin) { %>
           <a class="dropdown-item edit-details" href="#">
             <i class="dropdown-icon fe fe-user"></i> <%- i18n('users', 'edit-details') %>
           </a>
@@ -29,7 +28,7 @@
           <% } %>
 
           <a class="dropdown-item logout" href="/logout">
-            <i class="dropdown-icon fe fe-log-out"></i> <%- getLogoutText() %>
+            <i class="dropdown-icon fe fe-log-out"></i> <%- getLogoutText() %>          
           </a>
         </div>
       </div>

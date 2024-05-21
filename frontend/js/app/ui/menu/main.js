@@ -27,9 +27,7 @@ module.exports = Mn.View.extend({
     isAdmin: function () {
       return Cache.User.isAdmin();
     },
-    isWafUser: function () {
-      return !Cache.User.isAdmin() && App.Cache.User.canManage("rules_lists");
-    },
+    isWafUser: !Cache.User.isAdmin() && App.Cache.User.canManage("rules_lists"),
 
     canShow: function (perm) {
       return Cache.User.isAdmin() || Cache.User.canView(perm);
