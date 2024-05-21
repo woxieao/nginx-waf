@@ -613,9 +613,12 @@ const internalProxyHost = {
 				let query = proxyHostModel.query().where('is_deleted', 0).groupBy('id').allowGraph('[owner,access_list,certificate]').orderBy('domain_names', 'ASC');
 
 				if (access_data.permission_visibility !== 'all') {
-					//query.andWhere('owner_user_id', access.token.getUserId(1));					
+					query.andWhere('owner_user_id', access.token.getUserId(1));					
+				}
+				
+				if (access_data.permission_proxy_hosts=== 'view') {
 					//todo wezhan
-					query.whereNot('domain_names', 'like', '%wezhan.cn%');
+					query.whereNot('domain_names', 'like', '%.wezhan.cn%');
 				}
 				
 				// Query is used for searching
