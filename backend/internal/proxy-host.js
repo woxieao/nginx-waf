@@ -406,7 +406,7 @@ const internalProxyHost = {
 	 */
 	block_exploits_enable: (access, data) => {
 		return access
-			.can('rules_list:update', data.id)
+			.can('rules_lists:update', data.id)
 			.then(() => {
 				return internalProxyHost.get(access, {
 					id: data.id,
@@ -456,7 +456,7 @@ const internalProxyHost = {
 	 */
 	block_exploits_disable: (access, data) => {
 		return access
-			.can('rules_list:update', data.id)
+			.can('rules_lists:update', data.id)
 			.then(() => {
 				return internalProxyHost.get(access, { id: data.id });
 			})
@@ -507,7 +507,7 @@ const internalProxyHost = {
 	 */
 	anti_ddos_enable: (access, data) => {
 		return access
-			.can('rules_list:update', data.id)
+			.can('rules_lists:update', data.id)
 			.then(() => {
 				return internalProxyHost.get(access, {
 					id: data.id,
@@ -557,7 +557,7 @@ const internalProxyHost = {
 	 */
 	anti_ddos_disable: (access, data) => {
 		return access
-			.can('rules_list:update', data.id)
+			.can('rules_lists:update', data.id)
 			.then(() => {
 				return internalProxyHost.get(access, { id: data.id });
 			})
@@ -615,7 +615,7 @@ const internalProxyHost = {
 				if (access_data.permission_visibility !== 'all') {
 					query.andWhere('owner_user_id', access.token.getUserId(1));
 					//todo wezhan
-					query.andWhereNot('domain_names', 'like', '%.wezhan.cn');
+					query.andWhere('domain_names', 'not like', '%.wezhan.cn');
 				}
 				// Query is used for searching
 				if (typeof search_query === 'string') {
