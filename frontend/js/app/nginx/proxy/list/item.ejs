@@ -1,24 +1,14 @@
 <td class="text-center">
-  <div
-    class="avatar d-block"
-    style="
+  <div class="avatar d-block" style="
       background-image: url(<%-owner.avatar||'/images/default-avatar.jpg'%>);
-    "
-    title="Owned by <%- owner.name %>"
-  >
-    <span
-      class="avatar-status <%- owner.is_disabled ? 'bg-red' : 'bg-green' %>"
-    ></span>
+    " title="Owned by <%- owner.name %>">
+    <span class="avatar-status <%- owner.is_disabled ? 'bg-red' : 'bg-green' %>"></span>
   </div>
 </td>
 <td>
   <div class="wrap">
     <% domain_names.map(function(host) { if (host.indexOf('*') === -1) { %>
-    <span
-      class="tag host-link hover-green"
-      rel="http<%- certificate_id ? 's' : '' %>://<%- host %>"
-      ><%- host %></span
-    >
+    <span class="tag host-link hover-green" rel="http<%- certificate_id ? 's' : '' %>://<%- host %>"><%- host %></span>
     <% } else { %>
     <span class="tag"><%- host %></span>
     <% } }); %>
@@ -38,7 +28,26 @@
     i18n('ssl', 'none') %>
   </div>
 </td>
-<td>
+<% if (canManageWaf) { %>
+  <td>
+    <div class="form-group">
+      <label class="custom-switch">
+        <input type="checkbox" class="custom-switch-input block_exploits_switch" name="block_exploits" value="1" <%- block_exploits ? ' checked' : '' %>>      
+          <span class="custom-switch-indicator"></span>
+      </label>
+      </div>
+  </td>
+  <td>
+    <div class="form-group">
+      <label class="custom-switch">
+        <input type="checkbox" class="custom-switch-input" name="anti_ddos" value="1" <%- anti_ddos ? ' checked' : '' %>>
+          <span class="custom-switch-indicator"></span>
+      </label>
+      </div>
+  </td>
+<% } %>
+<% else { %>
+<td>  
   <div>
     <%- block_exploits ? i18n('waf', 'enabled'): i18n('waf', 'disabled') %>
   </div>
@@ -48,15 +57,15 @@
     <%- anti_ddos ? i18n('waf', 'enabled'): i18n('waf', 'disabled') %>
   </div>
 </td>
+<% } %>
+
 <td>
   <% var o = isOnline(); if (!enabled) { %>
   <span class="status-icon bg-warning"></span> <%- i18n('str', 'disabled') %> <%
   } else if (o === true) { %> <span class="status-icon bg-success"></span> <%-
   i18n('str', 'online') %> <% } else if (o === false) { %>
-  <span title="<%- getOfflineError() %>"
-    ><span class="status-icon bg-danger"></span> <%- i18n('str', 'offline')
-    %></span
-  >
+  <span title="<%- getOfflineError() %>"><span class="status-icon bg-danger"></span> <%- i18n('str', 'offline')
+    %></span>
   <% } else { %>
   <span class="status-icon bg-warning"></span> <%- i18n('str', 'unknown') %> <%
   } %>
@@ -64,25 +73,15 @@
 <% if (canManage) { %>
 <td class="text-right">
   <div class="item-action dropdown">
-    <a href="#" data-toggle="dropdown" class="icon"
-      ><i class="fe fe-more-vertical"></i
-    ></a>
+    <a href="#" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
     <div class="dropdown-menu dropdown-menu-right">
-      <span class="dropdown-header"
-        ><%- i18n('audit-log', 'proxy-host') %> #<%- id %></span
-      >
-      <a href="#" class="edit dropdown-item"
-        ><i class="dropdown-icon fe fe-edit"></i> <%- i18n('str', 'edit') %></a
-      >
-      <a href="#" class="able dropdown-item"
-        ><i class="dropdown-icon fe fe-power"></i> <%- i18n('str', enabled ?
-        'disable' : 'enable') %></a
-      >
+      <span class="dropdown-header"><%- i18n('audit-log', 'proxy-host') %> #<%- id %></span>
+      <a href="#" class="edit dropdown-item"><i class="dropdown-icon fe fe-edit"></i> <%- i18n('str', 'edit') %></a>
+      <a href="#" class="able dropdown-item"><i class="dropdown-icon fe fe-power"></i> <%- i18n('str', enabled ?
+        'disable' : 'enable') %></a>
       <div class="dropdown-divider"></div>
-      <a href="#" class="delete dropdown-item"
-        ><i class="dropdown-icon fe fe-trash-2"></i> <%- i18n('str', 'delete')
-        %></a
-      >
+      <a href="#" class="delete dropdown-item"><i class="dropdown-icon fe fe-trash-2"></i> <%- i18n('str', 'delete')
+        %></a>
     </div>
   </div>
 </td>

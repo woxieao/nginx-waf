@@ -395,6 +395,209 @@ const internalProxyHost = {
 			});
 	},
 
+
+
+	/**
+	 * @param {Access}  access
+	 * @param {Object}  data
+	 * @param {Number}  data.id
+	 * @param {String}  [data.reason]
+	 * @returns {Promise}
+	 */
+	block_exploits_enable: (access, data) => {
+		return access
+			.can('proxy_hosts:update', data.id)
+			.then(() => {
+				return internalProxyHost.get(access, {
+					id: data.id,
+					expand: ['certificate', 'owner', 'access_list'],
+				});
+			})
+			.then((row) => {
+				if (!row) {
+					throw new error.ItemNotFoundError(data.id);
+				} else if (row.block_exploits) {
+					throw new error.ValidationError('Host is already enabled block_exploits');
+				}
+
+				row.block_exploits = 1;
+
+				return proxyHostModel
+					.query()
+					.where('id', row.id)
+					.patch({
+						block_exploits: 1,
+					})
+					.then(() => {
+						// Configure nginx
+						return internalNginx.configure(proxyHostModel, 'proxy_host', row);
+					})
+					.then(() => {
+						// Add to audit log
+						return internalAuditLog.add(access, {
+							action: 'block_exploits enabled',
+							object_type: 'proxy-host',
+							object_id: row.id,
+							meta: _.omit(row, omissions()),
+						});
+					});
+			})
+			.then(() => {
+				return true;
+			});
+	},
+
+	/**
+	 * @param {Access}  access
+	 * @param {Object}  data
+	 * @param {Number}  data.id
+	 * @param {String}  [data.reason]
+	 * @returns {Promise}
+	 */
+	block_exploits_disable: (access, data) => {
+		return access
+			.can('proxy_hosts:update', data.id)
+			.then(() => {
+				return internalProxyHost.get(access, { id: data.id });
+			})
+			.then((row) => {
+				if (!row) {
+					throw new error.ItemNotFoundError(data.id);
+				} else if (!row.block_exploits) {
+					throw new error.ValidationError('Host is already disabled block_exploits');
+				}
+
+				row.block_exploits = 0;
+
+				return proxyHostModel
+					.query()
+					.where('id', row.id)
+					.patch({
+						block_exploits: 0,
+					})
+					.then(() => {
+						// Delete Nginx Config
+						return internalNginx.deleteConfig('proxy_host', row).then(() => {
+							return internalNginx.reload();
+						});
+					})
+					.then(() => {
+						// Add to audit log
+						return internalAuditLog.add(access, {
+							action: 'block_exploits disabled',
+							object_type: 'proxy-host',
+							object_id: row.id,
+							meta: _.omit(row, omissions()),
+						});
+					});
+			})
+			.then(() => {
+				return true;
+			});
+	},
+
+
+	
+	/**
+	 * @param {Access}  access
+	 * @param {Object}  data
+	 * @param {Number}  data.id
+	 * @param {String}  [data.reason]
+	 * @returns {Promise}
+	 */
+	anti_ddos_enable: (access, data) => {
+		return access
+			.can('proxy_hosts:update', data.id)
+			.then(() => {
+				return internalProxyHost.get(access, {
+					id: data.id,
+					expand: ['certificate', 'owner', 'access_list'],
+				});
+			})
+			.then((row) => {
+				if (!row) {
+					throw new error.ItemNotFoundError(data.id);
+				} else if (row.anti_ddos) {
+					throw new error.ValidationError('Host is already enabled anti_ddos');
+				}
+
+				row.anti_ddos = 1;
+
+				return proxyHostModel
+					.query()
+					.where('id', row.id)
+					.patch({
+						anti_ddos: 1,
+					})
+					.then(() => {
+						// Configure nginx
+						return internalNginx.configure(proxyHostModel, 'proxy_host', row);
+					})
+					.then(() => {
+						// Add to audit log
+						return internalAuditLog.add(access, {
+							action: 'anti_ddos enabled',
+							object_type: 'proxy-host',
+							object_id: row.id,
+							meta: _.omit(row, omissions()),
+						});
+					});
+			})
+			.then(() => {
+				return true;
+			});
+	},
+
+	/**
+	 * @param {Access}  access
+	 * @param {Object}  data
+	 * @param {Number}  data.id
+	 * @param {String}  [data.reason]
+	 * @returns {Promise}
+	 */
+	anti_ddos_disable: (access, data) => {
+		return access
+			.can('proxy_hosts:update', data.id)
+			.then(() => {
+				return internalProxyHost.get(access, { id: data.id });
+			})
+			.then((row) => {
+				if (!row) {
+					throw new error.ItemNotFoundError(data.id);
+				} else if (!row.anti_ddos) {
+					throw new error.ValidationError('Host is already disabled anti_ddos');
+				}
+
+				row.anti_ddos = 0;
+
+				return proxyHostModel
+					.query()
+					.where('id', row.id)
+					.patch({
+						anti_ddos: 0,
+					})
+					.then(() => {
+						// Delete Nginx Config
+						return internalNginx.deleteConfig('proxy_host', row).then(() => {
+							return internalNginx.reload();
+						});
+					})
+					.then(() => {
+						// Add to audit log
+						return internalAuditLog.add(access, {
+							action: 'anti_ddos disabled',
+							object_type: 'proxy-host',
+							object_id: row.id,
+							meta: _.omit(row, omissions()),
+						});
+					});
+			})
+			.then(() => {
+				return true;
+			});
+	},
+
+
 	/**
 	 * All Hosts
 	 *
@@ -411,8 +614,9 @@ const internalProxyHost = {
 
 				if (access_data.permission_visibility !== 'all') {
 					query.andWhere('owner_user_id', access.token.getUserId(1));
+					//todo wezhan
+					query.whereNot('domain_names', 'like', '%.wezhan.cn');
 				}
-
 				// Query is used for searching
 				if (typeof search_query === 'string') {
 					query.where(function () {

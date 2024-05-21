@@ -193,4 +193,104 @@ router
 			.catch(next);
 	});
 
+
+
+//////////////////////////////////////
+
+/**
+ * Enable proxy-host
+ *
+ * /api/nginx/proxy-hosts/123/enable
+ */
+router
+	.route('/:host_id/block_exploits_enable')
+	.options((req, res) => {
+		res.sendStatus(204);
+	})
+	.all(jwtdecode())
+
+	/**
+	 * POST /api/nginx/proxy-hosts/123/block_exploits_enable
+	 */
+	.post((req, res, next) => {
+		internalProxyHost.block_exploits_enable(res.locals.access, {id: parseInt(req.params.host_id, 10)})
+			.then((result) => {
+				res.status(200)
+					.send(result);
+			})
+			.catch(next);
+	});
+
+/**
+ * Disable proxy-host
+ *
+ * /api/nginx/proxy-hosts/123/block_exploits_disable
+ */
+router
+	.route('/:host_id/block_exploits_disable')
+	.options((req, res) => {
+		res.sendStatus(204);
+	})
+	.all(jwtdecode())
+
+	/**
+	 * POST /api/nginx/proxy-hosts/123/block_exploits_disable
+	 */
+	.post((req, res, next) => {
+		internalProxyHost.block_exploits_disable(res.locals.access, {id: parseInt(req.params.host_id, 10)})
+			.then((result) => {
+				res.status(200)
+					.send(result);
+			})
+			.catch(next);
+	});
+
+/**
+ * Enable proxy-host
+ *
+ * /api/nginx/proxy-hosts/123/enable
+ */
+router
+	.route('/:host_id/anti_ddos_enable')
+	.options((req, res) => {
+		res.sendStatus(204);
+	})
+	.all(jwtdecode())
+
+	/**
+	 * POST /api/nginx/proxy-hosts/123/enable
+	 */
+	.post((req, res, next) => {
+		internalProxyHost.anti_ddos_enable(res.locals.access, {id: parseInt(req.params.host_id, 10)})
+			.then((result) => {
+				res.status(200)
+					.send(result);
+			})
+			.catch(next);
+	});
+
+/**
+ * Disable proxy-host
+ *
+ * /api/nginx/proxy-hosts/123/disable
+ */
+router
+	.route('/:host_id/anti_ddos_disable')
+	.options((req, res) => {
+		res.sendStatus(204);
+	})
+	.all(jwtdecode())
+
+	/**
+	 * POST /api/nginx/proxy-hosts/123/disable
+	 */
+	.post((req, res, next) => {
+		internalProxyHost.anti_ddos_disable(res.locals.access, {id: parseInt(req.params.host_id, 10)})
+			.then((result) => {
+				res.status(200)
+					.send(result);
+			})
+			.catch(next);
+	});
+
 module.exports = router;

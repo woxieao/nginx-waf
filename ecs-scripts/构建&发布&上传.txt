@@ -1,6 +1,7 @@
 #去linux上执行
 
 cd /clouddream/nginx-waf/;
+git pull;
 ./scripts/ci/frontend-build
 
 cd /clouddream/nginx-waf/;

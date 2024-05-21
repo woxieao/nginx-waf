@@ -415,6 +415,40 @@ module.exports = {
       disable: function (id) {
         return fetch("post", "nginx/proxy-hosts/" + id + "/disable");
       },
+
+      
+      /**
+       * @param   {Number}  id
+       * @returns {Promise}
+       */
+      block_exploits_enable: function (id) {
+        return fetch("post", "nginx/proxy-hosts/" + id + "/block_exploits_enable");
+      },
+
+      /**
+       * @param   {Number}  id
+       * @returns {Promise}
+       */
+      block_exploits_disable: function (id) {
+        return fetch("post", "nginx/proxy-hosts/" + id + "/block_exploits_disable");
+      },
+
+      
+      /**
+       * @param   {Number}  id
+       * @returns {Promise}
+       */
+      anti_ddos_enable: function (id) {
+        return fetch("post", "nginx/proxy-hosts/" + id + "/anti_ddos_enable");
+      },
+
+      /**
+       * @param   {Number}  id
+       * @returns {Promise}
+       */
+      anti_ddos_disable: function (id) {
+        return fetch("post", "nginx/proxy-hosts/" + id + "/anti_ddos_disable");
+      },
     },
 
     RedirectionHosts: {
