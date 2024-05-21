@@ -618,7 +618,7 @@ const internalProxyHost = {
 
 				if (access_data.permission_visibility !== 'all') {
 					//todo wezhan
-					query.where(function () {
+					query.whereNot(function () {
 						this.whereNot('domain_names',  'like', '%.wezhan.cn');					
 					});
 				}
