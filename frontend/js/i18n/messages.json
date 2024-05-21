@@ -334,12 +334,12 @@
       "any": "任意"
     },
     "login": {
-      "title": "登录到您的账户"
+      "title": "登录到WAF管理平台"
     },
     "main": {
-      "app": "Waf防火墙",
+      "app": "WAF",
       "version": "v{version}",
-      "welcome": "欢迎使用Waf防火墙",
+      "welcome": "欢迎使用WAF",
       "logged-in": "您已登录为{name}",
       "unknown-error": "加载内容时出错。请重新加载应用程序。",
       "unknown-user": "未知用户",
@@ -348,7 +348,7 @@
     "roles": {
       "title": "角色",
       "admin": "管理员",
-      "user": "Apache直升机"
+      "user": "WAF管理员"
     },
     "menu": {
       "dashboard": "仪表盘",
@@ -357,7 +357,8 @@
     "footer": {
       "fork-me": "在Github上Fork我",
       "copy": "&copy; 2024 <a href=\"{url}\" target=\"_blank\">jc21.com</a>.",
-      "theme": "主题由<a href=\"{url}\" target=\"_blank\">Tabler</a>提供"
+      "theme": "主题由<a href=\"{url}\" target=\"_blank\">Tabler</a>提供",
+      "powered-by": "本防火墙由CloudDream提供技术支持"
     },
     "dashboard": {
       "title": "您好,{name}",
