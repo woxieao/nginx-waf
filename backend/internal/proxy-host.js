@@ -614,7 +614,7 @@ const internalProxyHost = {
 
 				if (access_data.permission_visibility !== 'all') {
 					//query.andWhere('owner_user_id', access.token.getUserId(1))
-					query.whereNot('domain_names','like' ,'%.wezhan.cn')
+					query.andWhere('domain_names','not like' ,'%.wezhan.cn')
 				}
 	
 				
