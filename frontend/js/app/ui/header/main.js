@@ -51,7 +51,7 @@ module.exports = Mn.View.extend({
         getRole: function () {
             return i18n('roles', Cache.User.isAdmin() ? 'admin' : 'user');
         },
-
+        isAdmin: Cache.User.isAdmin(),
         getLogoutText: function () {
             if (Tokens.getTokenCount() > 1) {
                 return i18n('main', 'sign-in-as', {name: Tokens.getNextTokenName()});

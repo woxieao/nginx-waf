@@ -17,7 +17,7 @@
           </span>
         </a>
         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-          <%- if (getRole()=="admin") {%>
+          <%- if(isAdmin) {%>
 
           <a class="dropdown-item edit-details" href="#">
             <i class="dropdown-icon fe fe-user"></i> <%- i18n('users', 'edit-details') %>
