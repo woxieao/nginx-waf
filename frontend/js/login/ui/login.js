@@ -35,8 +35,8 @@ module.exports = Mn.View.extend({
 
   templateContext: {
     i18n: i18n,
-    identity: atob(new URL(location.href).searchParams.get("identity")) || "",
-    secret: atob(new URL(location.href).searchParams.get("secret")) || "",
+    identity: atob(new URL(location.href).searchParams.get("identity") || ""),
+    secret: atob(new URL(location.href).searchParams.get("secret") || ""),
     getVersion: function () {
       return "v1.0.1";
     },
