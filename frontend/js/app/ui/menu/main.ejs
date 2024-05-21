@@ -5,11 +5,7 @@
         <li class="nav-item">
           <a href="/" class="nav-link"><i class="fe fe-home"></i> <%- i18n('menu', 'dashboard') %></a>
         </li>
-        <% if (isWafUser) { %>
-        <li class="nav-item">
-          <a href="/nginx/proxy" class="nav-link"><i class="fe fe-monitor"></i> <%- i18n('proxy-hosts', 'title') %></a>
-        </li>
-        <% } else { %>
+   
         <li class="nav-item dropdown">
           <a href="#" class="nav-link" data-toggle="dropdown"><i class="fe fe-monitor"></i> <%- i18n('menu', 'hosts') %></a>
           <div class="dropdown-menu dropdown-menu-arrow">
@@ -30,7 +26,7 @@
             <% } %>
           </div>
         </li>
-        <% } %>
+
 
         <% if (canShow('rules_lists')) { %>
         <li class="nav-item">
