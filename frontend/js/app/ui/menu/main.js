@@ -26,7 +26,6 @@ module.exports = Mn.View.extend({
     isAdmin: function () {
       return Cache.User.isAdmin();
     },
-    notAdmin: !Cache.User.isAdmin() ,
     canShow: function (perm) {
       return Cache.User.isAdmin() || Cache.User.canView(perm);
     },
