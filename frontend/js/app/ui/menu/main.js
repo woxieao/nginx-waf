@@ -3,7 +3,7 @@ const Mn = require("backbone.marionette");
 const Controller = require("../../controller");
 const Cache = require("../../cache");
 const template = require("./main.ejs");
-
+const App             = require('../../main');
 module.exports = Mn.View.extend({
   id: "menu",
   className: "header collapse d-lg-flex p-0",
@@ -28,7 +28,6 @@ module.exports = Mn.View.extend({
       return Cache.User.isAdmin();
     },
     isWafUser: !Cache.User.isAdmin() && App.Cache.User.canManage("rules_lists"),
-
     canShow: function (perm) {
       return Cache.User.isAdmin() || Cache.User.canView(perm);
     },
