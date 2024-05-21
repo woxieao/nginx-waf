@@ -30,7 +30,7 @@
 </td>
 <% if (canManageWaf) { %>
   <td>
-    <div class="form-group">
+    <div >
       <label class="custom-switch">
         <input type="checkbox" class="custom-switch-input block_exploits_switch" name="block_exploits" value="1" <%- block_exploits ? ' checked' : '' %>>      
           <span class="custom-switch-indicator"></span>
@@ -38,9 +38,9 @@
       </div>
   </td>
   <td>
-    <div class="form-group">
+    <div>
       <label class="custom-switch">
-        <input type="checkbox" class="custom-switch-input" name="anti_ddos" value="1" <%- anti_ddos ? ' checked' : '' %>>
+        <input type="checkbox" class="custom-switch-input anti_ddos_switch" name="anti_ddos" value="1" <%- anti_ddos ? ' checked' : '' %>>
           <span class="custom-switch-indicator"></span>
       </label>
       </div>
