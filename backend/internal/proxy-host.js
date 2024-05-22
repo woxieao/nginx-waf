@@ -476,10 +476,8 @@ const internalProxyHost = {
 						block_exploits: 0,
 					})
 					.then(() => {
-						// Delete Nginx Config
-						return internalNginx.deleteConfig('proxy_host', row).then(() => {
-							return internalNginx.reload();
-						});
+							// Configure nginx
+							return internalNginx.configure(proxyHostModel, 'proxy_host', row);
 					})
 					.then(() => {
 						// Add to audit log
@@ -577,10 +575,8 @@ const internalProxyHost = {
 						anti_ddos: 0,
 					})
 					.then(() => {
-						// Delete Nginx Config
-						return internalNginx.deleteConfig('proxy_host', row).then(() => {
-							return internalNginx.reload();
-						});
+						// Configure nginx
+						return internalNginx.configure(proxyHostModel, 'proxy_host', row);
 					})
 					.then(() => {
 						// Add to audit log
