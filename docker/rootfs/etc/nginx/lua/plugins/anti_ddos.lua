@@ -400,49 +400,13 @@ If you want to allow access to specific user-agents use this.
 I added some examples of user-agents you could whitelist mostly search engine crawlers.
 ]]
 local user_agent_whitelist_var = ngx.var.http_user_agent
+
+--todo remove wezhan
 local user_agent_whitelist_table = {
-    --[[
-	{
-		"^Mozilla%/5%.0 %(compatible%; Googlebot%/2%.1%; %+http%:%/%/www%.google%.com%/bot%.html%)$",
-		2,
-	},
-	{
-		"^Mozilla%/5%.0 %(compatible%; Bingbot%/2%.0%; %+http%:%/%/www%.bing%.com%/bingbot%.htm%)$",
-		2,
-	},
-	{
-		"^Mozilla%/5%.0 %(compatible%; Yahoo%! Slurp%; http%:%/%/help%.yahoo%.com%/help%/us%/ysearch%/slurp%)$",
-		2,
-	},
-	{
-		"^DuckDuckBot%/1%.0%; %(%+http%:%/%/duckduckgo%.com%/duckduckbot%.html%)$",
-		2,
-	},
-	{
-		"^Mozilla%/5%.0 %(compatible%; Baiduspider%/2%.0%; %+http%:%/%/www%.baidu%.com%/search%/spider%.html%)$",
-		2,
-	},
-	{
-		"^Mozilla%/5%.0 %(compatible%; YandexBot%/3%.0%; %+http%:%/%/yandex%.com%/bots%)$",
-		2,
-	},
-	{
-		"^facebot$",
-		2,
-	},
-	{
-		"^facebookexternalhit%/1%.0 %(%+http%:%/%/www%.facebook%.com%/externalhit_uatext%.php%)$",
-		2,
-	},
-	{
-		"^facebookexternalhit%/1%.1 %(%+http%:%/%/www%.facebook%.com%/externalhit_uatext%.php%)$",
-		2,
-	},
-	{
-		"^ia_archiver %(%+http%:%/%/www%.alexa%.com%/site%/help%/webmasters%; crawler%@alexa%.com%)$",
-		2,
-	},
-]]
+    {        
+		"#WeZhanInternalHttpClient#",
+		1,
+	},	
 }
 
 --[[
