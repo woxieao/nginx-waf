@@ -1,4 +1,5 @@
 #!/bin/bash
+tag=$1
 
 # 定义基础目录
 BASE_DIRECTORY="/clouddream/nginx-waf"
@@ -7,10 +8,6 @@ BASE_DIRECTORY="/clouddream/nginx-waf"
 if [ ! -d "$BASE_DIRECTORY" ]; then
   # 目录不存在，创建目录
   mkdir -p "$BASE_DIRECTORY"
-  echo "Directory created: $BASE_DIRECTORY"
-else
-  # 目录已存在
-  echo "Directory already exists: $BASE_DIRECTORY"
 fi
 
 # 创建 docker-compose.yml 文件并写入内容
@@ -20,7 +17,7 @@ version: '3.8'
 services:
   app:
     container_name: nginx-waf-app
-    image: 'nginx-waf'
+    image: 'nginx-waf:$tag'
     restart: unless-stopped
     ports:
       - '80:80'
@@ -36,4 +33,7 @@ echo "docker-compose.yml file created at $DOCKER_COMPOSE_FILE"
 docker compose -f /clouddream/nginx-proxy-manage/docker-compose.yml down
 
 docker compose -f /clouddream/nginx-waf/docker-compose.yml up -d
+
+echo "ok"
+
 

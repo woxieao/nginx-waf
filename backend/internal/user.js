@@ -21,7 +21,9 @@ const internalUser = {
 	 */
 	create: (access, data) => {
 		let auth = data.auth || null;
+		let userPermission=data.user_permission||null;
 		delete data.auth;
+		delete data.userPermission;
 
 		data.avatar = data.avatar || '';
 		data.roles  = data.roles || [];
@@ -57,25 +59,45 @@ const internalUser = {
 				}
 			})
 			.then((user) => {
-				// Create permissions row as well
-				let is_admin = data.roles.indexOf('admin') !== -1;
-
-				return userPermissionModel
+				if(userPermission){
+					return userPermissionModel
 					.query()
 					.insert({
-						user_id:           user.id,
-						visibility:        is_admin ? 'all' : 'user',
-						proxy_hosts:       'manage',
-						redirection_hosts: 'manage',
-						dead_hosts:        'manage',
-						streams:           'manage',
-						access_lists:      'manage',
-						rules_lists:      'manage',
-						certificates:      'manage'
+						user_id:			user.id,
+						visibility:			userPermission.visibility,
+						proxy_hosts:		userPermission.proxy_hosts  ,
+						redirection_hosts:	userPermission.redirection_hosts,
+						dead_hosts:			userPermission.dead_hosts,
+						streams:			userPermission.streams,
+						access_lists:		userPermission.access_lists ,
+						rules_lists:		userPermission.rules_lists  ,
+						certificates:		userPermission.certificates
 					})
 					.then(() => {
 						return internalUser.get(access, {id: user.id, expand: ['permissions']});
 					});
+				}
+				else{
+					let is_admin = data.roles.indexOf('admin') !== -1;
+					return userPermissionModel
+						.query()
+						.insert({
+							user_id:           user.id,
+							visibility:        is_admin ? 'all' : 'user',
+							proxy_hosts:       'manage',
+							redirection_hosts: 'manage',
+							dead_hosts:        'manage',
+							streams:           'manage',
+							access_lists:      'manage',
+							rules_lists:       'manage',
+							certificates:      'manage'
+						})
+						.then(() => {
+							return internalUser.get(access, {id: user.id, expand: ['permissions']});
+						});
+				}
+				// Create permissions row as well
+				
 			})
 			.then((user) => {
 				// Add to audit log
