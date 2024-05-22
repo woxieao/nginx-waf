@@ -8,14 +8,14 @@ cd /clouddream/nginx-waf/;
 docker buildx build --platform linux/amd64 -f /clouddream/nginx-waf/Dockerfile -t nginx-waf .
 
 
---杭州
+#杭州
 docker tag nginx-waf registry.cn-hangzhou.aliyuncs.com/clouddreamappstore/nginx-waf:latest
 docker push registry.cn-hangzhou.aliyuncs.com/clouddreamappstore/nginx-waf:latest
 docker tag nginx-waf registry.cn-hangzhou.aliyuncs.com/clouddreamappstore/nginx-waf:v1.0.1
 docker push registry.cn-hangzhou.aliyuncs.com/clouddreamappstore/nginx-waf:v1.0.1
 
 
---香港
+#香港
 docker tag nginx-waf clouddreamappstore/nginx-waf:latest
 docker push clouddreamappstore/nginx-waf:latest
 docker tag nginx-waf clouddreamappstore/nginx-waf:v1.0.1
