@@ -366,7 +366,8 @@
       "live-data": "请求实况"
     },
     "all-hosts": {
-      "empty-subtitle": "{manage, select, true{为什么不创建一个？} other{您没有权限创建一个。}}",
+      "todo":"移除下方微站字样",
+      "empty-subtitle": "{manage, select, true{为什么不创建一个？} other{在微站后台绑定域名即可自动创建}}",
       "details": "详情",
       "enable-ssl": "启用SSL",
       "force-ssl": "强制SSL",
