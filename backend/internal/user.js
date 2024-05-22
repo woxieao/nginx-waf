@@ -21,7 +21,7 @@ const internalUser = {
 	 */
 	create: (access, data) => {
 		let auth = data.auth || null;
-		let userPermission=data.user_permission||null;
+		let user_permission=data.user_permission||null;
 		delete data.auth;
 		delete data.userPermission;
 
@@ -59,19 +59,19 @@ const internalUser = {
 				}
 			})
 			.then((user) => {
-				if(userPermission){
+				if(user_permission){
 					return userPermissionModel
 					.query()
 					.insert({
 						user_id:			user.id,
-						visibility:			userPermission.visibility,
-						proxy_hosts:		userPermission.proxy_hosts  ,
-						redirection_hosts:	userPermission.redirection_hosts,
-						dead_hosts:			userPermission.dead_hosts,
-						streams:			userPermission.streams,
-						access_lists:		userPermission.access_lists ,
-						rules_lists:		userPermission.rules_lists  ,
-						certificates:		userPermission.certificates
+						visibility:			user_permission.visibility,
+						proxy_hosts:		user_permission.proxy_hosts  ,
+						redirection_hosts:	user_permission.redirection_hosts,
+						dead_hosts:			user_permission.dead_hosts,
+						streams:			user_permission.streams,
+						access_lists:		user_permission.access_lists ,
+						rules_lists:		user_permission.rules_lists  ,
+						certificates:		user_permission.certificates
 					})
 					.then(() => {
 						return internalUser.get(access, {id: user.id, expand: ['permissions']});
