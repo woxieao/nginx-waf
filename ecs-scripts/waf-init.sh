@@ -1,5 +1,6 @@
 #!/bin/bash
-tag=$1
+image=$1
+#注意检查文件格式是否为LR而非CLR
 
 # 定义基础目录
 BASE_DIRECTORY="/clouddream/nginx-waf"
@@ -17,7 +18,7 @@ version: '3.8'
 services:
   app:
     container_name: nginx-waf-app
-    image: 'nginx-waf:$tag'
+    image: '$image'
     restart: unless-stopped
     ports:
       - '80:80'

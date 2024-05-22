@@ -23,7 +23,7 @@ const internalUser = {
 		let auth = data.auth || null;
 		let user_permission=data.user_permission||null;
 		delete data.auth;
-		delete data.userPermission;
+		delete data.user_permission;
 
 		data.avatar = data.avatar || '';
 		data.roles  = data.roles || [];
