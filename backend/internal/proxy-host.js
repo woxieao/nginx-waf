@@ -458,7 +458,10 @@ const internalProxyHost = {
 		return access
 			.can('proxy_hosts:get', data.id)
 			.then(() => {
-				return internalProxyHost.get(access, { id: data.id });
+				return internalProxyHost.get(access, {
+					id: data.id,
+					expand: ['certificate', 'owner', 'access_list'],
+				});
 			})
 			.then((row) => {
 				if (!row) {
@@ -557,7 +560,10 @@ const internalProxyHost = {
 		return access
 			.can('proxy_hosts:get', data.id)
 			.then(() => {
-				return internalProxyHost.get(access, { id: data.id });
+				return internalProxyHost.get(access, {
+					id: data.id,
+					expand: ['certificate', 'owner', 'access_list'],
+				});
 			})
 			.then((row) => {
 				if (!row) {
