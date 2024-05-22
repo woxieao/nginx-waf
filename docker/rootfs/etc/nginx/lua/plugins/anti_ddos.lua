@@ -404,7 +404,7 @@ local user_agent_whitelist_var = ngx.var.http_user_agent
 --todo remove wezhan
 local user_agent_whitelist_table = {
     {        
-		"#WeZhanInternalRequest#",
+		"WeZhanInternalRequest",
 		1,
 	},	
 }
