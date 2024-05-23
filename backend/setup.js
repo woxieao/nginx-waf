@@ -441,10 +441,8 @@ const setupWafScripts = () => {
 				return false;
 			}
 		})
-		.then((isFirstTime) => {
-			if (isFirstTime) {
-				internalRulesList.initSystemRules();
-			}
+		.then(() => {
+			internalRulesList.initSystemRules();
 		})
 		.then(() => {
 			logger.info('System waf rule added');
