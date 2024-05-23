@@ -37,7 +37,7 @@ module.exports = Mn.View.extend({
     var token =
       new URL(location.href).searchParams.get("third_login_token") || "";
     if (token) {      
-      Tokens.addToken(JSON.parse(token));
+      Tokens.addToken(token);
       window.location = "/";
     }
   },

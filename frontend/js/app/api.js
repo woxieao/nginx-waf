@@ -246,9 +246,6 @@ module.exports = {
           if (wipe) {
             Tokens.clearTokens();
           }
-          debugger
-          console.log(token)
-
           // Set storage token
           Tokens.addToken(response.token);
           return response.token;
