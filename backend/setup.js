@@ -197,7 +197,7 @@ const setupWafScripts = () => {
 				return  initRule({
 					file_name: 'ip_whitelist',
 					name:"IP白名单",
-					description: '对指定的IP,不进行任何规则校验',
+					description: '对指定的IP不进行任何规则校验,直接放行',
 					block_type: 'ip-policy',
 					sort:0
 				})
@@ -216,7 +216,6 @@ const setupWafScripts = () => {
 						name:"路径白名单",
 						description: '对指定路径可以放行,不进行规则校验',
 						block_type: 'others',
-						sort:0
 					});
 				})
 					.then(() => {

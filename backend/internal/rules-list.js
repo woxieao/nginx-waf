@@ -95,7 +95,9 @@ const internalRulesList = {
 				});
 			})
 			.then(() => {
-				internalRulesList.buildFile(data, true);
+				if(data.enabled){
+					internalRulesList.buildFile(data, true);
+				}				
 			})
 			.then(() => {
 				// Add to audit log
