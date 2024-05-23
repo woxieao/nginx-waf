@@ -619,9 +619,11 @@ const internalProxyHost = {
 				}
 				
 				if (access_data.permission_proxy_hosts=== 'view') {
-					//todo wezhan
-					query.whereNot('domain_names', 'like', '%.wezhan.cn%');
-					query.whereNot('forward_port', '5000');
+					//todo hide spec port					
+					query.whereNot('forward_port', '5000');//wezhan remote srv
+					query.whereNot('forward_port', '5001');//Harbor
+					query.whereNot('forward_port', '5002');//Portainer
+					query.whereNot('forward_port', '5003');//ngx-waf
 				}
 				
 				// Query is used for searching
