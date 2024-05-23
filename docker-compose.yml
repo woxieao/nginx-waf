@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  app:
+    container_name: nginx-waf-app
+    image: 'nginx-waf'
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '5003:81'
+      - '443:443'
+    volumes:
+      - /clouddream/nginx-proxy-manage/data:/data
+      - /clouddream/nginx-proxy-manage/letsencrypt:/etc/letsencrypt
