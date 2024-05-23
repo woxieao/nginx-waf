@@ -1,31 +1,27 @@
 import { defineUserConfig } from 'vuepress';
 import { defaultTheme } from 'vuepress'
-import { googleAnalyticsPlugin } from '@vuepress/plugin-google-analytics';
 import { searchPlugin } from '@vuepress/plugin-search'
-import { sitemapPlugin } from 'vuepress-plugin-sitemap2';
 import zoomingPlugin from 'vuepress-plugin-zooming';
 
 export default defineUserConfig({
   locales: {
     "/": {
       lang: "en-US",
-      title: "Nginx Proxy Manager",
+      title: "WAF",
       description: "Expose your services easily and securely",
     },
   },
   head: [
     ["link", { rel: "icon", href: "/icon.png" }],
     ["meta", { name: "description", content: "Docker container and built in Web Application for managing Nginx proxy hosts with a simple, powerful interface, providing free SSL support via Let's Encrypt" }],
-    ["meta", { property: "og:title", content: "Nginx Proxy Manager" }],
+    ["meta", { property: "og:title", content: "WAF" }],
     ["meta", { property: "og:description", content: "Docker container and built in Web Application for managing Nginx proxy hosts with a simple, powerful interface, providing free SSL support via Let's Encrypt"}],
     ["meta", { property: "og:type", content: "website" }],
-    ["meta", { property: "og:url", content: "https://nginxproxymanager.com/" }],
-    ["meta", { property: "og:image", content: "https://nginxproxymanager.com/icon.png" }],
+    ["meta", { property: "og:url", content: "https://clouddream.net/" }],
     ["meta", { name: "twitter:card", content: "summary"}],
-    ["meta", { name: "twitter:title", content: "Nginx Proxy Manager"}],
+    ["meta", { name: "twitter:title", content: "WAF"}],
     ["meta", { name: "twitter:description", content: "Docker container and built in Web Application for managing Nginx proxy hosts with a simple, powerful interface, providing free SSL support via Let's Encrypt"}],
-    ["meta", { name: "twitter:image", content: "https://nginxproxymanager.com/icon.png"}],
-    ["meta", { name: "twitter:alt", content: "Nginx Proxy Manager"}],
+    ["meta", { name: "twitter:alt", content: "WAF"}],
   ],
   theme: defaultTheme({
     logo: '/icon.png',
@@ -95,12 +91,6 @@ export default defineUserConfig({
     },
   },
   plugins: [
-    googleAnalyticsPlugin({
-      id: 'UA-99675467-4'
-    }),
-    sitemapPlugin({
-      hostname: "https://nginxproxymanager.com",
-    }),
     zoomingPlugin({
       selector: '.zooming',
       delay: 1000,
