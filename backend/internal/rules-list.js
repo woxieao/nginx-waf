@@ -193,7 +193,7 @@ const internalRulesList = {
 				return internalRulesList.updateRuleCounter();
 			})
 			.then(() => {
-				let query = rulesListModel.query().where('is_deleted', 0).orderBy('enabled', 'DESC').orderBy('sort', 'ASC').orderBy('modified_on', 'DESC').orderBy('id', 'ASC');
+				let query = rulesListModel.query().where('is_deleted', 0).orderBy('enabled', 'DESC').orderBy('sort', 'ASC').orderBy('id', 'ASC');
 
 				// Query is used for searching
 				if (typeof search_query === 'string') {
