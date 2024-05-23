@@ -375,7 +375,6 @@ return mainFunc;
 			rulesListModel
 				.query()
 				.where('is_deleted', 0)
-				.andWhere('is_system', 1)
 				.andWhere('enabled', 1)
 				.then((list) => {
 					for (var i = 0; i < list.length; i++) {
