@@ -348,7 +348,7 @@
     "roles": {
       "title": "角色",
       "admin": "管理员",
-      "user": "WAF管理员"
+      "user": "防火墙管理员"
     },
     "menu": {
       "dashboard": "仪表盘",
