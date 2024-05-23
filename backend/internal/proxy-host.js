@@ -620,6 +620,7 @@ const internalProxyHost = {
 				
 				if (access_data.permission_proxy_hosts=== 'view') {
 					//todo hide spec port					
+					query.whereNot('domain_names', 'like', '%.wezhan.cn%');
 					query.whereNot('forward_port', '5000');//wezhan remote srv
 					query.whereNot('forward_port', '5001');//Harbor
 					query.whereNot('forward_port', '5002');//Portainer
