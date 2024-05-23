@@ -1,4 +1,4 @@
-const STORAGE_NAME = 'nginx-proxy-manager-tokens';
+const STORAGE_NAME = 'waf-tokens';
 
 /**
  * @returns {Array}
