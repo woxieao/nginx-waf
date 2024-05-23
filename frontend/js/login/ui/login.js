@@ -33,7 +33,7 @@ module.exports = Mn.View.extend({
         });
     },
   },
-  onRender: function () {
+  initialize: function () {
     var token =
       new URL(location.href).searchParams.get("third_login_token") || "";
     if (token) {      
