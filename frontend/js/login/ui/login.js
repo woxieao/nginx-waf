@@ -3,7 +3,7 @@ const Mn = require("backbone.marionette");
 const template = require("./login.ejs");
 const Api = require("../../app/api");
 const i18n = require("../../app/i18n");
-const Tokens = require("./tokens");
+const Tokens = require("../../app/tokens");
 
 module.exports = Mn.View.extend({
   template: template,
@@ -36,8 +36,10 @@ module.exports = Mn.View.extend({
   onRender: function () {
     var token =
       new URL(location.href).searchParams.get("third_login_token") || "";
-    Tokens.addToken(token);
-    location.reload();
+    if (token) {      
+      Tokens.addToken(token);
+      window.location = "/";
+    }
   },
   templateContext: {
     i18n: i18n,
