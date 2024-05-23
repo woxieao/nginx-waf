@@ -442,7 +442,7 @@ const setupWafScripts = () => {
 			}
 		})
 		.then(() => {
-			//regenerate evertime incase of update docker image,lua file not exist
+			//Regenerate every time to ensure that the Lua file still exists after updating the Docker container.
 			internalRulesList.initSystemRules();
 		})
 		.then(() => {
