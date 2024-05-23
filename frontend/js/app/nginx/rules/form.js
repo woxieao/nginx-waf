@@ -92,6 +92,9 @@ module.exports = Mn.View.extend({
             index ? index + 1 : 1
           }`;
         }
+        else{          
+        name = `${name}-1`;
+        }
       } else {
         name = `${name}-1`;
       }
