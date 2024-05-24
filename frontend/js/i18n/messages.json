@@ -376,7 +376,7 @@
       "cert-provider": "证书提供商",
       "block-exploits": "开启防火墙",
       "anti-ddos": "增强防护模式",
-      "anti-ddos-desc": "当您的网站遭受攻击时，您可以启用此选项。<br>启用后，首次访问站点将自动校验是否为恶意请求。<br>(启用该选项可能会影响站点验证等请求)",
+      "anti-ddos-desc": "当您的网站遭受攻击时，您可以启用此选项。<br>启用后，首次访问站点将自动校验是否为恶意请求。<br>(启用该选项可能会拦截站点验证等请求)",
       "caching-enabled": "缓存资源",
       "ssl-certificate": "SSL证书",
       "none": "无",
