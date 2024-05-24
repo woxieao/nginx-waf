@@ -383,7 +383,7 @@ const setupWafScripts = () => {
 							file_name: 'log4j',
 							name:"Log4J漏洞",
 							description: '拦截Log4J漏洞',
-							block_type: 'others',
+							block_type: 'malicious-functions',
 						});
 					})		
 					.then(() => {
@@ -391,7 +391,7 @@ const setupWafScripts = () => {
 							file_name: 'malicious_functions',
 							name:"恶意函数执行",
 							description: '恶意函数执行',
-							block_type: 'malicious-file-upload',
+							block_type: 'malicious-functions',
 						});
 					})				
 					.then(() => {
