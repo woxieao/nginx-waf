@@ -497,7 +497,7 @@
       "other-certificate": "证书",
       "other-certificate-key": "证书密钥",
       "other-intermediate-certificate": "中间证书",
-      "force-renew": "立即续订",
+      "force-renew": "立即续期",
       "test-reachability": "测试服务器可达性",
       "reachability-title": "测试服务器可达性",
       "reachability-info": "测试域名是否可以从公共互联网访问。当使用DNS验证时，这并非必需。",
@@ -509,7 +509,7 @@
       "reachability-wrong-data": "在此域名找到了一个服务器，但返回了意外的数据。它是否是NPM服务器？请确保您的域名指向NPM实例运行的IP。",
       "reachability-other": "在此域名找到了一个服务器，但返回了意外的状态码{code}。它是否是NPM服务器？请确保您的域名指向NPM实例运行的IP。",
       "download": "下载",
-      "renew-title": "续订Let's Encrypt证书",
+      "renew-title": "续期Let's Encrypt证书",
       "search": "搜索证书..."
     },
     "access-lists": {
@@ -581,7 +581,7 @@
       "deleted": "删除了{name}",
       "enabled": "启用了{name}",
       "disabled": "禁用了{name}",
-      "renewed": "续订了{name}",
+      "renewed": "续期了{name}",
       "meta-title": "事件详情",
       "view-meta": "查看详情",
       "date": "日期",
