@@ -30,9 +30,11 @@
   </div>
   <% if (certificate && certificate_id && certificate.provider==="letsencrypt") { %>
   <div class="small text-muted">
+    <span>
     <%- i18n('ssl', 'expires-date', {date: convertToChinaTime( certificate.expires_on)}) %><a href="#"><i class="fe fe-help-circle">
         <span class="tooltiptext"><%- i18n('ssl', 'expires-tips') %>
         </span></i></a>
+      </span>
   </div>
   <% } %>
 </td>
