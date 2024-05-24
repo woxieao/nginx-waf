@@ -24,14 +24,14 @@
         %>
     </div>
     <div class="small text-muted">
-        <%- i18n('str', 'created-on', {date: formatDbDate(created_on, 'yyyy-MM-dd')}) %>
+        <%- i18n('str', 'created-on', {date: convertToChinaTime(created_on)}) %>
     </div>
 </td>
 <td>
     <%- i18n('ssl', provider) %><% if (meta.dns_provider) { %> - <%- dns_providers[meta.dns_provider].name %><% } %>
 </td>
 <td class="<%- isExpired() ? 'text-danger' : '' %>">
-    <%- formatDbDate(expires_on, 'yyyy-MM-dd, h:mm a') %>
+    <%- convertToChinaTime(created_on) %>
 </td>
 <% if (canManage) { %>
 <td class="text-right">

@@ -15,7 +15,7 @@
             </div>
             <div class="tag tag-dark">
                 <%- i18n('audit-log', 'date') %>
-                <span class="tag-addon tag-primary"><%- formatDbDate(created_on, 'yyyy-MM-dd, h:mm a') %></span>
+                <span class="tag-addon tag-primary"><%- convertToChinaTime(created_on) %></span>
             </div>
         </div>
 

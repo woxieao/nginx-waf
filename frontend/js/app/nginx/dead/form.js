@@ -258,7 +258,7 @@ module.exports = Mn.View.extend({
             render:           {
                 option: function (item) {
                     item.i18n         = App.i18n;
-                    item.formatDbDate = Helpers.formatDbDate;
+                    item.convertToChinaTime = Helpers.convertToChinaTime;
                     return certListItemTemplate(item);
                 }
             },

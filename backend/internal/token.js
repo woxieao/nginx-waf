@@ -69,7 +69,8 @@ module.exports = {
 													};
 												});
 										} else {
-											throw new error.AuthError('Invalid password');
+											// Don't let attackers know whether the username or password is incorrect, but use case markers to indicate this for internal use.
+											throw new error.AuthError('incorrect username or password');
 										}
 									});
 							} else {
@@ -77,7 +78,8 @@ module.exports = {
 							}
 						});
 				} else {
-					throw new error.AuthError('No relevant user found');
+					// Don't let attackers know whether the username or password is incorrect, but use case markers to indicate this for internal use.
+					throw new error.AuthError("Incorrect username or password");
 				}
 			});
 	},
