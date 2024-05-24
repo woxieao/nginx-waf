@@ -21,22 +21,25 @@
   <div class="text-monospace">
     <%- forward_scheme %>://<%- forward_host %>:<%- forward_port %>
   </div>
-
 </td>
 <td>
-  <div>
-    <%- certificate && certificate_id ? i18n('ssl', certificate.provider) :
-    i18n('ssl', 'none') %>
-  </div>
-  <% if (certificate && certificate_id && certificate.provider==="letsencrypt") { %>
-  <div class="small text-muted">
-    <span>
-    <%- i18n('ssl', 'expires-date', {date: convertToChinaTime( certificate.expires_on)}) %><a href="#"><i class="fe fe-help-circle">
-        <span class="tooltiptext"><%- i18n('ssl', 'expires-tips') %>
-        </span></i></a>
-      </span>
-  </div>
-  <% } %>
+  <div style="display: flex;">
+    <div>
+      <% if (certificate && certificate_id && certificate.provider==="letsencrypt") { %>
+      <span><%- i18n('ssl', certificate.provider) %> </span>
+      <a href="#"><i class="fe fe-help-circle">
+          <span class="tooltiptext"><%- i18n('ssl', 'expires-tips') %></span>
+        </i>
+      </a>
+      <div class="small text-muted">
+        <span>
+          <%- i18n('ssl', 'expires-date', {date: convertToChinaTime( certificate.expires_on)}) %>
+        </span>
+      </div>
+      <% } else { %>
+      <%- certificate && certificate_id ?  i18n('ssl', certificate.provider) :    i18n('ssl', 'none') %>
+      <% } %>
+    </div>
 </td>
 <% if (canManageWaf) { %>
 <td>
