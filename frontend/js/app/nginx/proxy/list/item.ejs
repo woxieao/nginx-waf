@@ -21,6 +21,11 @@
   <div class="text-monospace">
     <%- forward_scheme %>://<%- forward_host %>:<%- forward_port %>
   </div>
+  <div class="small text-muted">
+    <%- i18n('ssl', 'expires-date', {date: convertToChinaTime( certificate.expires_on)}) %><a href="#"><i class="fe fe-help-circle">
+      <span class="tooltiptext"><%- i18n('ssl', 'expires-tips') %>
+    </span></i></a>    
+  </div>
 </td>
 <td>
   <div>

@@ -417,7 +417,9 @@
       "propagation-seconds": "传播秒数",
       "propagation-seconds-info": "留空以使用插件的默认值。等待DNS传播的秒数。",
       "processing-info": "处理中... 这可能需要几分钟。",
-      "passphrase-protection-support-info": "使用密码保护的密钥文件不受支持。"
+      "passphrase-protection-support-info": "使用密码保护的密钥文件不受支持。",
+      "expires-tips": "无需担心，到期前会自动为您续期！",
+      "expires-date": "有效期至：{date}"
     },
     "proxy-hosts": {
       "title": "域名列表",
