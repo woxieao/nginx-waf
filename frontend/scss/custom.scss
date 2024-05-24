@@ -64,7 +64,7 @@ a:hover {
     height: 300px;
     overflow: scroll;
 }
-.fe-help-circle .tooltiptext {
+.help-tip .tooltiptext {
     visibility: hidden;
     min-width: 270px;
     background-color: #555;
@@ -82,7 +82,7 @@ a:hover {
     line-height: 20px;
 }
 
-.fe-help-circle:hover .tooltiptext {
+.help-tip:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
 }

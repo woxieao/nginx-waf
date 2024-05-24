@@ -27,7 +27,7 @@
     <div>
       <% if (certificate && certificate_id && certificate.provider==="letsencrypt") { %>
       <span><%- i18n('ssl', certificate.provider) %> </span>
-      <a href="#"><i class="fe fe-help-circle">
+      <a href="#"><i class="fe fe-help-circle help-tip">
           <span class="tooltiptext"><%- i18n('ssl', 'expires-tips') %></span>
         </i>
       </a>
@@ -51,10 +51,11 @@
   </div>
 </td>
 <td>
-  <div>
-    <label class="custom-switch">
+  <div style="position: relative;">
+    <label class="custom-switch help-tip">
       <input type="checkbox" class="custom-switch-input anti_ddos_switch" name="anti_ddos" value="1" <%- anti_ddos ? ' checked' : '' %>>
       <span class="custom-switch-indicator"></span>
+      <span class="tooltiptext" style="width: 380px;"><%= i18n('all-hosts', 'anti-ddos-desc') %></span>
     </label>
   </div>
 </td>
