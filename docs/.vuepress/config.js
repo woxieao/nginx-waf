@@ -7,21 +7,21 @@ export default defineUserConfig({
   locales: {
     "/": {
       lang: "en-US",
-      title: "WAF",
+      title: "网站应用防火墙(WAF)",
       description: "Expose your services easily and securely",
     },
   },
   head: [
     ["link", { rel: "icon", href: "/icon.png" }],
     ["meta", { name: "description", content: "Docker container and built in Web Application for managing Nginx proxy hosts with a simple, powerful interface, providing free SSL support via Let's Encrypt" }],
-    ["meta", { property: "og:title", content: "WAF" }],
+    ["meta", { property: "og:title", content: "网站应用防火墙(WAF)" }],
     ["meta", { property: "og:description", content: "Docker container and built in Web Application for managing Nginx proxy hosts with a simple, powerful interface, providing free SSL support via Let's Encrypt"}],
     ["meta", { property: "og:type", content: "website" }],
     ["meta", { property: "og:url", content: "https://clouddream.net/" }],
     ["meta", { name: "twitter:card", content: "summary"}],
-    ["meta", { name: "twitter:title", content: "WAF"}],
+    ["meta", { name: "twitter:title", content: "网站应用防火墙(WAF)"}],
     ["meta", { name: "twitter:description", content: "Docker container and built in Web Application for managing Nginx proxy hosts with a simple, powerful interface, providing free SSL support via Let's Encrypt"}],
-    ["meta", { name: "twitter:alt", content: "WAF"}],
+    ["meta", { name: "twitter:alt", content: "网站应用防火墙(WAF)"}],
   ],
   theme: defaultTheme({
     logo: '/icon.png',

@@ -334,12 +334,12 @@
       "any": "任意"
     },
     "login": {
-      "title": "登录到WAF管理平台"
+      "title": "登录到网站应用防火墙(WAF)管理平台"
     },
     "main": {
-      "app": "WAF",
+      "app": "网站应用防火墙(WAF)",
       "version": "v{version}",
-      "welcome": "欢迎使用WAF",
+      "welcome": "欢迎使用网站应用防火墙(WAF)",
       "logged-in": "您已登录为{name}",
       "unknown-error": "加载内容时出错。请重新加载应用程序。",
       "unknown-user": "未知用户",
@@ -598,7 +598,7 @@
       "default-site-redirect": "重定向"
     },
     "waf": {
-      "waf_name": "防火墙",
+      "waf_name": "网站应用防火墙(WAF)",
       "anit_ddos_name": "增强防护",
       "enabled": "防护中",
       "disabled": "未防护",
